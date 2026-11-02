@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Library staff login | UNILAG Library</title>
+<link rel="icon" href="../assets/logo.png">
+<style>
+  html,body{margin:0;height:100%;background:#F6F2E9;font-family:Inter,system-ui,sans-serif;color:#0D0B0A}
+  .wrap{min-height:100%;display:grid;place-items:center;padding:32px}
+  .card{max-width:560px;width:100%;border:1px solid rgba(13,11,10,.18);padding:clamp(24px,4vw,44px);background:#fff}
+  .eyebrow{font-family:ui-monospace,monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#6C0000;margin-bottom:18px}
+  h1{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(1.9rem,4vw,2.8rem);line-height:.95;margin:0 0 16px;letter-spacing:-.02em}
+  p{font-size:.9rem;line-height:1.7;color:rgba(13,11,10,.7);margin:0 0 14px}
+  code{font-family:ui-monospace,monospace;font-size:.8rem;background:#EDE5D6;padding:2px 6px}
+  a{color:#6C0000}
+  .note{border-left:2px solid #6C0000;padding-left:14px;font-size:.82rem;color:rgba(13,11,10,.62)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="eyebrow">Staff access</div>
+      <h1>Content management<br>for the Library</h1>
+      <p>This is the Decap CMS entry point. It edits news and events, pages, services, the subscribed database list and the opening hours settings.</p>
+      <p class="note">To activate it, deploy this folder to a Git connected host, then set the backend in <code>admin/config.yml</code>. On Netlify enable Identity and Git Gateway. On GitHub use <code>backend: github</code> with the repository named. Without that connection the editor loads but cannot sign anyone in.</p>
+      <p style="margin-top:18px"><a href="../index.html">Return to the public site</a></p>
+    </div>
+  </div>
+  <script src="https://unpkg.com/decap-cms@^3.1.0/dist/decap-cms.js"></script>
+</body>
+</html>

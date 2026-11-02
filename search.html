@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search | UNILAG Library</title>
+  <meta name="description" content="Search the catalogue and the library website.">
+  <meta name="theme-color" content="#6C0000">
+  <link rel="icon" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style2.css">
+</head>
+
+<body data-page="about">
+  <div id="pre">
+    <div class="pre-in">
+      <div class="pre-top"><span class="mono">University of Lagos Library</span><span class="mono" id="preNum">00</span>
+      </div>
+      <div class="pre-name">Akoka, Lagos<br>Est. 1962</div>
+      <div class="pre-bar"><span id="preBar"></span></div>
+      <div class="pre-top" style="margin-top:18px"><span class="mono">Loading the collection</span><span
+          class="mono">library.unilag.edu.ng</span></div>
+    </div>
+  </div>
+  <div class="grain"></div>
+  <div class="cur"></div>
+  <div class="cur-dot"></div>
+  <div id="pt"></div>
+
+  <div class="topbar">
+    <div class="tb-l">
+      <a href="https://unilag.edu.ng/" target="_blank" rel="noopener">Unilag Home</a>
+      <span class="dot"></span>
+      <a href="https://www.facebook.com/unilaglibrary" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://twitter.com/unilaglibrary" target="_blank" rel="noopener">Twitter</a>
+      <a href="https://www.youtube.com/@unilaglibrary" target="_blank" rel="noopener">Youtube</a>
+    </div>
+    <div class="tb-r">
+      <span class="dot"></span>
+      <a href="accessibility.html">Accessibility</a>
+    </div>
+  </div>
+
+  <header class="site-head" id="head">
+    <div class="head-row">
+      <a class="brand" href="index.html" aria-label="University of Lagos Library, home">
+        <img src="assets/logo.png" alt="University of Lagos Library crest">
+        <span class="bw">
+          <b>University of Lagos</b>
+          <span>Library</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="search.html" aria-current="page">Search</a>
+        <a href="libraries.html">Libraries</a>
+        <a href="oer.html">OER</a>
+        <a href="archives.html">Archives</a>
+        <a href="museum.html">Museum</a>
+        <a href="news.html">News &amp; Events</a>
+        <a href="contact.html">Contact</a>
+        <a href="help.html">Help</a>
+      </nav>
+      <div class="head-tools">
+        <button class="icon-btn desk" data-search-open aria-label="Open search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M16.5 16.5L21 21" />
+          </svg>
+        </button>
+        <a class="icon-btn desk" href="help.html" aria-label="Help and FAQs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M9.5 9.2a2.6 2.6 0 115 .9c0 1.5-2.5 1.9-2.5 3.4" />
+            <path d="M12 17.2v.1" />
+          </svg>
+        </a>
+        <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="drawer" id="drawer">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="departments.html">Departments</a>
+    <a href="libraries.html">Faculty libraries</a>
+    <a href="services.html">Services</a>
+    <a href="libraries.html">Libraries</a>
+    <a href="databases.html">Databases</a>
+    <a href="archives.html">Archives</a>
+    <a href="museum.html">Museum</a>
+    <a href="oer.html">OER</a>
+    <a href="news.html">News</a>
+    <a href="contact.html">Contact</a>
+    <a href="help.html">Help</a>
+    <div class="d-meta">8:00 a.m. to 9:00 p.m. Monday to Saturday<br>Akoka, Lagos</div>
+  </div>
+
+  <main>
+    <section class="phero">
+      <div class="wrap">
+        <div class="crumbs mono"><a href="index.html">Home</a><i></i><span>Search</span></div>
+        <div class="phero-no">08</div>
+        <h1 class="display">Search<br>the <em class="ital ox">library</em>.</h1>
+        <div class="ph-sub">
+          <p class="lede" data-reveal>Search the Library catalogue and the institutional repository, or find a page on
+            this site. The catalogue and repository searches open the real university systems.</p>
+          <div class="mono" data-reveal style="color:var(--ink-50)" id="pageMeta">61 pages indexed</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:clamp(26px,3.2vw,44px)">
+      <div class="wrap">
+        <div class="stabs" role="tablist" data-reveal>
+          <button class="on" data-pane="paneCat" role="tab" aria-selected="true">Library catalogue</button>
+          <button data-pane="paneRepo" role="tab" aria-selected="false">Repository</button>
+          <button data-pane="paneDb" role="tab" aria-selected="false">Databases</button>
+          <button data-pane="paneSite" role="tab" aria-selected="false">This website</button>
+        </div>
+
+        <!-- CATALOGUE -->
+        <div class="spane on" id="paneCat">
+          <form class="sform" id="catForm">
+            <input type="text" id="catIn" placeholder="Search books, authors, call numbers, topics..."
+              aria-label="Search the catalogue">
+            <select id="catIndex" aria-label="Search field">
+              <option value="Anywhere">All Fields</option>
+              <option value="Title">Title</option>
+              <option value="Author">Author</option>
+              <option value="Subject">Subject</option>
+              <option value="Class">Call / Class No.</option>
+            </select>
+            <button type="submit" id="catBtn">Search Catalogue
+              <svg class="ico ico-sm" viewBox="0 0 24 24">
+                <path d="M7 17L17 7M9 7h8v8" />
+              </svg>
+            </button>
+          </form>
+          <div class="tag-row" style="margin:14px 0 18px">
+            <span class="mono" style="color:var(--ink-50)">Popular</span>
+            <button class="chip" data-catsugg="Constitutional Law">Constitutional Law</button>
+            <button class="chip" data-catsugg="Modern Physics">Modern Physics</button>
+            <button class="chip" data-catsugg="Artificial Intelligence">Artificial Intelligence</button>
+            <button class="chip" data-catsugg="Biochemistry">Biochemistry</button>
+            <button class="chip" data-catsugg="Business Management">Business Management</button>
+            <button class="chip" data-catsugg="Chinua Achebe">Chinua Achebe</button>
+            <button class="chip" data-catsugg="Soyinka">Wole Soyinka</button>
+          </div>
+          <div id="catStatus" class="mono" style="color:var(--oxblood);font-size:.78rem;margin-bottom:12px"></div>
+          <div id="catRes" class="s-results-grid"></div>
+          <div class="slinks" style="margin-top:24px;border-top:1px solid var(--line);padding-top:16px">
+            <a class="btn btn--sm" href="http://librarydb.unilag.edu.ng/newgenlibctxt/Home?Id=1" target="_blank"
+              rel="noopener">Open University OPAC Portal <i class="ar"></i></a>
+            <a class="btn btn--sm btn--ghost" href="help.html#faqs">How to find a book on the shelf</a>
+          </div>
+        </div>
+
+        <!-- REPOSITORY -->
+        <div class="spane" id="paneRepo">
+          <form class="sform" id="repoForm">
+            <input type="text" id="repoIn"
+              placeholder="Search theses, dissertations, inaugural lectures, faculty papers..."
+              aria-label="Search the repository">
+            <select id="repoType" aria-label="Document type">
+              <option value="all">All Research</option>
+              <option value="thesis">Theses &amp; Dissertations</option>
+              <option value="inaugural">Inaugural Lectures</option>
+              <option value="article">Journal Articles</option>
+            </select>
+            <button type="submit" id="repoBtn">Search Repository
+              <svg class="ico ico-sm" viewBox="0 0 24 24">
+                <path d="M7 17L17 7M9 7h8v8" />
+              </svg>
+            </button>
+          </form>
+          <div class="tag-row" style="margin:14px 0 18px">
+            <span class="mono" style="color:var(--ink-50)">Topics</span>
+            <button class="chip" data-reposugg="Lagoon Ecology">Lagoon Ecology</button>
+            <button class="chip" data-reposugg="Machine Learning">Machine Learning</button>
+            <button class="chip" data-reposugg="Public Health">Public Health</button>
+            <button class="chip" data-reposugg="Corporate Governance">Corporate Governance</button>
+            <button class="chip" data-reposugg="Renewable Energy">Renewable Energy</button>
+            <button class="chip" data-reposugg="Okiki">Prof. Okiki</button>
+            <button class="chip" data-reposugg="Ogundipe">Prof. Ogundipe</button>
+          </div>
+          <div id="repoStatus" class="mono" style="color:var(--oxblood);font-size:.78rem;margin-bottom:12px"></div>
+          <div id="repoRes" class="s-results-grid"></div>
+          <div class="slinks" style="margin-top:24px;border-top:1px solid var(--line);padding-top:16px">
+            <a class="btn btn--sm" href="https://ir.unilag.edu.ng/" target="_blank" rel="noopener">Open DSpace
+              Institutional Repository <i class="ar"></i></a>
+            <a class="btn btn--sm btn--ghost" href="services.html#document">Request a document</a>
+          </div>
+        </div>
+
+        <!-- DATABASES -->
+        <div class="spane" id="paneDb">
+          <form class="sform" id="dbForm">
+            <input type="text" id="dbIn" placeholder="Search databases by title, subject (e.g. Law, Medicine, STEM)..."
+              aria-label="Search databases">
+            <select id="dbSubject" aria-label="Filter by discipline">
+              <option value="all">All Disciplines</option>
+              <option value="medical">Health &amp; Medicine</option>
+              <option value="law">Law &amp; Legal Studies</option>
+              <option value="stem">Science &amp; Engineering</option>
+              <option value="business">Business &amp; Management</option>
+              <option value="humanities">Humanities &amp; Social Sciences</option>
+              <option value="multi">Multidisciplinary</option>
+            </select>
+            <button type="submit" id="dbBtn">Filter Databases
+              <svg class="ico ico-sm" viewBox="0 0 24 24">
+                <path d="M7 17L17 7M9 7h8v8" />
+              </svg>
+            </button>
+          </form>
+          <div class="tag-row" style="margin:14px 0 18px">
+            <span class="mono" style="color:var(--ink-50)">Quick filter</span>
+            <button class="chip" data-dbsugg="ScienceDirect">ScienceDirect</button>
+            <button class="chip" data-dbsugg="JSTOR">JSTOR</button>
+            <button class="chip" data-dbsugg="HeinOnline">HeinOnline</button>
+            <button class="chip" data-dbsugg="ProQuest">ProQuest</button>
+            <button class="chip" data-dbsugg="Medicine">Medicine</button>
+            <button class="chip" data-dbsugg="Law">Law</button>
+            <button class="chip" data-dbsugg="Engineering">Engineering</button>
+            <button class="chip" data-dbsugg="all">Show All 15</button>
+          </div>
+          <div id="dbStatus" class="mono" style="color:var(--oxblood);font-size:.78rem;margin-bottom:12px"></div>
+          <div id="dbRes" class="s-results-grid"></div>
+          <div class="slinks" style="margin-top:24px;border-top:1px solid var(--line);padding-top:16px">
+            <a class="btn btn--sm" href="databases.html">View Detailed Databases Guide <i class="ar"></i></a>
+          </div>
+        </div>
+
+        <!-- SITE -->
+        <div class="spane" id="paneSite">
+          <div style="display:flex;border-bottom:1px solid var(--ink)">
+            <input id="pageIn" type="text" placeholder="Type a word: circulation, Fagunwa, fines, booths"
+              aria-label="Search this website"
+              style="flex:1;border:0;background:transparent;outline:none;font-family:var(--serif);font-size:clamp(1.2rem,2.6vw,2rem);padding:16px 0;min-width:0">
+            <div style="display:flex;align-items:center;color:var(--oxblood)">
+              <svg class="ico" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="7" />
+                <path d="M16.5 16.5L21 21" />
+              </svg>
+            </div>
+          </div>
+          <div class="tag-row" style="margin:16px 0 24px">
+            <span class="mono" style="color:var(--ink-50)">Try</span>
+            <button class="chip" data-sugg="circulation">circulation</button>
+            <button class="chip" data-sugg="archives">archives</button>
+            <button class="chip" data-sugg="JSTOR">JSTOR</button>
+            <button class="chip" data-sugg="Fagunwa">Fagunwa</button>
+            <button class="chip" data-sugg="fines">fines</button>
+            <button class="chip" data-sugg="opac">opac</button>
+            <button class="chip" data-sugg="reading booths">reading booths</button>
+          </div>
+          <div id="pageRes">
+            <div class="empty">Start typing to search the pages of this site.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" style="background:var(--bone)">
+      <div class="wrap">
+        <div class="grid-3" style="gap:clamp(16px,2.4vw,34px)">
+          <div data-reveal>
+            <div class="mono" style="color:var(--oxblood);margin-bottom:10px">01 &nbsp; Catalogue</div>
+            <h3 style="font-family:var(--serif);font-size:1.4rem;line-height:1.1;margin-bottom:8px">OPAC</h3>
+            <p class="small" style="margin-bottom:14px">Every item the Library holds, in NewGenLib at
+              librarydb.unilag.edu.ng.</p>
+            <a class="btn btn--sm" href="http://librarydb.unilag.edu.ng/newgenlibctxt/Home?Id=1" target="_blank"
+              rel="noopener">Open OPAC <i class="ar"></i></a>
+          </div>
+          <div data-reveal>
+            <div class="mono" style="color:var(--oxblood);margin-bottom:10px">02 &nbsp; Research output</div>
+            <h3 style="font-family:var(--serif);font-size:1.4rem;line-height:1.1;margin-bottom:8px">Repository</h3>
+            <p class="small" style="margin-bottom:14px">UNILAG theses, articles and grey literature in DSpace.</p>
+            <a class="btn btn--sm" href="https://ir.unilag.edu.ng/" target="_blank" rel="noopener">Open repository <i
+                class="ar"></i></a>
+          </div>
+          <div data-reveal>
+            <div class="mono" style="color:var(--oxblood);margin-bottom:10px">03 &nbsp; Articles</div>
+            <h3 style="font-family:var(--serif);font-size:1.4rem;line-height:1.1;margin-bottom:8px">Databases</h3>
+            <p class="small" style="margin-bottom:14px">Journals and ebooks, on campus IP, plus Research4life
+              credentials.</p>
+            <a class="btn btn--sm" href="databases.html">Browse databases <i class="ar"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="f-top">
+        <div>
+          <div class="f-brand">
+            <img src="assets/logo.png" alt="">
+            <div>
+              <b>University of Lagos<br>Library</b>
+              <span>Est. 1962</span>
+            </div>
+          </div>
+          <p>The academic hub of the University of Lagos, the University of First Choice and the Nation&rsquo;s Pride.
+            Built to support cutting edge research and high quality teaching.</p>
+        </div>
+        <div>
+          <h5>Visit</h5>
+          <ul>
+            <li><a href="libraries.html">Libraries</a></li>
+            <li><a href="archives.html">Archives</a></li>
+            <li><a href="museum.html">Museum</a></li>
+            <li><a href="accessibility.html">Accessibility</a></li>
+            <li><a href="contact.html">Contact and map</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Use</h5>
+          <ul>
+            <li><a href="services.html">Our services</a></li>
+            <li><a href="https://library.unilag.edu.ng/opac" target="_blank" rel="noopener">OPAC catalogue</a></li>
+            <li><a href="databases.html">Subscribed databases</a></li>
+            <li><a href="oer.html">Open educational resources</a></li>
+            <li><a href="help.html">Research help</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Inside</h5>
+          <ul>
+            <li><a href="about.html">About the library</a></li>
+            <li><a href="departments.html">Departments and units</a></li>
+            <li><a href="news.html">News and events</a></li>
+            <li><a href="help.html">FAQs</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="f-bot">
+        <span>University of Lagos Library, P.M.B 1012, Akoka, Lagos</span>
+        <span>library@unilag.edu.ng &nbsp; 0906 396 9206</span>
+        <span>Powered by CITS</span>
+        <span>&copy; <span id="yr">2026</span> University of Lagos</span>
+      </div>
+      <div class="f-word">UNIVERSITY OF LAGOS LIBRARY</div>
+    </div>
+  </footer>
+
+  <div class="sov" id="sov" role="dialog" aria-label="Search the library">
+    <div class="sov-top">
+      <div class="sov-q">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="11" cy="11" r="7" />
+          <path d="M16.5 16.5L21 21" />
+        </svg>
+        <input id="sovInput" type="text" placeholder="Search the catalogue, pages, databases" autocomplete="off">
+      </div>
+      <button class="sov-close" data-search-close>Close</button>
+    </div>
+    <div class="sov-body">
+      <div class="sov-hint">Try: circulation, archives, ScienceDirect, Weinberg</div>
+      <div class="sov-res" id="sovRes"></div>
+    </div>
+  </div>
+
+  <button class="totop" id="totop" aria-label="Back to top">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+      <path d="M12 20V4M5 11l7-7 7 7" />
+    </svg>
+  </button>
+
+  <script src="app.js?v=20261102_live"></script>
+  <script src="app2.js?v=20261102_live"></script>
+  <script src="search-engine.js?v=20261102_live"></script>
+</body>
+
+</html>

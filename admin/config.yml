@@ -1,0 +1,83 @@
+# ============================================================
+# UNILAG Library · Decap CMS configuration
+# Open /admin on the deployed site to edit news, events and pages.
+# Requires: a Git repository plus an identity service.
+#   Netlify hosting  -> backend: git-gateway  (enable Identity + Git Gateway)
+#   GitHub hosting   -> backend: github, repo: <owner>/<repo>
+#   GitLab hosting   -> backend: gitlab, repo: <owner>/<repo>
+# Until then the admin page loads but cannot authenticate.
+# ============================================================
+backend:
+  name: git-gateway
+  branch: main
+
+locale: en
+publish_mode: editorial_workflow
+media_folder: "assets/uploads"
+public_folder: "assets/uploads"
+
+site_url: https://library.unilag.edu.ng
+display_url: https://library.unilag.edu.ng
+logo_url: /assets/logo.png
+
+collections:
+  - name: news
+    label: News & Events
+    label_singular: Notice
+    folder: content/news
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    sortable_fields: [date, title]
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, date_format: "DD MMM YYYY", time_format: false }
+      - { label: Category, name: category, widget: select, options: [News & Events, Notice, Service update, Event], default: News & Events }
+      - { label: Summary, name: summary, widget: text, required: false }
+      - { label: Featured image, name: image, widget: image, required: false }
+      - { label: Body, name: body, widget: markdown }
+      - { label: Published, name: published, widget: boolean, default: true }
+
+  - name: pages
+    label: Pages
+    folder: content/pages
+    create: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Subtitle, name: subtitle, widget: string, required: false }
+      - { label: Intro, name: intro, widget: text, required: false }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: services
+    label: Services
+    folder: content/services
+    create: true
+    fields:
+      - { label: Name, name: title, widget: string }
+      - { label: Order, name: order, widget: number, default: 1 }
+      - { label: Description, name: body, widget: markdown }
+
+  - name: databases
+    label: Subscribed databases
+    folder: content/databases
+    create: true
+    identifier_field: title
+    fields:
+      - { label: Name, name: title, widget: string }
+      - { label: Access URL, name: url, widget: string }
+      - { label: Logo, name: logo, widget: image, required: false }
+      - { label: Access note, name: access, widget: select, options: [University IP address, Username and password, Individual registration, Open access], default: University IP address }
+      - { label: Description, name: body, widget: text }
+
+  - name: settings
+    label: Library settings
+    files:
+      - label: Opening hours and contact
+        name: general
+        file: content/settings/general.yml
+        fields:
+          - { label: Weekday hours, name: hours, widget: string, default: "8:00 a.m. to 9:00 p.m." }
+          - { label: Days open, name: days, widget: string, default: "Monday to Saturday" }
+          - { label: Address, name: address, widget: string, default: "University of Lagos Library, P.M.B 1012, Akoka, Lagos" }
+          - { label: Email, name: email, widget: string, default: library@unilag.edu.ng }
+          - { label: Reference telephone, name: phone, widget: string, default: "0906 396 9206" }
+          - { label: Notice banner, name: notice, widget: text, required: false }

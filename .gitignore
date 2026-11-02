@@ -1,0 +1,13 @@
+# Temp & scratch directories
+scratch/
+.system_generated/
+*.log
+*.tmp
+__pycache__/
+*.pyc
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
