@@ -173,3 +173,4 @@ module.exports = async (req, res) => {
 
   return res.status(200).json({ total: 0, results: [] });
 };
+

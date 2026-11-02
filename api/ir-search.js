@@ -102,3 +102,4 @@ module.exports = async (req, res) => {
     return res.status(500).json({ error: String(err), total: 0, results: [] });
   }
 };
+
