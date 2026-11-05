@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Staff Portal &amp; Studio Admin | UNILAG Library</title>
+<title>Staff Portal, Studio & CMS Admin | UNILAG Library</title>
 <link rel="icon" href="../assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -107,255 +107,451 @@
     font-weight: 600;
     color: var(--oxblood);
   }
-  .field input {
+  .field input, .field select, .field textarea {
     padding: 11px 14px;
     border: 1px solid var(--line);
     border-radius: 3px;
     font-family: inherit;
     font-size: 0.95rem;
+    background: #fff;
   }
-  .field input:focus {
+  .field input:focus, .field select:focus, .field textarea:focus {
     outline: 2px solid var(--oxblood);
     border-color: var(--oxblood);
   }
   .btn-submit {
-    width: 100%;
-    padding: 12px;
     background: var(--oxblood);
     color: #fff;
     border: none;
-    border-radius: 3px;
-    font-size: 0.92rem;
-    font-weight: 600;
+    padding: 13px 20px;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     cursor: pointer;
+    font-weight: 700;
+    width: 100%;
     transition: background 0.2s;
+    border-radius: 3px;
   }
   .btn-submit:hover { background: var(--oxblood-dark); }
-  .login-hint {
-    margin-top: 18px;
-    font-size: 0.82rem;
-    color: rgba(13,11,10,0.6);
-    background: var(--cream);
-    padding: 10px 14px;
-    border-radius: 3px;
-    border: 1px solid var(--line);
-  }
-
-  /* Admin Dashboard Layout */
-  .dashboard {
+  
+  /* Dashboard Main */
+  .dash-main {
     display: none;
     flex: 1;
-    max-width: 1360px;
+    padding: 24px clamp(16px, 3vw, 48px);
+    max-width: 1400px;
     width: 100%;
     margin: 0 auto;
-    padding: clamp(20px, 3vw, 36px);
   }
-  .dash-head {
+  .dash-bar {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     margin-bottom: 24px;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 16px;
     flex-wrap: wrap;
     gap: 16px;
   }
+  .dash-bar h2 {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    font-weight: 400;
+  }
+  
+  /* Tabs */
   .dash-tabs {
     display: flex;
-    gap: 10px;
-    margin-bottom: 24px;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 8px;
+    gap: 8px;
+    border-bottom: 2px solid var(--line);
+    margin-bottom: 28px;
     flex-wrap: wrap;
   }
   .tab-btn {
-    padding: 9px 18px;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 12px 18px;
     font-family: var(--mono);
     font-size: 0.82rem;
-    font-weight: 600;
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 3px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.2s;
+    color: rgba(13,11,10,0.65);
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    font-weight: 600;
+    transition: all 0.2s;
+    margin-bottom: -2px;
   }
   .tab-btn.active {
-    background: var(--oxblood);
-    color: #fff;
-    border-color: var(--oxblood);
+    color: var(--oxblood);
+    border-bottom-color: var(--oxblood);
+    background: rgba(108, 0, 0, 0.04);
+  }
+  .tab-ico {
+    display: inline-block;
+    vertical-align: middle;
   }
   .tab-badge {
-    background: #fff;
-    color: var(--oxblood);
-    font-size: 0.74rem;
-    font-weight: 700;
+    background: var(--line);
+    color: var(--ink);
     padding: 2px 7px;
-    border-radius: 12px;
+    border-radius: 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
   }
   .tab-btn.active .tab-badge {
-    background: #fff;
-    color: var(--oxblood);
+    background: var(--oxblood);
+    color: #fff;
   }
-
-  /* Cards & Tables */
+  
+  /* Panels */
   .panel { display: none; }
   .panel.active { display: block; }
   
+  /* Filter & Search Bar */
+  .filter-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .pill-group {
+    display: flex;
+    gap: 6px;
+    background: #fff;
+    padding: 4px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  .pill-btn {
+    border: none;
+    background: transparent;
+    padding: 6px 14px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 600;
+    color: rgba(13,11,10,0.7);
+    border-radius: 2px;
+  }
+  .pill-btn.active {
+    background: var(--oxblood);
+    color: #fff;
+  }
+  
+  /* Cards */
   .data-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    transition: border-color 0.2s;
+  }
+  .data-card:hover {
+    border-color: var(--line-dark);
+  }
+  .dc-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    gap: 12px;
+  }
+  .dc-id {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--oxblood);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  .dc-badge {
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .badge-pending { background: #FFF3E0; color: #E65100; border: 1px solid #FFE0B2; }
+  .badge-approved { background: #E8F5E9; color: #1B5E20; border: 1px solid #C8E6C9; }
+  .badge-declined { background: #FFEBEE; color: #B71C1C; border: 1px solid #FFCDD2; }
+  .badge-completed { background: #EDE7F6; color: #4A148C; border: 1px solid #D1C4E9; }
+  .badge-ready { background: #E0F2FE; color: #0369A1; border: 1px solid #BAE6FD; }
+  .badge-collected { background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; }
+  
+  .dc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin: 14px 0;
+    padding: 14px 0;
+    border-top: 1px dashed var(--line);
+    border-bottom: 1px dashed var(--line);
+    font-size: 0.9rem;
+  }
+  .dc-item span {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: rgba(13,11,10,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .dc-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+  .btn-sm {
+    padding: 7px 14px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+    transition: opacity 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-sm:hover { opacity: 0.88; }
+  .btn-approve { background: #1B5E20; color: #fff; }
+  .btn-decline { background: #B71C1C; color: #fff; }
+  .btn-complete { background: #4A148C; color: #fff; }
+  .btn-ready { background: #0369A1; color: #fff; }
+  .btn-delete { background: transparent; border: 1px solid #ddd; color: #777; }
+  .btn-delete:hover { border-color: #B71C1C; color: #B71C1C; }
+  .btn-edit { background: var(--sand); border: 1px solid var(--line); color: var(--ink); }
+
+  /* CMS Specific Styling */
+  .cms-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 900px) {
+    .cms-layout { grid-template-columns: 1fr; }
+  }
+  .cms-sidebar {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 18px;
+  }
+  .page-nav-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 14px;
+    border: none;
+    background: transparent;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-bottom: 4px;
+    font-weight: 600;
+    color: var(--ink);
+    transition: all 0.2s;
+  }
+  .page-nav-item:hover { background: var(--sand); }
+  .page-nav-item.active { background: var(--oxblood); color: #fff; }
+  
+  .cms-card {
     background: #fff;
     border: 1px solid var(--line);
     border-radius: 4px;
     padding: 20px;
     margin-bottom: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    transition: border-color 0.2s;
+    position: relative;
   }
-  .data-card:hover { border-color: var(--oxblood); }
-  .dc-top {
+  .cms-card-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 14px;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
-  }
-  .dc-id {
-    font-family: var(--mono);
-    font-size: 0.86rem;
-    font-weight: 700;
-    color: var(--oxblood);
-  }
-  .dc-badge {
-    font-family: var(--mono);
-    font-size: 0.74rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 2px;
-    letter-spacing: 0.08em;
-  }
-  .badge-pending { background: #FFF0D4; color: #995C00; border: 1px solid #FFD182; }
-  .badge-approved { background: #E8F5E9; color: #1B5E20; border: 1px solid #A5D6A7; }
-  .badge-declined { background: #FFEBEE; color: #C62828; border: 1px solid #EF9A9A; }
-  .badge-completed { background: #E3F2FD; color: #0D47A1; border: 1px solid #90CAF9; }
-  .badge-ready { background: #FFF8E1; color: #795548; border: 1px solid #FFE082; }
-  .badge-collected { background: #E8F5E9; color: #1B5E20; border: 1px solid #A5D6A7; }
-
-  .dc-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 12px;
-    background: var(--cream);
-    padding: 14px 18px;
-    border-radius: 3px;
-    font-size: 0.88rem;
     margin-bottom: 14px;
   }
-  .dc-item span {
+  .cms-thumb {
+    width: 120px;
+    height: 75px;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: #e8e2d6;
+  }
+  .cms-order-badge {
+    background: var(--sand);
+    border: 1px solid var(--line);
+    padding: 2px 8px;
     font-family: var(--mono);
     font-size: 0.72rem;
-    text-transform: uppercase;
-    color: rgba(13,11,10,0.6);
-    display: block;
-    margin-bottom: 3px;
-  }
-  .dc-actions {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    align-items: center;
-    flex-wrap: wrap;
-    border-top: 1px solid var(--line);
-    padding-top: 14px;
-  }
-  .btn-sm {
-    padding: 7px 14px;
-    font-size: 0.82rem;
-    font-weight: 600;
     border-radius: 3px;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: all 0.2s;
+    font-weight: 700;
   }
-  .btn-approve { background: #1B5E20; color: #fff; }
-  .btn-approve:hover { background: #123e15; }
-  .btn-decline { background: #fff; color: #C62828; border-color: #EF9A9A; }
-  .btn-decline:hover { background: #FFEBEE; }
-  .btn-complete { background: #0D47A1; color: #fff; }
-  .btn-ready { background: #795548; color: #fff; }
-  .btn-delete { background: #fff; color: #666; border-color: var(--line); }
 
-  /* Filters bar */
-  .filter-bar {
+  /* Modal for Editor */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(13,11,10,0.6);
+    backdrop-filter: blur(3px);
+    z-index: 9999;
+    place-items: center;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  .modal-overlay.active { display: grid; }
+  .modal-box {
+    background: #fff;
+    width: min(840px, 96vw);
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: clamp(20px, 3vw, 36px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+  }
+  .modal-head {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 18px;
-    gap: 14px;
-    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
   }
-  .pill-group { display: flex; gap: 8px; }
-  .pill-btn {
-    padding: 6px 14px;
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 20px;
+  .modal-head h3 {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+  }
+  .btn-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
     cursor: pointer;
+    line-height: 1;
+    color: var(--ink);
   }
-  .pill-btn.active {
-    background: var(--ink);
-    color: #fff;
-    border-color: var(--ink);
+  
+  /* Shape Picker Grid */
+  .shape-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .shape-opt {
+    border: 1px solid var(--line);
+    padding: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: center;
+    background: #FAF7F0;
+    transition: all 0.2s;
+  }
+  .shape-opt:hover { border-color: var(--oxblood); }
+  .shape-opt.selected {
+    border-color: var(--oxblood);
+    background: rgba(108, 0, 0, 0.06);
+    font-weight: 700;
+  }
+  .shape-preview-box {
+    width: 60px;
+    height: 38px;
+    background: #c5a059;
+    margin: 0 auto 8px auto;
+  }
+  .shape-preview-arch {
+    width: 50px;
+    height: 40px;
+    background: #c5a059;
+    border-radius: 20px 20px 0 0;
+    margin: 0 auto 8px auto;
+  }
+  .shape-preview-pill {
+    width: 60px;
+    height: 38px;
+    background: #c5a059;
+    border-radius: 12px;
+    margin: 0 auto 8px auto;
+  }
+  .shape-preview-square {
+    width: 40px;
+    height: 40px;
+    background: #c5a059;
+    margin: 0 auto 8px auto;
+  }
+  
+  /* Live Mini Preview */
+  .live-preview-wrap {
+    border: 1px dashed var(--line-dark);
+    padding: 20px;
+    border-radius: 4px;
+    background: var(--sand);
+    margin-top: 20px;
   }
 </style>
 </head>
 <body>
 
-  <!-- Topbar Header -->
+  <!-- Top Header -->
   <header class="adm-header">
     <a href="../index.html" class="adm-brand">
-      <img src="../assets/logo.png" alt="University of Lagos Library crest">
+      <img src="../assets/logo.png" alt="University of Lagos Crest">
       <div>
-        <span>Staff &amp; Administrative Console</span>
         <h1>University of Lagos Library</h1>
+        <span>Staff Administration &amp; Content Management</span>
       </div>
     </a>
-    <div id="authStatus" style="font-size:0.86rem;color:rgba(13,11,10,0.65)">
-      <span class="mono">Guest Access</span> &bull; <a href="../index.html" style="color:var(--oxblood)">Public Portal &rarr;</a>
+    <div id="authStatus" style="font-size:0.86rem;color:rgba(13,11,10,0.6)">
+      Sign in to manage studio bookings, book reservations and site sections.
     </div>
   </header>
 
-  <!-- Login Section -->
-  <main class="login-wrap" id="loginSection">
+  <!-- Login View -->
+  <div class="login-wrap" id="loginSection">
     <div class="login-card">
-      <span class="mono" style="font-size:0.75rem;color:var(--oxblood);font-weight:700;letter-spacing:0.12em;text-transform:uppercase">Library Staff Verification</span>
-      <h2>Portal Login</h2>
-      <p>Log in with your administrator passcode to manage Multimedia Studio bookings, book reservations, and emergency notices.</p>
-
-      <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="mono" style="font-size:0.75rem;color:var(--oxblood);font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:8px">Staff Portal Authentication</div>
+      <h2>Staff Sign In</h2>
+      <p>Enter the staff administrator passcode to access multimedia studio approvals, circulation pickup holds, and the live section CMS.</p>
+      <form onsubmit="handleLogin(event)">
         <div class="field">
-          <label for="passcode">Staff Passcode</label>
-          <input type="password" id="passcode" required placeholder="Enter administrator passcode" autocomplete="current-password">
+          <label for="passcode">Admin Passcode</label>
+          <input type="password" id="passcode" placeholder="Enter staff passcode..." required autocomplete="current-password">
         </div>
         <button type="submit" class="btn-submit" id="loginBtn">Verify &amp; Sign In &rarr;</button>
-        <div class="login-hint">
-          <strong>Default Staff Passcode:</strong> <code>unilagadmin</code>
+        <div style="font-size:0.76rem;color:rgba(13,11,10,0.5);margin-top:14px;text-align:center" class="mono">
+          Authorized library personnel only &bull; Akoka, Lagos
         </div>
       </form>
     </div>
-  </main>
+  </div>
 
-  <!-- Dashboard Section -->
-  <main class="dashboard" id="dashSection">
-    <div class="dash-head">
+  <!-- Dashboard View -->
+  <main class="dash-main" id="dashSection">
+    <div class="dash-bar">
       <div>
-        <span class="mono" style="font-size:0.76rem;color:var(--oxblood);font-weight:700;letter-spacing:0.12em;text-transform:uppercase">Main Library Console</span>
-        <h2 style="font-family:var(--serif);font-size:2.4rem;font-weight:400;margin:4px 0">Administrative Management</h2>
-        <p style="font-size:0.92rem;color:rgba(13,11,10,0.72)">Accept/approve student studio sessions, manage in-person book pickups, and update library notices.</p>
+        <div class="mono" style="font-size:0.75rem;color:var(--oxblood);letter-spacing:0.16em;text-transform:uppercase;font-weight:700">Circulation, Studio &amp; Content Hub</div>
+        <h2>Administrative Dashboard</h2>
       </div>
       <div>
         <button onclick="handleLogout()" class="btn-sm" style="background:#fff;border:1px solid var(--line);font-family:var(--mono)">Sign Out</button>
@@ -365,13 +561,20 @@
     <!-- Navigation Tabs -->
     <div class="dash-tabs">
       <button class="tab-btn active" onclick="switchTab('studio')" id="tabStudioBtn">
-        🎙️ Multimedia Studio Bookings <span class="tab-badge" id="pendingStudioBadge">0</span>
+        <svg class="tab-ico" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        Multimedia Studio Bookings <span class="tab-badge" id="pendingStudioBadge">0</span>
       </button>
       <button class="tab-btn" onclick="switchTab('books')" id="tabBooksBtn">
-        📚 Book Pickup Reservations <span class="tab-badge" id="pendingBooksBadge">0</span>
+        <svg class="tab-ico" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        Book Pickup Reservations <span class="tab-badge" id="pendingBooksBadge">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('cms')" id="tabCmsBtn">
+        <svg class="tab-ico" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        Site Content &amp; Media CMS
       </button>
       <button class="tab-btn" onclick="switchTab('notices')" id="tabNoticesBtn">
-        📢 Campus Notice Banner
+        <svg class="tab-ico" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Campus Notice Banner
       </button>
     </div>
 
@@ -386,10 +589,7 @@
         </div>
         <div style="font-size:0.86rem;color:rgba(13,11,10,0.65)" id="studioCount">Loading bookings...</div>
       </div>
-
-      <div id="studioList">
-        <!-- Rendered dynamically -->
-      </div>
+      <div id="studioList"></div>
     </div>
 
     <!-- PANEL 2: BOOK PICKUP RESERVATIONS -->
@@ -403,13 +603,47 @@
         </div>
         <div style="font-size:0.86rem;color:rgba(13,11,10,0.65)" id="booksCount">Loading reservations...</div>
       </div>
+      <div id="booksList"></div>
+    </div>
 
-      <div id="booksList">
-        <!-- Rendered dynamically -->
+    <!-- PANEL 3: SITE CONTENT & MEDIA CMS -->
+    <div class="panel" id="panelCms">
+      <div class="cms-layout">
+        <!-- Sidebar Page Selector -->
+        <div class="cms-sidebar">
+          <div class="mono" style="font-size:0.75rem;color:var(--oxblood);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px">Target Page</div>
+          <button class="page-nav-item active" onclick="selectCmsPage('index.html')">Home Page (index.html)</button>
+          <button class="page-nav-item" onclick="selectCmsPage('services.html')">Services &amp; Spaces (services.html)</button>
+          <button class="page-nav-item" onclick="selectCmsPage('about.html')">About the Library (about.html)</button>
+          <button class="page-nav-item" onclick="selectCmsPage('libraries.html')">Faculty Libraries (libraries.html)</button>
+          <button class="page-nav-item" onclick="selectCmsPage('databases.html')">Databases &amp; E-Resources</button>
+          <button class="page-nav-item" onclick="selectCmsPage('oer.html')">Research &amp; 19 Faculties OER</button>
+
+          <div style="margin-top:24px;padding-top:18px;border-top:1px dashed var(--line)">
+            <button onclick="openNewSectionModal()" class="btn-submit" style="font-size:0.75rem;padding:10px 14px">+ Add New Section</button>
+          </div>
+        </div>
+
+        <!-- Main CMS Content Area -->
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px">
+            <div>
+              <h3 style="font-family:var(--serif);font-size:1.6rem" id="currentCmsPageTitle">Home Page Content Sections</h3>
+              <p style="font-size:0.86rem;color:rgba(13,11,10,0.68)">Manage narrative text, media blocks, geometric shapes, and display placement.</p>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button onclick="saveAndPublishCms()" class="btn-sm btn-approve" style="padding:10px 18px">Publish Changes to Live Site &rarr;</button>
+            </div>
+          </div>
+
+          <div id="cmsSectionsList">
+            <!-- Dynamic Sections rendered here -->
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- PANEL 3: NOTICE BANNER -->
+    <!-- PANEL 4: NOTICE BANNER -->
     <div class="panel" id="panelNotices">
       <div class="data-card" style="max-width:720px">
         <h3 style="font-family:var(--serif);font-size:1.6rem;margin-bottom:12px">Campus Alert &amp; Orientation Banner</h3>
@@ -430,12 +664,137 @@
     </div>
   </main>
 
+  <!-- MODAL: SECTION & SHAPE EDITOR -->
+  <div class="modal-overlay" id="sectionModal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 id="modalTitle">Edit Section &amp; Media Block</h3>
+        <button class="btn-close" onclick="closeSectionModal()">&times;</button>
+      </div>
+
+      <input type="hidden" id="editSecId">
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="field">
+          <label for="secEyebrow">Category Eyebrow</label>
+          <input type="text" id="secEyebrow" placeholder="e.g. NEW SPACE · GROUND FLOOR" oninput="updateLivePreview()">
+        </div>
+        <div class="field">
+          <label for="secPosition">Page Vertical Placement</label>
+          <select id="secPosition" onchange="updateLivePreview()">
+            <option value="top">Top of Page (Below Hero)</option>
+            <option value="middle" selected>Middle of Page (Main Features)</option>
+            <option value="bottom">Bottom of Page (Above Footer)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="secHeadline">Section Title / Headline</label>
+        <input type="text" id="secHeadline" placeholder="e.g. State-of-the-Art Multimedia Studio & Production Suite" oninput="updateLivePreview()" required>
+      </div>
+
+      <div class="field">
+        <label for="secBody">Narrative Body Text</label>
+        <textarea id="secBody" rows="4" placeholder="Detailed description of facilities, access guidelines, or research support..." oninput="updateLivePreview()"></textarea>
+      </div>
+
+      <!-- Media & Geometry Controls -->
+      <div style="background:#FAF7F0;border:1px solid var(--line);padding:18px;border-radius:4px;margin-bottom:18px">
+        <div class="mono" style="font-size:0.75rem;color:var(--oxblood);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px">Media Block &amp; Geometric Shape Customization</div>
+        
+        <div class="field">
+          <label for="secMediaUrl">Image URL / CDN Asset</label>
+          <input type="text" id="secMediaUrl" placeholder="https://..." oninput="updateLivePreview()">
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+            <span class="mono" style="font-size:0.72rem;color:rgba(13,11,10,0.5)">Quick pick:</span>
+            <button type="button" class="btn-sm" style="background:#fff;border:1px solid #ddd;font-size:0.7rem;padding:2px 8px" onclick="setQuickMedia('https://iili.io/nPRigmg.webp', 'Multimedia Studio Broadcast Suite, Ground Floor')">Multimedia Studio</button>
+            <button type="button" class="btn-sm" style="background:#fff;border:1px solid #ddd;font-size:0.7rem;padding:2px 8px" onclick="setQuickMedia('https://iili.io/nPR09pS.webp', 'Makerspace Innovation Arena, Main Library')">Makerspace</button>
+            <button type="button" class="btn-sm" style="background:#fff;border:1px solid #ddd;font-size:0.7rem;padding:2px 8px" onclick="setQuickMedia('https://iili.io/nLA98hP.webp', 'Vice-Chancellor Prof. Folasade Ogunsola in Reading Booth')">VC in Reading Booth</button>
+            <button type="button" class="btn-sm" style="background:#fff;border:1px solid #ddd;font-size:0.7rem;padding:2px 8px" onclick="setQuickMedia('https://iili.io/nPRiCvt.webp', 'University of Lagos Main Library Building')">Main Library Facade</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="secMediaCaption">Image Caption / Photo Credit</label>
+          <input type="text" id="secMediaCaption" placeholder="e.g. Multimedia Studio Broadcast Suite, Ground Floor, Main Library" oninput="updateLivePreview()">
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px">
+          <div class="field">
+            <label for="secPlacement">Horizontal Layout Alignment</label>
+            <select id="secPlacement" onchange="updateLivePreview()">
+              <option value="media-right" selected>Media on Right, Text on Left</option>
+              <option value="media-left">Media on Left, Text on Right</option>
+              <option value="media-center">Centered Media (Full Width Stack)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Geometric Shape &amp; Aspect Ratio</label>
+            <div class="shape-grid">
+              <div class="shape-opt selected" onclick="selectShape('editorial', '16/10', '4px', this)">
+                <div class="shape-preview-box"></div>
+                <div class="mono" style="font-size:0.7rem">16:10 Editorial</div>
+              </div>
+              <div class="shape-opt" onclick="selectShape('arch', '16/10', '60px 60px 0 0', this)">
+                <div class="shape-preview-arch"></div>
+                <div class="mono" style="font-size:0.7rem">Arch Plate</div>
+              </div>
+              <div class="shape-opt" onclick="selectShape('pill', '16/10', '18px', this)">
+                <div class="shape-preview-pill"></div>
+                <div class="mono" style="font-size:0.7rem">Soft Rounded</div>
+              </div>
+              <div class="shape-opt" onclick="selectShape('square', '1/1', '0px', this)">
+                <div class="shape-preview-square"></div>
+                <div class="mono" style="font-size:0.7rem">1:1 Square</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Settings -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+        <div class="field">
+          <label for="secCtaText">CTA Button Label</label>
+          <input type="text" id="secCtaText" placeholder="e.g. Book Studio Session" oninput="updateLivePreview()">
+        </div>
+        <div class="field">
+          <label for="secCtaUrl">CTA Target Link</label>
+          <input type="text" id="secCtaUrl" placeholder="e.g. services.html#multimedia-studio" oninput="updateLivePreview()">
+        </div>
+        <div class="field">
+          <label for="secCtaStyle">Button Style</label>
+          <select id="secCtaStyle" onchange="updateLivePreview()">
+            <option value="solid" selected>Solid Oxblood</option>
+            <option value="ghost">Outlined Ghost</option>
+            <option value="light">Subtle Bone</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Live Interactive Mini Preview -->
+      <div class="live-preview-wrap">
+        <div class="mono" style="font-size:0.72rem;color:var(--oxblood);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px">Live Section Preview</div>
+        <div id="livePreviewContainer"></div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+        <button type="button" class="btn-sm" style="background:#eee" onclick="closeSectionModal()">Cancel</button>
+        <button type="button" class="btn-submit" style="width:auto;padding:10px 24px" onclick="saveSectionFromModal()">Save Section &rarr;</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // State
     let studioData = [];
     let booksData = [];
+    let cmsData = { pages: {} };
+    let currentCmsPage = 'index.html';
     let studioFilter = 'ALL';
     let booksFilter = 'ALL';
+    let selectedShape = { shape: 'editorial', aspect_ratio: '16/10', radius: '4px' };
 
     // Check if already authenticated
     if (sessionStorage.getItem('unilag_admin_logged_in') === 'true') {
@@ -463,7 +822,6 @@
         console.warn('Backend offline, checking fallback password');
       }
 
-      // Allow fallback if offline
       if (code === 'unilagadmin' || code === 'unilag2026') {
         success = true;
       }
@@ -485,9 +843,10 @@
     function showDashboard() {
       document.getElementById('loginSection').style.display = 'none';
       document.getElementById('dashSection').style.display = 'block';
-      document.getElementById('authStatus').innerHTML = '<span class="mono" style="color:#1B5E20;font-weight:700">● Staff Session Active</span> &bull; <a href="../index.html" style="color:var(--oxblood)">View Public Site &rarr;</a>';
+      document.getElementById('authStatus').innerHTML = '<span class="mono" style="color:#1B5E20;font-weight:700">● Staff Session Active</span> &bull; <a href="../index.html" style="color:var(--oxblood);margin-left:8px">View Public Site &rarr;</a>';
       loadStudioBookings();
       loadBookReservations();
+      loadCmsData();
     }
 
     function switchTab(tab) {
@@ -500,6 +859,10 @@
       } else if (tab === 'books') {
         document.getElementById('tabBooksBtn').classList.add('active');
         document.getElementById('panelBooks').classList.add('active');
+      } else if (tab === 'cms') {
+        document.getElementById('tabCmsBtn').classList.add('active');
+        document.getElementById('panelCms').classList.add('active');
+        renderCmsSections();
       } else if (tab === 'notices') {
         document.getElementById('tabNoticesBtn').classList.add('active');
         document.getElementById('panelNotices').classList.add('active');
@@ -588,10 +951,10 @@
 
             <div class="dc-actions">
               ${b.status === 'PENDING' ? `
-                <button class="btn-sm btn-approve" onclick="updateStudioAction('${b.id}', 'APPROVE')">✅ Accept &amp; Approve Booking</button>
-                <button class="btn-sm btn-decline" onclick="updateStudioAction('${b.id}', 'DECLINE')">❌ Decline Request</button>
+                <button class="btn-sm btn-approve" onclick="updateStudioAction('${b.id}', 'APPROVE')">Approve Request</button>
+                <button class="btn-sm btn-decline" onclick="updateStudioAction('${b.id}', 'DECLINE')">Decline Request</button>
               ` : b.status === 'APPROVED' ? `
-                <button class="btn-sm btn-complete" onclick="updateStudioAction('${b.id}', 'COMPLETE')">🎓 Mark Session Completed</button>
+                <button class="btn-sm btn-complete" onclick="updateStudioAction('${b.id}', 'COMPLETE')">Mark Session Completed</button>
                 <button class="btn-sm btn-decline" onclick="updateStudioAction('${b.id}', 'DECLINE')">Revoke Approval</button>
               ` : `
                 <button class="btn-sm btn-approve" onclick="updateStudioAction('${b.id}', 'APPROVE')">Re-Approve</button>
@@ -617,7 +980,6 @@
         console.warn('API error, modifying local state:', e);
       }
 
-      // Update local state
       const booking = studioData.find(b => b.id === id);
       if (booking) {
         if (action === 'DELETE') {
@@ -708,10 +1070,10 @@
 
             <div class="dc-actions">
               ${r.status === 'RESERVED' ? `
-                <button class="btn-sm btn-ready" onclick="updateBookAction('${r.id}', 'READY')">📦 Mark Ready on Hold Shelf</button>
+                <button class="btn-sm btn-ready" onclick="updateBookAction('${r.id}', 'READY')">Mark Ready on Hold Shelf</button>
                 <button class="btn-sm btn-decline" onclick="updateBookAction('${r.id}', 'CANCEL')">Cancel Reservation</button>
               ` : r.status === 'READY_FOR_PICKUP' ? `
-                <button class="btn-sm btn-approve" onclick="updateBookAction('${r.id}', 'COLLECTED')">🤝 Mark Collected in Person</button>
+                <button class="btn-sm btn-approve" onclick="updateBookAction('${r.id}', 'COLLECTED')">Mark Collected in Person</button>
                 <button class="btn-sm btn-decline" onclick="updateBookAction('${r.id}', 'CANCEL')">Cancel</button>
               ` : `
                 <button class="btn-sm btn-ready" onclick="updateBookAction('${r.id}', 'READY')">Re-place on Hold</button>
@@ -744,6 +1106,300 @@
       renderBooksList();
     }
 
+    // CMS LOGIC
+    async function loadCmsData() {
+      try {
+        const res = await fetch('/api/cms');
+        if (res.ok) {
+          cmsData = await res.json();
+        }
+      } catch (e) {
+        cmsData = JSON.parse(localStorage.getItem('unilag_cms_content') || '{"pages":{}}');
+      }
+      if (!cmsData.pages) cmsData.pages = {};
+      renderCmsSections();
+    }
+
+    function selectCmsPage(page) {
+      currentCmsPage = page;
+      document.querySelectorAll('.page-nav-item').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('onclick').includes(page));
+      });
+      const names = {
+        'index.html': 'Home Page (index.html)',
+        'services.html': 'Services & Spaces (services.html)',
+        'about.html': 'About the Library (about.html)',
+        'libraries.html': 'Faculty Libraries (libraries.html)',
+        'databases.html': 'Databases & E-Resources',
+        'oer.html': 'Research & 19 Faculties OER'
+      };
+      document.getElementById('currentCmsPageTitle').textContent = `${names[page] || page} Sections`;
+      renderCmsSections();
+    }
+
+    function renderCmsSections() {
+      const host = document.getElementById('cmsSectionsList');
+      if (!host) return;
+      const sections = cmsData.pages?.[currentCmsPage] || [];
+
+      if (!sections.length) {
+        host.innerHTML = `
+          <div style="background:#fff;padding:48px 24px;text-align:center;border:1px dashed var(--line-dark);border-radius:4px">
+            <h4 style="font-family:var(--serif);font-size:1.5rem;margin-bottom:8px">No Custom Dynamic Sections</h4>
+            <p style="font-size:0.88rem;color:rgba(13,11,10,0.65);max-width:460px;margin:0 auto 18px auto">
+              You can insert custom media blocks, highlight plates, and narrative sections with customizable geometric shapes.
+            </p>
+            <button onclick="openNewSectionModal()" class="btn-submit" style="width:auto;padding:10px 24px">+ Create First Section</button>
+          </div>
+        `;
+        return;
+      }
+
+      host.innerHTML = sections.map((sec, idx) => {
+        const m = sec.media || {};
+        const shapeLabel = m.shape === 'arch' ? 'Arch Top Plate' :
+                           m.shape === 'pill' ? 'Soft Rounded' :
+                           m.shape === 'square' ? '1:1 Square' : '16:10 Editorial';
+        const placementLabel = m.placement === 'media-left' ? 'Media Left' :
+                               m.placement === 'media-center' ? 'Media Center Stack' : 'Media Right';
+        const posLabel = sec.position === 'top' ? 'Top of Page' :
+                         sec.position === 'bottom' ? 'Bottom of Page' : 'Middle of Page';
+
+        return `
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <div style="display:flex;gap:16px;align-items:flex-start">
+                ${m.url ? `<img src="${escapeHtml(m.url)}" class="cms-thumb" alt="Thumbnail">` : ''}
+                <div>
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+                    <span class="cms-order-badge">Section #${idx + 1}</span>
+                    <span class="mono" style="font-size:0.72rem;color:var(--oxblood);font-weight:700">${escapeHtml(sec.eyebrow || '')}</span>
+                  </div>
+                  <h4 style="font-family:var(--serif);font-size:1.45rem;line-height:1.15;margin-bottom:6px">${escapeHtml(sec.title)}</h4>
+                  <p style="font-size:0.86rem;color:rgba(13,11,10,0.7);max-width:680px;line-height:1.5">${escapeHtml(sec.body)}</p>
+                </div>
+              </div>
+              <div style="text-align:right">
+                <span class="dc-badge badge-approved">${escapeHtml(sec.status || 'published')}</span>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:12px;font-size:0.78rem;font-family:var(--mono);color:rgba(13,11,10,0.6);margin-bottom:14px;flex-wrap:wrap">
+              <span><strong>Placement:</strong> ${posLabel} &bull; ${placementLabel}</span>
+              <span>&bull;</span>
+              <span><strong>Shape:</strong> ${shapeLabel} (${m.aspect_ratio || '16/10'})</span>
+              ${sec.cta?.text ? `<span>&bull;</span><span><strong>CTA:</strong> ${escapeHtml(sec.cta.text)} &rarr; ${escapeHtml(sec.cta.url)}</span>` : ''}
+            </div>
+
+            <div class="dc-actions" style="justify-content:space-between">
+              <div style="display:flex;gap:6px">
+                <button class="btn-sm" style="background:#eee" onclick="moveSection(${idx}, -1)" ${idx === 0 ? 'disabled' : ''}>&uarr; Move Up</button>
+                <button class="btn-sm" style="background:#eee" onclick="moveSection(${idx}, 1)" ${idx === sections.length - 1 ? 'disabled' : ''}>&darr; Move Down</button>
+              </div>
+              <div style="display:flex;gap:6px">
+                <button class="btn-sm btn-edit" onclick="openEditSectionModal('${sec.id}')">Edit Section &amp; Shapes</button>
+                <button class="btn-sm btn-delete" onclick="deleteSection('${sec.id}')">Delete</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function moveSection(index, direction) {
+      const sections = cmsData.pages[currentCmsPage];
+      const targetIndex = index + direction;
+      if (targetIndex < 0 || targetIndex >= sections.length) return;
+      const temp = sections[index];
+      sections[index] = sections[targetIndex];
+      sections[targetIndex] = temp;
+      renderCmsSections();
+    }
+
+    function deleteSection(id) {
+      if (!confirm('Are you sure you want to delete this section?')) return;
+      cmsData.pages[currentCmsPage] = cmsData.pages[currentCmsPage].filter(s => s.id !== id);
+      renderCmsSections();
+      saveAndPublishCms();
+    }
+
+    function openNewSectionModal() {
+      document.getElementById('modalTitle').textContent = `Add New Section (${currentCmsPage})`;
+      document.getElementById('editSecId').value = '';
+      document.getElementById('secEyebrow').value = 'NEW SPACE · GROUND FLOOR';
+      document.getElementById('secHeadline').value = '';
+      document.getElementById('secBody').value = '';
+      document.getElementById('secPosition').value = 'middle';
+      document.getElementById('secMediaUrl').value = 'https://iili.io/nPRigmg.webp';
+      document.getElementById('secMediaCaption').value = 'Multimedia Studio Broadcast Suite, Ground Floor';
+      document.getElementById('secPlacement').value = 'media-right';
+      document.getElementById('secCtaText').value = 'Learn More';
+      document.getElementById('secCtaUrl').value = 'services.html';
+      document.getElementById('secCtaStyle').value = 'solid';
+      selectShape('editorial', '16/10', '4px', document.querySelectorAll('.shape-opt')[0]);
+      document.getElementById('sectionModal').classList.add('active');
+      updateLivePreview();
+    }
+
+    function openEditSectionModal(id) {
+      const sec = (cmsData.pages[currentCmsPage] || []).find(s => s.id === id);
+      if (!sec) return;
+      document.getElementById('modalTitle').textContent = `Edit Section: ${sec.title}`;
+      document.getElementById('editSecId').value = sec.id;
+      document.getElementById('secEyebrow').value = sec.eyebrow || '';
+      document.getElementById('secHeadline').value = sec.title || '';
+      document.getElementById('secBody').value = sec.body || '';
+      document.getElementById('secPosition').value = sec.position || 'middle';
+      document.getElementById('secMediaUrl').value = sec.media?.url || '';
+      document.getElementById('secMediaCaption').value = sec.media?.caption || '';
+      document.getElementById('secPlacement').value = sec.media?.placement || 'media-right';
+      document.getElementById('secCtaText').value = sec.cta?.text || '';
+      document.getElementById('secCtaUrl').value = sec.cta?.url || '';
+      document.getElementById('secCtaStyle').value = sec.cta?.style || 'solid';
+
+      const shape = sec.media?.shape || 'editorial';
+      const ratio = sec.media?.aspect_ratio || '16/10';
+      const rad = sec.media?.radius || '4px';
+      selectedShape = { shape, aspect_ratio: ratio, radius: rad };
+
+      document.querySelectorAll('.shape-opt').forEach(opt => {
+        opt.classList.toggle('selected', opt.getAttribute('onclick').includes(shape));
+      });
+
+      document.getElementById('sectionModal').classList.add('active');
+      updateLivePreview();
+    }
+
+    function closeSectionModal() {
+      document.getElementById('sectionModal').classList.remove('active');
+    }
+
+    function setQuickMedia(url, caption) {
+      document.getElementById('secMediaUrl').value = url;
+      document.getElementById('secMediaCaption').value = caption;
+      updateLivePreview();
+    }
+
+    function selectShape(shape, ratio, radius, elem) {
+      selectedShape = { shape, aspect_ratio: ratio, radius };
+      document.querySelectorAll('.shape-opt').forEach(el => el.classList.remove('selected'));
+      if (elem) elem.classList.add('selected');
+      updateLivePreview();
+    }
+
+    function updateLivePreview() {
+      const eyebrow = document.getElementById('secEyebrow').value;
+      const headline = document.getElementById('secHeadline').value || 'Section Headline Preview';
+      const body = document.getElementById('secBody').value || 'Section narrative paragraph description will appear here.';
+      const url = document.getElementById('secMediaUrl').value;
+      const caption = document.getElementById('secMediaCaption').value;
+      const placement = document.getElementById('secPlacement').value;
+      const ctaText = document.getElementById('secCtaText').value;
+
+      const host = document.getElementById('livePreviewContainer');
+      const flexDir = placement === 'media-left' ? 'row-reverse' : 'row';
+
+      host.innerHTML = `
+        <div style="background:#FAF7F0;border:1px solid var(--line);border-radius:4px;padding:24px">
+          <div style="display:flex;gap:24px;align-items:center;flex-direction:${placement === 'media-center' ? 'column' : flexDir}">
+            <div style="flex:1.2">
+              ${eyebrow ? `<div class="mono" style="color:var(--oxblood);font-weight:700;font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:8px">${escapeHtml(eyebrow)}</div>` : ''}
+              <h3 style="font-family:var(--serif);font-size:1.8rem;line-height:1.1;margin-bottom:10px">${escapeHtml(headline)}</h3>
+              <p style="font-size:0.9rem;line-height:1.55;color:rgba(13,11,10,0.75);margin-bottom:14px">${escapeHtml(body)}</p>
+              ${ctaText ? `<a class="btn-sm btn-approve" style="display:inline-block">${escapeHtml(ctaText)} &rarr;</a>` : ''}
+            </div>
+            ${url ? `
+              <div style="flex:1;max-width:${placement === 'media-center' ? '100%' : '320px'}">
+                <div style="border:1px solid var(--line);overflow:hidden;border-radius:${selectedShape.radius};aspect-ratio:${selectedShape.aspect_ratio};background:#e8e2d6">
+                  <img src="${escapeHtml(url)}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Preview">
+                </div>
+                ${caption ? `<div class="mono" style="font-size:0.72rem;color:rgba(13,11,10,0.5);margin-top:6px">${escapeHtml(caption)}</div>` : ''}
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    function saveSectionFromModal() {
+      const id = document.getElementById('editSecId').value || `sec-${Date.now()}`;
+      const eyebrow = document.getElementById('secEyebrow').value.trim();
+      const title = document.getElementById('secHeadline').value.trim();
+      const body = document.getElementById('secBody').value.trim();
+      const position = document.getElementById('secPosition').value;
+      const url = document.getElementById('secMediaUrl').value.trim();
+      const caption = document.getElementById('secMediaCaption').value.trim();
+      const placement = document.getElementById('secPlacement').value;
+      const ctaText = document.getElementById('secCtaText').value.trim();
+      const ctaUrl = document.getElementById('secCtaUrl').value.trim();
+      const ctaStyle = document.getElementById('secCtaStyle').value;
+
+      if (!title) {
+        alert('Please enter a section title / headline.');
+        return;
+      }
+
+      const newSection = {
+        id,
+        title,
+        eyebrow,
+        body,
+        position,
+        order: 1,
+        status: 'published',
+        media: {
+          url,
+          caption,
+          shape: selectedShape.shape,
+          aspect_ratio: selectedShape.aspect_ratio,
+          radius: selectedShape.radius,
+          placement
+        },
+        cta: {
+          text: ctaText,
+          url: ctaUrl,
+          style: ctaStyle
+        }
+      };
+
+      if (!cmsData.pages[currentCmsPage]) {
+        cmsData.pages[currentCmsPage] = [];
+      }
+
+      const existingIdx = cmsData.pages[currentCmsPage].findIndex(s => s.id === id);
+      if (existingIdx >= 0) {
+        cmsData.pages[currentCmsPage][existingIdx] = newSection;
+      } else {
+        cmsData.pages[currentCmsPage].push(newSection);
+      }
+
+      closeSectionModal();
+      renderCmsSections();
+      saveAndPublishCms();
+    }
+
+    async function saveAndPublishCms() {
+      // 1. Save to localStorage immediately
+      localStorage.setItem('unilag_cms_content', JSON.stringify(cmsData));
+
+      // 2. Save to backend API
+      try {
+        await fetch('/api/cms', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            page: currentCmsPage,
+            sections: cmsData.pages[currentCmsPage] || []
+          })
+        });
+      } catch (e) {
+        console.warn('API save fallback to localStorage cache');
+      }
+
+      alert('Sections saved and published to the live site!');
+    }
+
+    // NOTICE BANNER LOGIC
     async function saveNoticeBanner() {
       const text = document.getElementById('bannerText').value.trim();
       const link = document.getElementById('bannerLink').value.trim();

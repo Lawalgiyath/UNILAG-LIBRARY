@@ -13,6 +13,24 @@ import datetime
 PORT = 8000
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(DIRECTORY, 'data', 'bookings.json')
+CMS_FILE = os.path.join(DIRECTORY, 'data', 'cms_content.json')
+
+def load_cms():
+    if os.path.exists(CMS_FILE):
+        try:
+            with open(CMS_FILE, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e:
+            print("Error loading CMS data:", e)
+    return {"pages": {}}
+
+def save_cms(data):
+    try:
+        os.makedirs(os.path.dirname(CMS_FILE), exist_ok=True)
+        with open(CMS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2)
+    except Exception as e:
+        print("Error saving CMS data:", e)
 
 def load_data():
     if os.path.exists(DATA_FILE):
@@ -429,6 +447,18 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             })
             return
 
+        # 6. CMS CONTENT API (GET)
+        elif parsed.path == '/api/cms':
+            params = urllib.parse.parse_qs(parsed.query)
+            page = params.get('page', [''])[0].strip()
+            cms_data = load_cms()
+            if page:
+                sections = cms_data.get('pages', {}).get(page, [])
+                self.send_json({'page': page, 'sections': sections})
+                return
+            self.send_json(cms_data)
+            return
+
         # Default: Serve static files
         return super().do_GET()
 
@@ -590,6 +620,54 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             data['notice_banner'] = banner
             save_data(data)
             self.send_json({'success': True, 'notice_banner': banner})
+            return
+
+        # 7. CMS CONTENT API (POST)
+        elif parsed.path == '/api/cms':
+            cms_data = load_cms()
+            page = body.get('page', '')
+            sections = body.get('sections')
+            action = body.get('action')
+            section = body.get('section')
+            
+            if not page:
+                self.send_json({'error': 'Page parameter required'}, status=400)
+                return
+                
+            cms_data.setdefault('pages', {})
+            cms_data['pages'].setdefault(page, [])
+            
+            if isinstance(sections, list):
+                cms_data['pages'][page] = sections
+                save_cms(cms_data)
+                self.send_json({'success': True, 'page': page, 'sections': cms_data['pages'][page]})
+                return
+                
+            if action == 'save_section' and section:
+                sec_id = section.get('id')
+                page_secs = cms_data['pages'][page]
+                found = False
+                for idx, s in enumerate(page_secs):
+                    if s.get('id') == sec_id:
+                        page_secs[idx] = section
+                        found = True
+                        break
+                if not found:
+                    if not sec_id:
+                        section['id'] = f"sec-{int(datetime.datetime.utcnow().timestamp()*1000)}"
+                    page_secs.append(section)
+                save_cms(cms_data)
+                self.send_json({'success': True, 'page': page, 'sections': page_secs})
+                return
+                
+            if action == 'delete_section':
+                sec_id = body.get('id')
+                cms_data['pages'][page] = [s for s in cms_data['pages'][page] if s.get('id') != sec_id]
+                save_cms(cms_data)
+                self.send_json({'success': True, 'page': page, 'sections': cms_data['pages'][page]})
+                return
+                
+            self.send_json({'error': 'Invalid action'}, status=400)
             return
 
         self.send_json({'error': 'Endpoint not found'}, status=404)

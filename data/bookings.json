@@ -7,25 +7,9 @@
   },
   "studio_bookings": [
     {
-      "id": "STU-6319",
-      "name": "Test Student",
-      "matric": "210408999",
-      "department": "Computer Science",
-      "email": "test@live.unilag.edu.ng",
-      "phone": "+234 801 234 5678",
-      "date": "2026-11-10",
-      "slot": "1:00 PM \u2013 3:00 PM",
-      "duration": "2 hours",
-      "purpose": "AI Demo Recording",
-      "attendees": 2,
-      "status": "APPROVED",
-      "created_at": "2026-11-05T07:30:37.244742Z",
-      "notes": "Test approval verified"
-    },
-    {
       "id": "STU-8821",
       "date": "2026-11-06",
-      "slot": "11:00 AM \u2013 1:00 PM",
+      "slot": "11:00 AM – 1:00 PM",
       "duration": "2 hours",
       "name": "Chukwuemeka Okonkwo",
       "matric": "210408012",
@@ -41,7 +25,7 @@
     {
       "id": "STU-8822",
       "date": "2026-11-07",
-      "slot": "2:00 PM \u2013 4:00 PM",
+      "slot": "2:00 PM – 4:00 PM",
       "duration": "2 hours",
       "name": "Amina Bello",
       "matric": "200805041",
@@ -57,7 +41,7 @@
     {
       "id": "STU-8823",
       "date": "2026-11-09",
-      "slot": "9:00 AM \u2013 11:00 AM",
+      "slot": "9:00 AM – 11:00 AM",
       "duration": "2 hours",
       "name": "Dr. Babatunde Jinadu",
       "matric": "STAFF-MC-402",
@@ -72,22 +56,6 @@
     }
   ],
   "book_reservations": [
-    {
-      "id": "UNILAG-PK-6772",
-      "book_title": "Introduction to Algorithms",
-      "author": "Cormen et al.",
-      "call_number": "QA 76.6 I585 2009",
-      "student_name": "Test Student",
-      "matric": "210408999",
-      "email": "test@live.unilag.edu.ng",
-      "phone": "+234 801 234 5678",
-      "pickup_date": "2026-11-06",
-      "pickup_location": "Circulation Desk, Ground Floor, Main Library",
-      "status": "RESERVED",
-      "created_at": "2026-11-05T07:30:43.052688Z",
-      "loan_period": "14 Days",
-      "notes": "Reserved online for in-person pickup. Hold shelf expires in 48 hours."
-    },
     {
       "id": "UNILAG-PK-7701",
       "book_title": "Constitutional Law of Nigeria",

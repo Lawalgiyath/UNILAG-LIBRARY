@@ -1,0 +1,56 @@
+{
+  "pages": {
+    "index.html": [
+      {
+        "id": "sec-home-studio",
+        "title": "State-of-the-Art Multimedia Studio & Production Suite",
+        "eyebrow": "New Space · Ground Floor",
+        "body": "Equipped with professional broadcast microphones, acoustic wood paneling, bi-directional recording zones, and 4K video recording equipment. Designed to support faculty open courseware, student podcasting, academic dissertations, and digital scholarship.",
+        "media": {
+          "url": "https://iili.io/nPRigmg.webp",
+          "caption": "Multimedia Studio Broadcast Suite, Ground Floor, Main Library",
+          "shape": "arch",
+          "radius": "60px 60px 0 0",
+          "aspect_ratio": "16/10",
+          "placement": "media-right"
+        },
+        "cta": {
+          "text": "Book Studio Session",
+          "url": "services.html#multimedia-studio",
+          "style": "solid"
+        },
+        "position": "middle",
+        "order": 1,
+        "status": "published"
+      }
+    ],
+    "services.html": [
+      {
+        "id": "sec-serv-makerspace",
+        "title": "Makerspace & Creative Innovation Lab",
+        "eyebrow": "Collaborative Workspace",
+        "body": "A dynamic collaborative space on the 1st Floor fostering design thinking, hardware prototyping, and interdisciplinary problem solving. Features collaborative circular seating, interactive smart boards, and presentation facilities.",
+        "media": {
+          "url": "https://iili.io/nPR09pS.webp",
+          "caption": "Makerspace Innovation Arena, Main Library",
+          "shape": "editorial",
+          "radius": "4px",
+          "aspect_ratio": "16/10",
+          "placement": "media-left"
+        },
+        "cta": {
+          "text": "Visit Makerspace",
+          "url": "services.html#makerspace",
+          "style": "ghost"
+        },
+        "position": "middle",
+        "order": 1,
+        "status": "published"
+      }
+    ],
+    "about.html": [],
+    "libraries.html": [],
+    "databases.html": [],
+    "oer.html": []
+  }
+}
