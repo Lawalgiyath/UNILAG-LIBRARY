@@ -2387,12 +2387,17 @@
         </div>
 
         <div class="s-card-foot" style="margin-top:12px">
-          <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
             ${(b.subjects || []).slice(0, 3).map((s) => `<span class="s-sub-tag">${escapeHtml(s)}</span>`).join("")}
           </div>
-          <a class="btn btn--sm" href="${escapeHtml(b.opacUrl || "http://librarydb.unilag.edu.ng/newgenlibctxt/Search?searchText=" + encodeURIComponent(b.title) + "&Index=Title")}" target="_blank" rel="noopener" style="padding:6px 14px;font-size:.56rem">
-            View Live OPAC Record <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>
-          </a>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <button class="btn btn--sm" onclick='window.openBookReserveModal(${JSON.stringify(b).replace(/'/g, "&apos;")})' style="background:var(--oxblood,#6C0000);color:#fff;border:none;padding:7px 14px;font-size:.78rem;cursor:pointer;display:inline-flex;align-items:center;gap:6px">
+              Borrow / Reserve for Pickup &rarr;
+            </button>
+            <a class="btn btn--sm btn--ghost" href="${escapeHtml(b.opacUrl || "http://librarydb.unilag.edu.ng/newgenlibctxt/Search?searchText=" + encodeURIComponent(b.title) + "&Index=Title")}" target="_blank" rel="noopener" style="padding:7px 12px;font-size:.78rem;display:inline-flex;align-items:center;gap:4px">
+              View OPAC <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </a>
+          </div>
         </div>
       </div>
     `).join("");

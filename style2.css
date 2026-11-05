@@ -1,3 +1,6 @@
+
+/* Hide all section eyebrows */
+.eyebrow, .sec-head .eyebrow { display: none !important; }
 /* ============================================================
    UNILAG LIBRARY · layer 2 · additions
    ============================================================ */
@@ -133,7 +136,7 @@
 .hero-plate .hp-tag {
   margin-top: 10px;
   font-family: var(--mono);
-  font-size: .52rem;
+  font-size:0.74rem;
   letter-spacing: .16em;
   text-transform: uppercase;
   color: rgba(246, 242, 233, .7);
@@ -153,7 +156,7 @@
   border: 1px solid rgba(246, 242, 233, .3);
   padding: 8px 13px;
   font-family: var(--mono);
-  font-size: .56rem;
+  font-size:0.76rem;
   letter-spacing: .16em;
   text-transform: uppercase;
   color: rgba(246, 242, 233, .82);
@@ -388,7 +391,7 @@
   align-items: center;
   gap: 9px;
   font-family: var(--mono);
-  font-size: .54rem;
+  font-size:0.76rem;
   letter-spacing: .17em;
   text-transform: uppercase;
   color: var(--oxblood);
@@ -411,7 +414,7 @@
   top: 0;
   right: 0;
   font-family: var(--mono);
-  font-size: .46rem;
+  font-size:0.74rem;
   letter-spacing: .13em;
   text-transform: uppercase;
   padding: 5px 8px;
@@ -478,7 +481,7 @@
 
 .flip-hint {
   font-family: var(--mono);
-  font-size: .48rem;
+  font-size:0.74rem;
   letter-spacing: .16em;
   text-transform: uppercase;
   color: var(--ink-50);
@@ -495,7 +498,7 @@
 
 .stabs button {
   font-family: var(--mono);
-  font-size: .6rem;
+  font-size:0.79rem;
   letter-spacing: .16em;
   text-transform: uppercase;
   padding: 14px 20px;
@@ -544,7 +547,7 @@
   background: var(--bone);
   padding: 0 16px;
   font-family: var(--mono);
-  font-size: .56rem;
+  font-size:0.76rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   outline: none;
@@ -555,7 +558,7 @@
   color: var(--cream);
   padding: 0 clamp(20px, 3vw, 40px);
   font-family: var(--mono);
-  font-size: .6rem;
+  font-size:0.79rem;
   letter-spacing: .18em;
   text-transform: uppercase;
   display: flex;
@@ -651,7 +654,7 @@
 
 .fac-card .f-no {
   font-family: var(--mono);
-  font-size: .5rem;
+  font-size:0.74rem;
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--oxblood);
@@ -673,7 +676,7 @@
 
 .fac-card .f-meta {
   font-family: var(--mono);
-  font-size: .5rem;
+  font-size:0.74rem;
   letter-spacing: .13em;
   text-transform: uppercase;
   color: var(--ink-50);
@@ -684,7 +687,7 @@
 }
 
 .fac-card .f-photo-note {
-  font-size: .68rem;
+  font-size:0.82rem;
   color: var(--ink-50);
   margin-top: 6px;
   font-style: italic
@@ -725,7 +728,7 @@
   color: var(--cream);
   padding: 10px 14px;
   font-family: var(--mono);
-  font-size: .5rem;
+  font-size:0.74rem;
   letter-spacing: .16em;
   text-transform: uppercase;
   line-height: 1.6;
@@ -757,7 +760,7 @@
 
 .streak .st-lbl {
   font-family: var(--mono);
-  font-size: .53rem;
+  font-size:0.76rem;
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--ink-50);
@@ -778,7 +781,7 @@
   display: grid;
   place-items: center;
   font-family: var(--mono);
-  font-size: .46rem;
+  font-size:0.74rem;
   font-style: normal;
   color: var(--ink-50);
   transition: background .35s, color .35s, border-color .35s;
@@ -803,7 +806,7 @@
   border: 1px solid var(--ink);
   padding: 11px 18px;
   font-family: var(--mono);
-  font-size: .56rem;
+  font-size:0.76rem;
   letter-spacing: .16em;
   text-transform: uppercase;
   transition: background .35s, color .35s;
@@ -868,7 +871,7 @@
 
 .g-chip {
   font-family: var(--mono);
-  font-size: .58rem;
+  font-size:0.76rem;
   letter-spacing: .1em;
   padding: 11px 13px;
   background: var(--cream);
@@ -894,7 +897,7 @@
   color: var(--cream);
   display: grid;
   place-items: center;
-  font-size: .44rem
+  font-size:0.74rem
 }
 
 .g-chip.placed {
@@ -905,7 +908,7 @@
 
 .g-msg {
   font-family: var(--mono);
-  font-size: .55rem;
+  font-size:0.76rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   margin-top: 10px;
@@ -971,7 +974,7 @@ a:hover .ico-badge,
   align-items: center;
   gap: 8px;
   font-family: var(--mono);
-  font-size: .55rem;
+  font-size:0.76rem;
   letter-spacing: .16em;
   text-transform: uppercase
 }
@@ -1068,7 +1071,7 @@ a:hover .ico-badge,
 
 .upl-fig figcaption {
   font-family: var(--mono, ui-monospace);
-  font-size: .6rem;
+  font-size:0.79rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   color: rgba(13, 11, 10, .5);
@@ -1130,7 +1133,7 @@ a:hover .ico-badge,
 
 .f-no {
   font-family: var(--mono, ui-monospace);
-  font-size: .58rem;
+  font-size:0.76rem;
   letter-spacing: .18em;
   text-transform: uppercase;
   color: #6C0000;
@@ -1162,7 +1165,7 @@ a:hover .ico-badge,
   justify-content: space-between;
   gap: 10px;
   font-family: var(--mono, ui-monospace);
-  font-size: .56rem;
+  font-size:0.76rem;
   letter-spacing: .12em;
   text-transform: uppercase;
   color: rgba(13, 11, 10, .45);
@@ -1173,7 +1176,7 @@ a:hover .ico-badge,
 
 .f-photo-note {
   font-family: var(--mono, ui-monospace);
-  font-size: .54rem;
+  font-size:0.76rem;
   letter-spacing: .12em;
   text-transform: uppercase;
   color: rgba(13, 11, 10, .34);
@@ -1218,7 +1221,7 @@ a:hover .ico-badge,
   justify-content: center;
   align-items: center;
   gap: 16px;
-  font-size: .58rem;
+  font-size:0.76rem;
   letter-spacing: .18em;
   text-transform: uppercase;
   flex-wrap: wrap
@@ -1359,7 +1362,7 @@ a:hover .ico-badge,
   top: 14px;
   right: 14px;
   font-family: var(--mono, ui-monospace);
-  font-size: .5rem;
+  font-size:0.74rem;
   letter-spacing: .13em;
   text-transform: uppercase;
   border: 1px solid rgba(13, 11, 10, .22);
@@ -1375,7 +1378,7 @@ a:hover .ico-badge,
 
 .er-go {
   font-family: var(--mono, ui-monospace);
-  font-size: .56rem;
+  font-size:0.76rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   color: #6C0000;
@@ -1413,7 +1416,7 @@ a:hover .ico-badge,
   border-right: 1px solid rgba(13, 11, 10, .14);
   padding: 14px 12px;
   font-family: var(--mono, ui-monospace);
-  font-size: .6rem;
+  font-size:0.79rem;
   letter-spacing: .16em;
   text-transform: uppercase;
   color: rgba(13, 11, 10, .55);
@@ -1486,7 +1489,7 @@ a:hover .ico-badge,
   border-left: 1px solid rgba(13, 11, 10, .14);
   padding: 12px;
   font-family: var(--mono, ui-monospace);
-  font-size: .62rem;
+  font-size:0.79rem;
   letter-spacing: .1em;
   text-transform: uppercase;
   background: transparent;
@@ -1500,7 +1503,7 @@ a:hover .ico-badge,
   color: #F6F2E9;
   padding: 14px 22px;
   font-family: var(--mono, ui-monospace);
-  font-size: .6rem;
+  font-size:0.79rem;
   letter-spacing: .16em;
   text-transform: uppercase;
   cursor: pointer;
@@ -1548,7 +1551,7 @@ a:hover .ico-badge,
 
 [data-status] {
   font-family: var(--mono, ui-monospace);
-  font-size: .54rem;
+  font-size:0.76rem;
   letter-spacing: .16em;
   text-transform: uppercase;
   display: inline-flex;
@@ -1582,7 +1585,7 @@ a:hover .ico-badge,
 
 .hero-hours {
   font-family: var(--mono, ui-monospace);
-  font-size: .56rem;
+  font-size:0.76rem;
   letter-spacing: .16em;
   text-transform: uppercase;
   margin-bottom: 20px;
@@ -1656,7 +1659,7 @@ a:hover .ico-badge,
   flex-wrap: wrap;
   align-items: center;
   font-family: var(--mono, ui-monospace);
-  font-size: .62rem;
+  font-size:0.79rem;
   letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--ink-70);
@@ -1678,7 +1681,7 @@ a:hover .ico-badge,
   padding-top: 10px;
   border-top: 1px dashed var(--line);
   font-family: var(--mono, ui-monospace);
-  font-size: .62rem;
+  font-size:0.79rem;
   letter-spacing: .1em;
   flex-wrap: wrap;
 }
@@ -1688,7 +1691,7 @@ a:hover .ico-badge,
   align-items: center;
   gap: 5px;
   font-family: var(--mono, ui-monospace);
-  font-size: .54rem;
+  font-size:0.76rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   padding: 3px 8px;
@@ -1759,7 +1762,7 @@ a:hover .ico-badge,
 
 .s-page-info {
   font-family: var(--mono, ui-monospace);
-  font-size: .65rem;
+  font-size:0.79rem;
   letter-spacing: .1em;
   color: var(--ink-70);
   text-transform: uppercase;
@@ -1777,7 +1780,7 @@ a:hover .ico-badge,
   border: 1px solid var(--line);
   background: #fff;
   font-family: var(--mono, ui-monospace);
-  font-size: .62rem;
+  font-size:0.79rem;
   letter-spacing: .1em;
   cursor: pointer;
   transition: all .2s;
@@ -1832,7 +1835,7 @@ a:hover .ico-badge,
 
 .sh-label {
   font-family: var(--mono, ui-monospace);
-  font-size: .52rem;
+  font-size:0.74rem;
   letter-spacing: .15em;
   text-transform: uppercase;
   color: var(--ink-50);
@@ -1845,7 +1848,7 @@ a:hover .ico-badge,
 
 .s-sub-tag {
   font-family: var(--mono, ui-monospace);
-  font-size: .54rem;
+  font-size:0.76rem;
   letter-spacing: .08em;
   text-transform: uppercase;
   background: rgba(13, 11, 10, .05);
@@ -1922,7 +1925,7 @@ a:hover .ico-badge,
 .cite-tab-btn {
   padding: 6px 14px;
   font-family: var(--mono, ui-monospace);
-  font-size: .62rem;
+  font-size:0.79rem;
   letter-spacing: .12em;
   text-transform: uppercase;
   border: 1px solid var(--line);
@@ -1951,4 +1954,260 @@ a:hover .ico-badge,
   color: var(--ink);
   user-select: all;
   outline: none;
+}
+
+/* ============================================================
+   BOOKING & RESERVATION MODAL STYLING (STUDIO & BOOK PICKUP)
+   ============================================================ */
+.bk-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 11, 10, 0.72);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.bk-modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bk-modal {
+  background: #ffffff;
+  width: min(680px, 96vw);
+  max-height: 92vh;
+  overflow-y: auto;
+  border: 1px solid var(--line, #e2dcd2);
+  border-radius: 4px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  padding: clamp(20px, 3.5vw, 36px);
+  transform: translateY(16px);
+  transition: transform 0.25s ease;
+}
+
+.bk-modal-backdrop.open .bk-modal {
+  transform: translateY(0);
+}
+
+.bk-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  border-bottom: 1px solid var(--line, #e2dcd2);
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+}
+
+.bk-kicker {
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--oxblood, #6c0000);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.bk-modal-head h2 {
+  font-family: var(--serif, "Instrument Serif", Georgia, serif);
+  font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+  line-height: 1.1;
+  margin: 0;
+  color: var(--ink, #0d0b0a);
+}
+
+.bk-close {
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ink-70, #4a4542);
+  padding: 2px 8px;
+  transition: color 0.2s;
+}
+
+.bk-close:hover {
+  color: var(--oxblood, #6c0000);
+}
+
+.bk-summary-box {
+  background: #f7f3ea;
+  border: 1px solid var(--line, #e2dcd2);
+  padding: 14px 18px;
+  border-radius: 3px;
+  margin-bottom: 18px;
+}
+
+.bk-notice-box {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: #fdf6ec;
+  border: 1px solid #e0c8a8;
+  padding: 12px 16px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: #5c3b1e;
+}
+
+.bk-notice-box strong {
+  display: block;
+  color: var(--oxblood, #6c0000);
+  margin-bottom: 3px;
+}
+
+.bk-notice-box p {
+  margin: 0;
+}
+
+.bk-notice-warn {
+  background: #fff8f5;
+  border-color: #f1b8a8;
+}
+
+.bk-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+@media (max-width: 600px) {
+  .bk-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bk-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bk-field label {
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-70, #4a4542);
+  font-weight: 600;
+}
+
+.bk-field input,
+.bk-field select {
+  padding: 9px 12px;
+  border: 1px solid var(--line, #ccc);
+  border-radius: 2px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  background: #fff;
+  color: var(--ink, #0d0b0a);
+}
+
+.bk-field input:focus,
+.bk-field select:focus {
+  outline: 2px solid var(--oxblood, #6c0000);
+  border-color: var(--oxblood, #6c0000);
+}
+
+.bk-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid var(--line, #e2dcd2);
+  padding-top: 16px;
+}
+
+/* Confirmation Slip */
+.bk-slip {
+  background: #fff;
+  border: 2px dashed #b8a892;
+  padding: clamp(18px, 3vw, 28px);
+  border-radius: 4px;
+}
+
+.bk-slip-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #0d0b0a;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.bk-barcode {
+  background: #0d0b0a;
+  color: #fff;
+  padding: 6px 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  border-radius: 2px;
+}
+
+.bk-slip-details {
+  display: grid;
+  gap: 8px;
+  font-size: 0.92rem;
+}
+
+.bk-slip-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px dotted rgba(13, 11, 10, 0.15);
+  gap: 16px;
+}
+
+.bk-slip-row span:first-child {
+  color: rgba(13, 11, 10, 0.65);
+}
+
+.bk-status-banner {
+  background: #fff9ea;
+  border: 1px solid #e8ce8a;
+  padding: 14px 18px;
+  border-radius: 3px;
+}
+
+.bk-status-pill {
+  display: inline-block;
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 2px;
+  letter-spacing: 0.1em;
+}
+
+.bk-status-pill.pending {
+  background: #fff0d4;
+  color: #995c00;
+  border: 1px solid #ffd182;
+}
+
+.bk-status-pill.approved {
+  background: #e8f5e9;
+  color: #1b5e20;
+  border: 1px solid #a5d6a7;
+}
+
+.bk-reachout-box {
+  background: #fdf5f5;
+  border: 1px solid #ebd0d0;
+  padding: 14px 18px;
+  border-radius: 3px;
+  margin-top: 16px;
 }

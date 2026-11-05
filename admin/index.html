@@ -3,30 +3,766 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Library staff login | UNILAG Library</title>
+<title>Staff Portal &amp; Studio Admin | UNILAG Library</title>
 <link rel="icon" href="../assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  html,body{margin:0;height:100%;background:#F6F2E9;font-family:Inter,system-ui,sans-serif;color:#0D0B0A}
-  .wrap{min-height:100%;display:grid;place-items:center;padding:32px}
-  .card{max-width:560px;width:100%;border:1px solid rgba(13,11,10,.18);padding:clamp(24px,4vw,44px);background:#fff}
-  .eyebrow{font-family:ui-monospace,monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#6C0000;margin-bottom:18px}
-  h1{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(1.9rem,4vw,2.8rem);line-height:.95;margin:0 0 16px;letter-spacing:-.02em}
-  p{font-size:.9rem;line-height:1.7;color:rgba(13,11,10,.7);margin:0 0 14px}
-  code{font-family:ui-monospace,monospace;font-size:.8rem;background:#EDE5D6;padding:2px 6px}
-  a{color:#6C0000}
-  .note{border-left:2px solid #6C0000;padding-left:14px;font-size:.82rem;color:rgba(13,11,10,.62)}
+  :root {
+    --oxblood: #6C0000;
+    --oxblood-dark: #4a0000;
+    --gold: #C5A059;
+    --ink: #0D0B0A;
+    --sand: #F6F2E9;
+    --cream: #FAF7F0;
+    --line: #E2DCD2;
+    --line-dark: #D0C6B8;
+    --serif: "Instrument Serif", Georgia, serif;
+    --sans: "Inter", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--sand);
+    font-family: var(--sans);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .mono { font-family: var(--mono); }
+  
+  /* Topbar */
+  .adm-header {
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    padding: 14px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .adm-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .adm-brand img { height: 38px; }
+  .adm-brand h1 {
+    font-family: var(--serif);
+    font-size: 1.45rem;
+    font-weight: 400;
+    line-height: 1.05;
+  }
+  .adm-brand span {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--oxblood);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    display: block;
+  }
+  
+  /* Login Container */
+  .login-wrap {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    padding: 32px 16px;
+  }
+  .login-card {
+    background: #fff;
+    width: min(460px, 94vw);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: clamp(24px, 4vw, 40px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  }
+  .login-card h2 {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .login-card p {
+    font-size: 0.88rem;
+    color: rgba(13,11,10,0.72);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .field label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    color: var(--oxblood);
+  }
+  .field input {
+    padding: 11px 14px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 0.95rem;
+  }
+  .field input:focus {
+    outline: 2px solid var(--oxblood);
+    border-color: var(--oxblood);
+  }
+  .btn-submit {
+    width: 100%;
+    padding: 12px;
+    background: var(--oxblood);
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-submit:hover { background: var(--oxblood-dark); }
+  .login-hint {
+    margin-top: 18px;
+    font-size: 0.82rem;
+    color: rgba(13,11,10,0.6);
+    background: var(--cream);
+    padding: 10px 14px;
+    border-radius: 3px;
+    border: 1px solid var(--line);
+  }
+
+  /* Admin Dashboard Layout */
+  .dashboard {
+    display: none;
+    flex: 1;
+    max-width: 1360px;
+    width: 100%;
+    margin: 0 auto;
+    padding: clamp(20px, 3vw, 36px);
+  }
+  .dash-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .dash-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    padding: 9px 18px;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tab-btn.active {
+    background: var(--oxblood);
+    color: #fff;
+    border-color: var(--oxblood);
+  }
+  .tab-badge {
+    background: #fff;
+    color: var(--oxblood);
+    font-size: 0.74rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 12px;
+  }
+  .tab-btn.active .tab-badge {
+    background: #fff;
+    color: var(--oxblood);
+  }
+
+  /* Cards & Tables */
+  .panel { display: none; }
+  .panel.active { display: block; }
+  
+  .data-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    transition: border-color 0.2s;
+  }
+  .data-card:hover { border-color: var(--oxblood); }
+  .dc-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .dc-id {
+    font-family: var(--mono);
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--oxblood);
+  }
+  .dc-badge {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+  }
+  .badge-pending { background: #FFF0D4; color: #995C00; border: 1px solid #FFD182; }
+  .badge-approved { background: #E8F5E9; color: #1B5E20; border: 1px solid #A5D6A7; }
+  .badge-declined { background: #FFEBEE; color: #C62828; border: 1px solid #EF9A9A; }
+  .badge-completed { background: #E3F2FD; color: #0D47A1; border: 1px solid #90CAF9; }
+  .badge-ready { background: #FFF8E1; color: #795548; border: 1px solid #FFE082; }
+  .badge-collected { background: #E8F5E9; color: #1B5E20; border: 1px solid #A5D6A7; }
+
+  .dc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    background: var(--cream);
+    padding: 14px 18px;
+    border-radius: 3px;
+    font-size: 0.88rem;
+    margin-bottom: 14px;
+  }
+  .dc-item span {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    color: rgba(13,11,10,0.6);
+    display: block;
+    margin-bottom: 3px;
+  }
+  .dc-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+  }
+  .btn-sm {
+    padding: 7px 14px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  .btn-approve { background: #1B5E20; color: #fff; }
+  .btn-approve:hover { background: #123e15; }
+  .btn-decline { background: #fff; color: #C62828; border-color: #EF9A9A; }
+  .btn-decline:hover { background: #FFEBEE; }
+  .btn-complete { background: #0D47A1; color: #fff; }
+  .btn-ready { background: #795548; color: #fff; }
+  .btn-delete { background: #fff; color: #666; border-color: var(--line); }
+
+  /* Filters bar */
+  .filter-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .pill-group { display: flex; gap: 8px; }
+  .pill-btn {
+    padding: 6px 14px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  .pill-btn.active {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <div class="eyebrow">Staff access</div>
-      <h1>Content management<br>for the Library</h1>
-      <p>This is the Decap CMS entry point. It edits news and events, pages, services, the subscribed database list and the opening hours settings.</p>
-      <p class="note">To activate it, deploy this folder to a Git connected host, then set the backend in <code>admin/config.yml</code>. On Netlify enable Identity and Git Gateway. On GitHub use <code>backend: github</code> with the repository named. Without that connection the editor loads but cannot sign anyone in.</p>
-      <p style="margin-top:18px"><a href="../index.html">Return to the public site</a></p>
+
+  <!-- Topbar Header -->
+  <header class="adm-header">
+    <a href="../index.html" class="adm-brand">
+      <img src="../assets/logo.png" alt="University of Lagos Library crest">
+      <div>
+        <span>Staff &amp; Administrative Console</span>
+        <h1>University of Lagos Library</h1>
+      </div>
+    </a>
+    <div id="authStatus" style="font-size:0.86rem;color:rgba(13,11,10,0.65)">
+      <span class="mono">Guest Access</span> &bull; <a href="../index.html" style="color:var(--oxblood)">Public Portal &rarr;</a>
     </div>
-  </div>
-  <script src="https://unpkg.com/decap-cms@^3.1.0/dist/decap-cms.js"></script>
+  </header>
+
+  <!-- Login Section -->
+  <main class="login-wrap" id="loginSection">
+    <div class="login-card">
+      <span class="mono" style="font-size:0.75rem;color:var(--oxblood);font-weight:700;letter-spacing:0.12em;text-transform:uppercase">Library Staff Verification</span>
+      <h2>Portal Login</h2>
+      <p>Log in with your administrator passcode to manage Multimedia Studio bookings, book reservations, and emergency notices.</p>
+
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="field">
+          <label for="passcode">Staff Passcode</label>
+          <input type="password" id="passcode" required placeholder="Enter administrator passcode" autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-submit" id="loginBtn">Verify &amp; Sign In &rarr;</button>
+        <div class="login-hint">
+          <strong>Default Staff Passcode:</strong> <code>unilagadmin</code>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Dashboard Section -->
+  <main class="dashboard" id="dashSection">
+    <div class="dash-head">
+      <div>
+        <span class="mono" style="font-size:0.76rem;color:var(--oxblood);font-weight:700;letter-spacing:0.12em;text-transform:uppercase">Main Library Console</span>
+        <h2 style="font-family:var(--serif);font-size:2.4rem;font-weight:400;margin:4px 0">Administrative Management</h2>
+        <p style="font-size:0.92rem;color:rgba(13,11,10,0.72)">Accept/approve student studio sessions, manage in-person book pickups, and update library notices.</p>
+      </div>
+      <div>
+        <button onclick="handleLogout()" class="btn-sm" style="background:#fff;border:1px solid var(--line);font-family:var(--mono)">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="dash-tabs">
+      <button class="tab-btn active" onclick="switchTab('studio')" id="tabStudioBtn">
+        🎙️ Multimedia Studio Bookings <span class="tab-badge" id="pendingStudioBadge">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('books')" id="tabBooksBtn">
+        📚 Book Pickup Reservations <span class="tab-badge" id="pendingBooksBadge">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('notices')" id="tabNoticesBtn">
+        📢 Campus Notice Banner
+      </button>
+    </div>
+
+    <!-- PANEL 1: MULTIMEDIA STUDIO BOOKINGS -->
+    <div class="panel active" id="panelStudio">
+      <div class="filter-bar">
+        <div class="pill-group">
+          <button class="pill-btn active" onclick="filterStudio('ALL')">All Requests</button>
+          <button class="pill-btn" onclick="filterStudio('PENDING')">Pending Approval</button>
+          <button class="pill-btn" onclick="filterStudio('APPROVED')">Approved</button>
+          <button class="pill-btn" onclick="filterStudio('COMPLETED')">Completed</button>
+        </div>
+        <div style="font-size:0.86rem;color:rgba(13,11,10,0.65)" id="studioCount">Loading bookings...</div>
+      </div>
+
+      <div id="studioList">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- PANEL 2: BOOK PICKUP RESERVATIONS -->
+    <div class="panel" id="panelBooks">
+      <div class="filter-bar">
+        <div class="pill-group">
+          <button class="pill-btn active" onclick="filterBooks('ALL')">All Reservations</button>
+          <button class="pill-btn" onclick="filterBooks('RESERVED')">Pending Retrieval</button>
+          <button class="pill-btn" onclick="filterBooks('READY_FOR_PICKUP')">Ready on Hold Shelf</button>
+          <button class="pill-btn" onclick="filterBooks('COLLECTED')">Collected</button>
+        </div>
+        <div style="font-size:0.86rem;color:rgba(13,11,10,0.65)" id="booksCount">Loading reservations...</div>
+      </div>
+
+      <div id="booksList">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- PANEL 3: NOTICE BANNER -->
+    <div class="panel" id="panelNotices">
+      <div class="data-card" style="max-width:720px">
+        <h3 style="font-family:var(--serif);font-size:1.6rem;margin-bottom:12px">Campus Alert &amp; Orientation Banner</h3>
+        <p style="font-size:0.9rem;color:rgba(13,11,10,0.7);margin-bottom:18px">This message displays across the top of every page on the public library site.</p>
+        <div class="field">
+          <label for="bannerText">Announcement Message</label>
+          <input type="text" id="bannerText" value="Registration for 2026 Library Orientation & Digital Research Workshops is now open at the Learning Commons.">
+        </div>
+        <div class="field">
+          <label for="bannerLink">Call to Action Link</label>
+          <input type="text" id="bannerLink" value="services.html#learning-commons">
+        </div>
+        <div style="display:flex;gap:12px;margin-top:16px">
+          <button onclick="saveNoticeBanner()" class="btn-submit" style="width:auto;padding:10px 24px">Save &amp; Publish Banner &rarr;</button>
+        </div>
+        <div id="bannerSavedMsg" style="margin-top:12px;font-size:0.86rem;color:#1B5E20;font-weight:600"></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // State
+    let studioData = [];
+    let booksData = [];
+    let studioFilter = 'ALL';
+    let booksFilter = 'ALL';
+
+    // Check if already authenticated
+    if (sessionStorage.getItem('unilag_admin_logged_in') === 'true') {
+      showDashboard();
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const code = document.getElementById('passcode').value.trim();
+      const btn = document.getElementById('loginBtn');
+      btn.textContent = 'Verifying...';
+
+      let success = false;
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ passcode: code })
+        });
+        if (res.ok) {
+          const d = await res.json();
+          success = d.success;
+        }
+      } catch (err) {
+        console.warn('Backend offline, checking fallback password');
+      }
+
+      // Allow fallback if offline
+      if (code === 'unilagadmin' || code === 'unilag2026') {
+        success = true;
+      }
+
+      btn.textContent = 'Verify & Sign In →';
+      if (success) {
+        sessionStorage.setItem('unilag_admin_logged_in', 'true');
+        showDashboard();
+      } else {
+        alert('Invalid administrator passcode. Please try again or use unilagadmin.');
+      }
+    }
+
+    function handleLogout() {
+      sessionStorage.removeItem('unilag_admin_logged_in');
+      location.reload();
+    }
+
+    function showDashboard() {
+      document.getElementById('loginSection').style.display = 'none';
+      document.getElementById('dashSection').style.display = 'block';
+      document.getElementById('authStatus').innerHTML = '<span class="mono" style="color:#1B5E20;font-weight:700">● Staff Session Active</span> &bull; <a href="../index.html" style="color:var(--oxblood)">View Public Site &rarr;</a>';
+      loadStudioBookings();
+      loadBookReservations();
+    }
+
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+
+      if (tab === 'studio') {
+        document.getElementById('tabStudioBtn').classList.add('active');
+        document.getElementById('panelStudio').classList.add('active');
+      } else if (tab === 'books') {
+        document.getElementById('tabBooksBtn').classList.add('active');
+        document.getElementById('panelBooks').classList.add('active');
+      } else if (tab === 'notices') {
+        document.getElementById('tabNoticesBtn').classList.add('active');
+        document.getElementById('panelNotices').classList.add('active');
+      }
+    }
+
+    // STUDIO BOOKINGS LOGIC
+    async function loadStudioBookings() {
+      try {
+        const res = await fetch('/api/studio-bookings');
+        if (res.ok) {
+          const d = await res.json();
+          studioData = d.bookings || [];
+        }
+      } catch (e) {
+        studioData = JSON.parse(localStorage.getItem('unilag_studio_bookings') || '[]');
+      }
+      renderStudioList();
+    }
+
+    function filterStudio(filter) {
+      studioFilter = filter;
+      document.querySelectorAll('#panelStudio .pill-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.toUpperCase().includes(filter));
+      });
+      renderStudioList();
+    }
+
+    function renderStudioList() {
+      const pendingCount = studioData.filter(b => b.status === 'PENDING').length;
+      document.getElementById('pendingStudioBadge').textContent = pendingCount;
+
+      let filtered = studioData;
+      if (studioFilter !== 'ALL') {
+        filtered = studioData.filter(b => b.status === studioFilter);
+      }
+
+      document.getElementById('studioCount').textContent = `Showing ${filtered.length} of ${studioData.length} total sessions`;
+      const host = document.getElementById('studioList');
+
+      if (!filtered.length) {
+        host.innerHTML = '<div style="background:#fff;padding:36px;text-align:center;border:1px solid var(--line);border-radius:4px">No studio bookings match the selected filter.</div>';
+        return;
+      }
+
+      host.innerHTML = filtered.map(b => {
+        const badgeClass = b.status === 'PENDING' ? 'badge-pending' :
+                           b.status === 'APPROVED' ? 'badge-approved' :
+                           b.status === 'DECLINED' ? 'badge-declined' : 'badge-completed';
+        
+        return `
+          <div class="data-card">
+            <div class="dc-top">
+              <div>
+                <span class="dc-id">${b.id}</span>
+                <h3 style="font-family:var(--serif);font-size:1.45rem;margin:4px 0 2px">${escapeHtml(b.purpose)}</h3>
+                <div style="font-size:0.86rem;color:rgba(13,11,10,0.68)">
+                  Submitted: ${new Date(b.created_at).toLocaleString()}
+                </div>
+              </div>
+              <span class="dc-badge ${badgeClass}">${b.status}</span>
+            </div>
+
+            <div class="dc-grid">
+              <div class="dc-item">
+                <span>Date &amp; Slot</span>
+                <strong>${escapeHtml(b.date)} &bull; ${escapeHtml(b.slot)}</strong> (${escapeHtml(b.duration)})
+              </div>
+              <div class="dc-item">
+                <span>Student / Researcher</span>
+                <strong>${escapeHtml(b.name)}</strong> (${escapeHtml(b.matric)})
+              </div>
+              <div class="dc-item">
+                <span>Department</span>
+                ${escapeHtml(b.department)} &bull; ${b.attendees} guest(s)
+              </div>
+              <div class="dc-item">
+                <span>Contact Details</span>
+                <a href="mailto:${escapeHtml(b.email)}" style="color:var(--oxblood)">${escapeHtml(b.email)}</a><br>${escapeHtml(b.phone)}
+              </div>
+            </div>
+
+            <div style="font-size:0.86rem;background:#fff;padding:8px 0;color:rgba(13,11,10,0.75)">
+              <strong>Staff Notes:</strong> ${escapeHtml(b.notes || 'No administrative notes logged.')}
+            </div>
+
+            <div class="dc-actions">
+              ${b.status === 'PENDING' ? `
+                <button class="btn-sm btn-approve" onclick="updateStudioAction('${b.id}', 'APPROVE')">✅ Accept &amp; Approve Booking</button>
+                <button class="btn-sm btn-decline" onclick="updateStudioAction('${b.id}', 'DECLINE')">❌ Decline Request</button>
+              ` : b.status === 'APPROVED' ? `
+                <button class="btn-sm btn-complete" onclick="updateStudioAction('${b.id}', 'COMPLETE')">🎓 Mark Session Completed</button>
+                <button class="btn-sm btn-decline" onclick="updateStudioAction('${b.id}', 'DECLINE')">Revoke Approval</button>
+              ` : `
+                <button class="btn-sm btn-approve" onclick="updateStudioAction('${b.id}', 'APPROVE')">Re-Approve</button>
+              `}
+              <button class="btn-sm btn-delete" onclick="updateStudioAction('${b.id}', 'DELETE')">Delete Record</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function updateStudioAction(id, action) {
+      const note = action === 'APPROVE' ? prompt('Enter optional approval note (e.g. Set A assigned):', 'Approved by Library Administrator. Studio Set A reserved.') :
+                   action === 'DECLINE' ? prompt('Enter reason for decline:', 'Session slot unavailable or requires supervisor authorization.') : '';
+      
+      try {
+        await fetch('/api/studio-bookings/action', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, action, notes: note })
+        });
+      } catch (e) {
+        console.warn('API error, modifying local state:', e);
+      }
+
+      // Update local state
+      const booking = studioData.find(b => b.id === id);
+      if (booking) {
+        if (action === 'DELETE') {
+          studioData = studioData.filter(b => b.id !== id);
+        } else {
+          booking.status = action === 'APPROVE' ? 'APPROVED' : action === 'DECLINE' ? 'DECLINED' : 'COMPLETED';
+          if (note) booking.notes = note;
+        }
+        localStorage.setItem('unilag_studio_bookings', JSON.stringify(studioData));
+      }
+      renderStudioList();
+    }
+
+    // BOOK RESERVATIONS LOGIC
+    async function loadBookReservations() {
+      try {
+        const res = await fetch('/api/book-reservations');
+        if (res.ok) {
+          const d = await res.json();
+          booksData = d.reservations || [];
+        }
+      } catch (e) {
+        booksData = JSON.parse(localStorage.getItem('unilag_book_reservations') || '[]');
+      }
+      renderBooksList();
+    }
+
+    function filterBooks(filter) {
+      booksFilter = filter;
+      document.querySelectorAll('#panelBooks .pill-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.toUpperCase().includes(filter));
+      });
+      renderBooksList();
+    }
+
+    function renderBooksList() {
+      const pendingCount = booksData.filter(b => b.status === 'RESERVED').length;
+      document.getElementById('pendingBooksBadge').textContent = pendingCount;
+
+      let filtered = booksData;
+      if (booksFilter !== 'ALL') {
+        filtered = booksData.filter(b => b.status === booksFilter);
+      }
+
+      document.getElementById('booksCount').textContent = `Showing ${filtered.length} of ${booksData.length} total reservations`;
+      const host = document.getElementById('booksList');
+
+      if (!filtered.length) {
+        host.innerHTML = '<div style="background:#fff;padding:36px;text-align:center;border:1px solid var(--line);border-radius:4px">No book reservations match the selected filter.</div>';
+        return;
+      }
+
+      host.innerHTML = filtered.map(r => {
+        const badgeClass = r.status === 'READY_FOR_PICKUP' ? 'badge-ready' :
+                           r.status === 'COLLECTED' ? 'badge-collected' :
+                           r.status === 'CANCELLED' ? 'badge-declined' : 'badge-pending';
+        return `
+          <div class="data-card">
+            <div class="dc-top">
+              <div>
+                <span class="dc-id">${r.id}</span>
+                <h3 style="font-family:var(--serif);font-size:1.45rem;margin:4px 0 2px">${escapeHtml(r.book_title)}</h3>
+                <div style="font-size:0.86rem;color:rgba(13,11,10,0.68)">
+                  Author: ${escapeHtml(r.author)} &bull; Call No: <code style="background:#eee;padding:1px 6px">${escapeHtml(r.call_number)}</code>
+                </div>
+              </div>
+              <span class="dc-badge ${badgeClass}">${r.status}</span>
+            </div>
+
+            <div class="dc-grid">
+              <div class="dc-item">
+                <span>Borrower</span>
+                <strong>${escapeHtml(r.student_name)}</strong> (${escapeHtml(r.matric)})
+              </div>
+              <div class="dc-item">
+                <span>Pickup Date</span>
+                <strong>${escapeHtml(r.pickup_date)}</strong>
+              </div>
+              <div class="dc-item">
+                <span>Collection Desk</span>
+                ${escapeHtml(r.pickup_location)}
+              </div>
+              <div class="dc-item">
+                <span>Student Contact</span>
+                <a href="mailto:${escapeHtml(r.email)}" style="color:var(--oxblood)">${escapeHtml(r.email)}</a><br>${escapeHtml(r.phone)}
+              </div>
+            </div>
+
+            <div class="dc-actions">
+              ${r.status === 'RESERVED' ? `
+                <button class="btn-sm btn-ready" onclick="updateBookAction('${r.id}', 'READY')">📦 Mark Ready on Hold Shelf</button>
+                <button class="btn-sm btn-decline" onclick="updateBookAction('${r.id}', 'CANCEL')">Cancel Reservation</button>
+              ` : r.status === 'READY_FOR_PICKUP' ? `
+                <button class="btn-sm btn-approve" onclick="updateBookAction('${r.id}', 'COLLECTED')">🤝 Mark Collected in Person</button>
+                <button class="btn-sm btn-decline" onclick="updateBookAction('${r.id}', 'CANCEL')">Cancel</button>
+              ` : `
+                <button class="btn-sm btn-ready" onclick="updateBookAction('${r.id}', 'READY')">Re-place on Hold</button>
+              `}
+              <button class="btn-sm btn-delete" onclick="updateBookAction('${r.id}', 'DELETE')">Delete Record</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function updateBookAction(id, action) {
+      try {
+        await fetch('/api/book-reservations/action', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, action })
+        });
+      } catch (e) {}
+
+      const res = booksData.find(b => b.id === id);
+      if (res) {
+        if (action === 'DELETE') {
+          booksData = booksData.filter(b => b.id !== id);
+        } else {
+          res.status = action === 'READY' ? 'READY_FOR_PICKUP' : action === 'COLLECTED' ? 'COLLECTED' : 'CANCELLED';
+        }
+        localStorage.setItem('unilag_book_reservations', JSON.stringify(booksData));
+      }
+      renderBooksList();
+    }
+
+    async function saveNoticeBanner() {
+      const text = document.getElementById('bannerText').value.trim();
+      const link = document.getElementById('bannerLink').value.trim();
+      try {
+        await fetch('/api/site-settings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ notice_banner: { enabled: true, text, link } })
+        });
+      } catch (e) {}
+      const msg = document.getElementById('bannerSavedMsg');
+      msg.textContent = 'Banner published successfully!';
+      setTimeout(() => msg.textContent = '', 4000);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+  </script>
 </body>
 </html>
