@@ -296,7 +296,7 @@
     { t: "Support for Users with Disabilities", k: "Service", u: "accessibility.html", d: "Braille conversion, assistive tools, extended loans and ramps." },
     { t: "Libraries", k: "Page", u: "libraries.html", d: "Faculty libraries, liaison librarians and opening hours." },
     { t: "University Librarian", k: "Library", u: "about.html", d: "Prof Olatokunbo Christopher Okiki, University Librarian (CLN)." },
-    { t: "Reading booths", k: "Library", u: "index.html", d: "New reading booths at the Main Library, Main Library reading space." },
+    { t: "Pod seats", k: "Library", u: "index.html", d: "Pod seats at the Main Library, Main Library reading space." },
     { t: "Catalogue OPAC", k: "Search", u: "search.html", d: "Search the live UNILAG Online Public Access Catalogue." },
     { t: "Repository search", k: "Search", u: "search.html", d: "Search the institutional repository in DSpace at ir.unilag.edu.ng." },
     { t: "Faculty Libraries", k: "Library", u: "libraries.html", d: "Nineteen faculty libraries across campus with dedicated liaison services." },
