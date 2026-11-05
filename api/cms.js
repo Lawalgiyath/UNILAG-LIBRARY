@@ -8,12 +8,12 @@ let defaultCMS = {
     "index.html": [
       {
         id: "sec-home-studio",
-        title: "State-of-the-Art Multimedia Studio & Production Suite",
+        title: "Library Multimedia Studio",
         eyebrow: "New Space · 3rd Floor",
         body: "Located on the 3rd Floor of the Main Library. Equipped with professional broadcast microphones, acoustic wood paneling, bi-directional recording zones, and 4K video recording equipment. Designed to support faculty open courseware, student podcasting, academic dissertations, and digital scholarship.",
         media: {
           url: "https://iili.io/nPRQAMJ.webp",
-          caption: "Multimedia Studio & Broadcast Suite, 3rd Floor, Main Library",
+          caption: "Library Multimedia Studio, 3rd Floor, Main Library",
           shape: "arch",
           radius: "60px 60px 0 0",
           aspect_ratio: "16/10",

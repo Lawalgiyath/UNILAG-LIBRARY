@@ -453,7 +453,7 @@
             </div>
             <div class="bk-slip-row">
               <span>Facility:</span>
-              <span>Main Library Multimedia Studio &amp; Podcast Suite (3rd Floor)</span>
+              <span>Library Multimedia Studio (3rd Floor)</span>
             </div>
           </div>
 
