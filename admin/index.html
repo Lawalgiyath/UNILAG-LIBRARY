@@ -677,7 +677,7 @@
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
         <div class="field">
           <label for="secEyebrow">Category Eyebrow</label>
-          <input type="text" id="secEyebrow" placeholder="e.g. NEW SPACE · 3RD FLOOR" oninput="updateLivePreview()">
+          <input type="text" id="secEyebrow" placeholder="e.g. LAUNCHED 19TH JANUARY 2026 · 3RD FLOOR" oninput="updateLivePreview()">
         </div>
         <div class="field">
           <label for="secPosition">Page Vertical Placement</label>
@@ -1226,7 +1226,7 @@
     function openNewSectionModal() {
       document.getElementById('modalTitle').textContent = `Add New Section (${currentCmsPage})`;
       document.getElementById('editSecId').value = '';
-      document.getElementById('secEyebrow').value = 'NEW SPACE · 3RD FLOOR';
+      document.getElementById('secEyebrow').value = 'LAUNCHED 19TH JANUARY 2026 · 3RD FLOOR';
       document.getElementById('secHeadline').value = '';
       document.getElementById('secBody').value = '';
       document.getElementById('secPosition').value = 'middle';

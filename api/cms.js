@@ -9,8 +9,8 @@ let defaultCMS = {
       {
         id: "sec-home-studio",
         title: "Library Multimedia Studio",
-        eyebrow: "New Space · 3rd Floor",
-        body: "Located on the 3rd Floor of the Main Library. Equipped with professional broadcast microphones, acoustic wood paneling, bi-directional recording zones, and 4K video recording equipment. Designed to support faculty open courseware, student podcasting, academic dissertations, and digital scholarship.",
+        eyebrow: "Launched 19th January 2026 · 3rd Floor",
+        body: "Launched on 19th January 2026 on the 3rd Floor of the Main Library. Equipped with professional broadcast microphones, acoustic wood paneling, bi-directional recording zones, and 4K video recording equipment. Designed to support faculty open courseware, student podcasting, academic dissertations, and digital scholarship.",
         media: {
           url: "https://iili.io/nPRQAMJ.webp",
           caption: "Library Multimedia Studio, 3rd Floor, Main Library",
