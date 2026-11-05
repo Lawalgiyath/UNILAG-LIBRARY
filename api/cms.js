@@ -12,7 +12,7 @@ let defaultCMS = {
         eyebrow: "Launched 19th January 2026 · 3rd Floor",
         body: "Launched on 19th January 2026 on the 3rd Floor of the Main Library. Equipped with professional broadcast microphones, acoustic wood paneling, bi-directional recording zones, and 4K video recording equipment. Designed to support faculty open courseware, student podcasting, academic dissertations, and digital scholarship.",
         media: {
-          url: "https://iili.io/nPRQAMJ.webp",
+          url: "https://iili.io/nQKlFu2.webp",
           caption: "Library Multimedia Studio, 3rd Floor, Main Library",
           shape: "arch",
           radius: "60px 60px 0 0",

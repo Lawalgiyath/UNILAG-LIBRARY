@@ -169,6 +169,92 @@
           </div>
         </div>
       </div>
+
+      <!-- ============ LEARNING COMMONS APPLICATION MODAL ============ -->
+      <div class="bk-modal-backdrop" id="commonsBookingModal" aria-hidden="true" role="dialog">
+        <div class="bk-modal">
+          <div class="bk-modal-head">
+            <div>
+              <span class="bk-kicker">Ground Floor &bull; Main Library, Akoka</span>
+              <h2>Apply to Use Learning Commons</h2>
+            </div>
+            <button class="bk-close" onclick="window.closeCommonsBookingModal()" aria-label="Close">&times;</button>
+          </div>
+
+          <div class="bk-modal-body" id="commonsModalBody">
+            <div class="bk-studio-banner" style="background:#f4ece1;border-color:rgba(108,0,0,0.2)">
+              <div>
+                <strong style="color:#6C0000">Digital Research Workstations, Pod Seats &amp; Reference Advisory</strong>
+                <p style="color:rgba(13,11,10,0.78)">Ground Floor digital nerve center of the Main Library. High-speed research PCs with direct access to ScienceDirect, JSTOR, UNILAG IR, and collaborative study pod seats.</p>
+              </div>
+            </div>
+
+            <div style="background:#fff;border:1px solid rgba(108,0,0,0.2);border-radius:4px;padding:12px 16px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+              <div>
+                <span class="mono" style="font-size:0.75rem;color:#6C0000;font-weight:700;display:block">Official UNILAG Google Form</span>
+                <span style="font-size:0.83rem;color:rgba(13,11,10,0.75)">You can also submit directly via the official library registration form.</span>
+              </div>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfyy9b8otic_G_r5i-IR--uB7m4f2SrDiqfs1OA2AWheGlSug/viewform?pli=1&pli=1" target="_blank" rel="noopener" class="btn btn--sm" style="background:#6C0000;color:#fff;font-size:0.75rem;padding:6px 14px;text-decoration:none">Open Google Form &rarr;</a>
+            </div>
+
+            <form id="commonsBookingForm" onsubmit="window.submitCommonsBooking(event)">
+              <div class="bk-form-grid">
+                <div class="bk-field">
+                  <label for="cmName">Full Name *</label>
+                  <input type="text" id="cmName" required placeholder="e.g. Chinelo Okonkwo">
+                </div>
+                <div class="bk-field">
+                  <label for="cmMatric">Matric No. / Staff ID *</label>
+                  <input type="text" id="cmMatric" required placeholder="e.g. 210902034">
+                </div>
+                <div class="bk-field">
+                  <label for="cmDept">Faculty &amp; Department *</label>
+                  <input type="text" id="cmDept" required placeholder="e.g. Computer Sciences / Science">
+                </div>
+                <div class="bk-field">
+                  <label for="cmEmail">UNILAG / Contact Email *</label>
+                  <input type="email" id="cmEmail" required placeholder="e.g. c.okonkwo@live.unilag.edu.ng">
+                </div>
+                <div class="bk-field">
+                  <label for="cmPhone">Phone / WhatsApp *</label>
+                  <input type="tel" id="cmPhone" required placeholder="e.g. 0803 123 4567">
+                </div>
+                <div class="bk-field">
+                  <label for="cmDate">Requested Date *</label>
+                  <input type="date" id="cmDate" required>
+                </div>
+                <div class="bk-field">
+                  <label for="cmSlot">Time Slot *</label>
+                  <select id="cmSlot" required>
+                    <option value="8:30 AM – 11:30 AM">8:30 AM – 11:30 AM (Morning Session)</option>
+                    <option value="12:00 PM – 3:00 PM" selected>12:00 PM – 3:00 PM (Afternoon Session)</option>
+                    <option value="3:30 PM – 6:30 PM">3:30 PM – 6:30 PM (Evening Session)</option>
+                    <option value="6:30 PM – 8:30 PM">6:30 PM – 8:30 PM (Night Session)</option>
+                  </select>
+                </div>
+                <div class="bk-field">
+                  <label for="cmStation">Station / Facility Requested *</label>
+                  <select id="cmStation" required>
+                    <option value="Digital Research Workstation (High-Speed PC)" selected>Digital Research Workstation (High-Speed PC)</option>
+                    <option value="Collaborative Pod Seat (Group Study / Team)">Collaborative Pod Seat (Group Study / Team)</option>
+                    <option value="Postgraduate Dissertation / Thesis Terminal">Postgraduate Dissertation / Thesis Terminal</option>
+                    <option value="Reference Librarian 1-on-1 Advisory">Reference Librarian 1-on-1 Advisory</option>
+                  </select>
+                </div>
+                <div class="bk-field" style="grid-column: 1 / -1">
+                  <label for="cmPurpose">Purpose of Study / Research Topic *</label>
+                  <input type="text" id="cmPurpose" required placeholder="e.g. Systematic literature review on renewable energy storage in West Africa">
+                </div>
+              </div>
+
+              <div class="bk-actions">
+                <button type="button" class="btn btn--ghost" onclick="window.closeCommonsBookingModal()">Cancel</button>
+                <button type="submit" class="btn" id="cmSubmitBtn" style="background:#6C0000;color:#fff">Submit Application Pass &rarr;</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     `;
 
     document.body.appendChild(container);
@@ -181,6 +267,8 @@
     if (bkDate) bkDate.value = dateStr;
     const stDate = document.getElementById('stDate');
     if (stDate) stDate.value = dateStr;
+    const cmDate = document.getElementById('cmDate');
+    if (cmDate) cmDate.value = dateStr;
   }
 
   // Current active book being reserved
@@ -482,11 +570,153 @@
     }
   };
 
+
+  /* ============ LEARNING COMMONS APPLICATION SYSTEM ============ */
+  window.openCommonsBookingModal = function () {
+    injectModals();
+    const modal = document.getElementById('commonsBookingModal');
+    if (modal) {
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+    }
+  };
+
+  window.closeCommonsBookingModal = function () {
+    const modal = document.getElementById('commonsBookingModal');
+    if (modal) {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+  };
+
+  window.submitCommonsBooking = async function (e) {
+    e.preventDefault();
+    const btn = document.getElementById('cmSubmitBtn');
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Submitting Application...';
+    }
+
+    const payload = {
+      name: (document.getElementById('cmName') || {}).value || 'Student',
+      matric: (document.getElementById('cmMatric') || {}).value || '',
+      department: (document.getElementById('cmDept') || {}).value || '',
+      email: (document.getElementById('cmEmail') || {}).value || '',
+      phone: (document.getElementById('cmPhone') || {}).value || '',
+      date: (document.getElementById('cmDate') || {}).value || '',
+      slot: (document.getElementById('cmSlot') || {}).value || '12:00 PM – 3:00 PM',
+      station: (document.getElementById('cmStation') || {}).value || 'Digital Research Workstation',
+      purpose: (document.getElementById('cmPurpose') || {}).value || 'Academic Research'
+    };
+
+    let booking = null;
+    try {
+      const res = await fetch('/api/commons-bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        const data = await res.json();
+        booking = data.booking;
+      }
+    } catch (err) {
+      console.warn('Commons API offline, creating local booking record:', err);
+    }
+
+    if (!booking) {
+      const rnd = Math.floor(1000 + Math.random() * 9000);
+      booking = {
+        id: `COMMONS-2026-${rnd}`,
+        ...payload,
+        status: 'CONFIRMED',
+        created_at: new Date().toISOString()
+      };
+      try {
+        const saved = JSON.parse(localStorage.getItem('unilag_commons_bookings') || '[]');
+        saved.unshift(booking);
+        localStorage.setItem('unilag_commons_bookings', JSON.stringify(saved));
+      } catch (e) {}
+    }
+
+    const bodyEl = document.getElementById('commonsModalBody');
+    if (bodyEl) {
+      bodyEl.innerHTML = `
+        <div style="padding:10px 0">
+          <div class="bk-success-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <div>
+              <span class="bk-kicker" style="color:#2e7d32">Application Received &amp; Confirmed</span>
+              <h2 style="font-family:'Instrument Serif',Georgia,serif;font-size:1.6rem;margin:4px 0">Learning Commons Access Pass</h2>
+            </div>
+          </div>
+
+          <div class="bk-barcode-box">
+            <span class="mono" style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(13,11,10,.6)">Ground Floor Access Reference</span>
+            <div class="bk-barcode mono">${booking.id}</div>
+            <p style="font-size:.82rem;margin:6px 0 0;color:rgba(13,11,10,.7)">Keep this code handy. Present upon arrival at the Information Desk.</p>
+          </div>
+
+          <div class="bk-details-list">
+            <div class="bk-d-row">
+              <span>Pass Reference:</span>
+              <strong class="mono" style="color:#6C0000;font-size:1.1rem">${booking.id}</strong>
+            </div>
+            <div class="bk-d-row">
+              <span>Facility / Station:</span>
+              <strong>${booking.station}</strong>
+            </div>
+            <div class="bk-d-row">
+              <span>Allocated Date:</span>
+              <strong>${booking.date}</strong>
+            </div>
+            <div class="bk-d-row">
+              <span>Session Time Slot:</span>
+              <strong>${booking.slot}</strong>
+            </div>
+            <div class="bk-d-row">
+              <span>Applicant Name:</span>
+              <span>${booking.name} (${booking.matric}) &bull; ${booking.department}</span>
+            </div>
+            <div class="bk-d-row">
+              <span>Location:</span>
+              <strong>Ground Floor, Main Library, Akoka</strong>
+            </div>
+          </div>
+
+          <div class="bk-reachout-box">
+            <h4 style="margin:0 0 6px;color:#6C0000;font-size:1rem">Arrival Instructions:</h4>
+            <p style="font-size:.85rem;margin:0 0 12px;color:rgba(13,11,10,.75)">
+              Proceed directly to the <strong>Information Desk (Ground Floor, Main Library)</strong>. Show this reference pass along with your physical UNILAG Student / Staff ID card to the on-duty librarian.
+            </p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfyy9b8otic_G_r5i-IR--uB7m4f2SrDiqfs1OA2AWheGlSug/viewform?pli=1&pli=1" target="_blank" rel="noopener" class="btn btn--sm" style="background:#6C0000;color:#fff;text-decoration:none">
+                Also Open Official Google Form &rarr;
+              </a>
+              <button class="btn btn--sm" onclick="window.print()" style="background:#f4ece1;color:#6C0000;border:1px solid rgba(108,0,0,.3)">Print Pass Slip</button>
+              <button class="btn btn--sm btn--ghost" onclick="window.closeCommonsBookingModal()">Done</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  };
+
   // Wire buttons on page load
   document.addEventListener('DOMContentLoaded', function () {
     injectModals();
 
     // Wire any "Book studio session" or "#multimedia-studio" button
+    // Wire any "Apply to use Learning Commons" or "#learning-commons" button
+    document.querySelectorAll('a[href*="#learning-commons"], [data-open-commons]').forEach(el => {
+      if (el.textContent.toLowerCase().includes('apply') || el.hasAttribute('data-open-commons')) {
+        el.addEventListener('click', function (e) {
+          e.preventDefault();
+          window.openCommonsBookingModal();
+        });
+      }
+    });
+
     document.querySelectorAll('a[href*="#multimedia-studio"], [data-open-studio]').forEach(el => {
       if (el.textContent.toLowerCase().includes('book') || el.hasAttribute('data-open-studio')) {
         el.addEventListener('click', function (e) {

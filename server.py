@@ -47,7 +47,8 @@ def load_data():
             "link": "services.html#learning-commons"
         },
         "studio_bookings": [],
-        "book_reservations": []
+        "book_reservations": [],
+        "commons_bookings": []
     }
 
 def save_data(data):
@@ -439,6 +440,13 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_json({'reservations': reservations})
             return
 
+        # 4b. LEARNING COMMONS APPLICATIONS (GET)
+        elif parsed.path == '/api/commons-bookings':
+            data = load_data()
+            bookings = data.get('commons_bookings', [])
+            self.send_json({'bookings': bookings, 'count': len(bookings)})
+            return
+
         # 5. SITE SETTINGS & BANNER (GET)
         elif parsed.path == '/api/site-settings':
             data = load_data()
@@ -596,6 +604,65 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_json({'success': True, 'message': f'Reservation {res_id} updated to {action}'})
             else:
                 self.send_json({'error': f'Reservation {res_id} not found'}, status=404)
+            return
+
+        # 4b. CREATE LEARNING COMMONS APPLICATION
+        elif parsed.path == '/api/commons-bookings':
+            data = load_data()
+            rnd = random.randint(1000, 9999)
+            new_booking = {
+                'id': f"COMMONS-2026-{rnd}",
+                'name': body.get('name', 'Anonymous Student'),
+                'matric': body.get('matric', ''),
+                'department': body.get('department', 'General'),
+                'email': body.get('email', ''),
+                'phone': body.get('phone', ''),
+                'date': body.get('date', datetime.date.today().isoformat()),
+                'slot': body.get('slot', '12:00 PM – 3:00 PM'),
+                'station': body.get('station', 'Digital Research Workstation (High-Speed PC)'),
+                'purpose': body.get('purpose', 'Academic Research'),
+                'status': 'CONFIRMED',
+                'created_at': datetime.datetime.utcnow().isoformat() + 'Z',
+                'notes': 'Pass confirmed. Ground Floor, Main Library.'
+            }
+            data.setdefault('commons_bookings', []).insert(0, new_booking)
+            save_data(data)
+            self.send_json({
+                'success': True,
+                'booking': new_booking,
+                'message': 'Learning Commons application confirmed.'
+            }, status=201)
+            return
+
+        # 4c. LEARNING COMMONS ACTION (CONFIRM/CANCEL/DELETE)
+        elif parsed.path == '/api/commons-bookings/action':
+            data = load_data()
+            action = body.get('action')
+            booking_id = body.get('id')
+            notes = body.get('notes', '')
+            bookings = data.get('commons_bookings', [])
+            found = False
+            for b in bookings:
+                if b.get('id') == booking_id:
+                    found = True
+                    if action in ['APPROVE', 'CONFIRM']:
+                        b['status'] = 'CONFIRMED'
+                        b['notes'] = notes or 'Confirmed by Library Administrator.'
+                    elif action == 'DECLINE':
+                        b['status'] = 'DECLINED'
+                        b['notes'] = notes or 'Declined by Library Administrator.'
+                    elif action == 'CANCEL':
+                        b['status'] = 'CANCELLED'
+                        b['notes'] = notes or 'Cancelled.'
+                    break
+            if action == 'DELETE':
+                data['commons_bookings'] = [b for b in bookings if b.get('id') != booking_id]
+                found = True
+            if found:
+                save_data(data)
+                self.send_json({'success': True, 'message': f'Application {booking_id} updated'})
+            else:
+                self.send_json({'error': 'Application not found'}, status=404)
             return
 
         # 5. ADMIN AUTHENTICATION

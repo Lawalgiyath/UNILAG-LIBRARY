@@ -9,7 +9,7 @@
     {
       "id": "STU-8821",
       "date": "2026-11-06",
-      "slot": "11:00 AM – 1:00 PM",
+      "slot": "11:00 AM \u2013 1:00 PM",
       "duration": "2 hours",
       "name": "Chukwuemeka Okonkwo",
       "matric": "210408012",
@@ -25,7 +25,7 @@
     {
       "id": "STU-8822",
       "date": "2026-11-07",
-      "slot": "2:00 PM – 4:00 PM",
+      "slot": "2:00 PM \u2013 4:00 PM",
       "duration": "2 hours",
       "name": "Amina Bello",
       "matric": "200805041",
@@ -41,7 +41,7 @@
     {
       "id": "STU-8823",
       "date": "2026-11-09",
-      "slot": "9:00 AM – 11:00 AM",
+      "slot": "9:00 AM \u2013 11:00 AM",
       "duration": "2 hours",
       "name": "Dr. Babatunde Jinadu",
       "matric": "STAFF-MC-402",
@@ -87,6 +87,38 @@
       "created_at": "2026-11-05T07:45:00Z",
       "loan_period": "14 Days",
       "notes": "Pending library staff retrieval from Science stacks."
+    }
+  ],
+  "commons_bookings": [
+    {
+      "id": "COMMONS-2026-3011",
+      "date": "2026-11-06",
+      "slot": "12:00 PM \u2013 3:00 PM",
+      "station": "Digital Research Workstation (High-Speed PC)",
+      "name": "Chinelo Okonkwo",
+      "matric": "210902034",
+      "department": "Computer Sciences",
+      "email": "c.okonkwo@live.unilag.edu.ng",
+      "phone": "+234 803 123 4567",
+      "purpose": "Literature review on renewable energy microgrids",
+      "status": "CONFIRMED",
+      "created_at": "2026-11-04T11:00:00Z",
+      "notes": "Allocated Workstation PC-08, Ground Floor."
+    },
+    {
+      "id": "COMMONS-2026-3012",
+      "date": "2026-11-07",
+      "slot": "8:30 AM \u2013 11:30 AM",
+      "station": "Collaborative Pod Seat (Group Study / Team)",
+      "name": "Tunde Adeyemi",
+      "matric": "200401088",
+      "department": "Economics",
+      "email": "t.adeyemi@student.unilag.edu.ng",
+      "phone": "+234 818 992 4432",
+      "purpose": "Econometric modeling for final year project",
+      "status": "CONFIRMED",
+      "created_at": "2026-11-04T15:30:00Z",
+      "notes": "Allocated Pod Seat P-03."
     }
   ]
 }
