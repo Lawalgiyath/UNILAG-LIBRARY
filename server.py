@@ -237,13 +237,13 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 return
 
             # Attempt 1: UNILAG DSpace 7 live API
-            dspace_url = f"https://ir.unilag.edu.ng/server/api/discover/search/objects?query={urllib.parse.quote(query)}&page={page}&size={size}&sort=score,DESC"
+            dspace_url = f"https://api-ir.unilag.edu.ng/server/api/discover/search/objects?query={urllib.parse.quote(query)}&page={page}&size={size}&sort=score,DESC"
             try:
                 req = urllib.request.Request(dspace_url, headers={
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)',
                     'Accept': 'application/json'
                 })
-                with urllib.request.urlopen(req, timeout=3.5) as resp:
+                with urllib.request.urlopen(req, timeout=5.5) as resp:
                     raw_data = json.loads(resp.read().decode('utf-8'))
                     search_res = raw_data.get('_embedded', {}).get('searchResult', {})
                     page_info = search_res.get('page', {})
@@ -295,7 +295,7 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                             'handle': f'123456789/{handle_id}' if handle_id.isdigit() else handle_id,
                             'irUrl': f'https://ir.unilag.edu.ng/items/{uuid}' if uuid else handle_uri,
                             'pdfUrl': f'https://ir.unilag.edu.ng/items/{uuid}' if uuid else handle_uri,
-                            'citations': 'Verified DSpace 7',
+                            'citations': 'Verified UNILAG DSpace 9',
                             'type': badge_type,
                             'subjects': subjects[:6],
                             'abstract': abstract or 'Authentic peer-reviewed publication archived in the University of Lagos Institutional Repository.'

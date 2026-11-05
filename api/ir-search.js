@@ -18,9 +18,9 @@ export default async function handler(req, res) {
 
   // 1. Attempt Live UNILAG DSpace 7
   try {
-    const dspaceUrl = `https://ir.unilag.edu.ng/server/api/discover/search/objects?query=${encodeURIComponent(query)}&page=${page}&size=${size}&sort=score,DESC`;
+    const dspaceUrl = `https://api-ir.unilag.edu.ng/server/api/discover/search/objects?query=${encodeURIComponent(query)}&page=${page}&size=${size}&sort=score,DESC`;
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 3500);
+    const timeout = setTimeout(() => controller.abort(), 5500);
 
     const dspaceRes = await fetch(dspaceUrl, {
       signal: controller.signal,
@@ -70,7 +70,7 @@ export default async function handler(req, res) {
           handle: handleId,
           irUrl: uuid ? `https://ir.unilag.edu.ng/items/${uuid}` : handleUri,
           pdfUrl: uuid ? `https://ir.unilag.edu.ng/items/${uuid}` : handleUri,
-          citations: 'Verified DSpace 7',
+          citations: 'Verified UNILAG DSpace 9',
           type: badgeType,
           subjects: subjects.slice(0, 6),
           abstract: abstract || 'Authentic peer-reviewed publication archived in the University of Lagos Institutional Repository.'
