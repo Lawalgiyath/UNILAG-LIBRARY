@@ -9,11 +9,11 @@ let defaultCMS = {
       {
         id: "sec-home-studio",
         title: "State-of-the-Art Multimedia Studio & Production Suite",
-        eyebrow: "New Space · Ground Floor",
-        body: "Equipped with professional broadcast microphones, acoustic wood paneling, bi-directional recording zones, and 4K video recording equipment. Designed to support faculty open courseware, student podcasting, academic dissertations, and digital scholarship.",
+        eyebrow: "New Space · 3rd Floor",
+        body: "Located on the 3rd Floor of the Main Library. Equipped with professional broadcast microphones, acoustic wood paneling, bi-directional recording zones, and 4K video recording equipment. Designed to support faculty open courseware, student podcasting, academic dissertations, and digital scholarship.",
         media: {
-          url: "https://iili.io/nPRigmg.webp",
-          caption: "Multimedia Studio Broadcast Suite, Ground Floor, Main Library",
+          url: "https://iili.io/nPRQAMJ.webp",
+          caption: "Multimedia Studio & Broadcast Suite, 3rd Floor, Main Library",
           shape: "arch",
           radius: "60px 60px 0 0",
           aspect_ratio: "16/10",

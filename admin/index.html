@@ -677,7 +677,7 @@
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
         <div class="field">
           <label for="secEyebrow">Category Eyebrow</label>
-          <input type="text" id="secEyebrow" placeholder="e.g. NEW SPACE · GROUND FLOOR" oninput="updateLivePreview()">
+          <input type="text" id="secEyebrow" placeholder="e.g. NEW SPACE · 3RD FLOOR" oninput="updateLivePreview()">
         </div>
         <div class="field">
           <label for="secPosition">Page Vertical Placement</label>
@@ -708,7 +708,7 @@
           <input type="text" id="secMediaUrl" placeholder="https://..." oninput="updateLivePreview()">
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
             <span class="mono" style="font-size:0.72rem;color:rgba(13,11,10,0.5)">Quick pick:</span>
-            <button type="button" class="btn-sm" style="background:#fff;border:1px solid #ddd;font-size:0.7rem;padding:2px 8px" onclick="setQuickMedia('https://iili.io/nPRigmg.webp', 'Multimedia Studio Broadcast Suite, Ground Floor')">Multimedia Studio</button>
+            <button type="button" class="btn-sm" style="background:#fff;border:1px solid #ddd;font-size:0.7rem;padding:2px 8px" onclick="setQuickMedia('https://iili.io/nPRQAMJ.webp', 'Multimedia Studio & Broadcast Suite, 3rd Floor')">Multimedia Studio</button>
             <button type="button" class="btn-sm" style="background:#fff;border:1px solid #ddd;font-size:0.7rem;padding:2px 8px" onclick="setQuickMedia('https://iili.io/nPR09pS.webp', 'Makerspace Innovation Arena, Main Library')">Makerspace</button>
             <button type="button" class="btn-sm" style="background:#fff;border:1px solid #ddd;font-size:0.7rem;padding:2px 8px" onclick="setQuickMedia('https://iili.io/nLA98hP.webp', 'Vice-Chancellor Prof. Folasade Ogunsola in Reading Booth')">VC in Reading Booth</button>
             <button type="button" class="btn-sm" style="background:#fff;border:1px solid #ddd;font-size:0.7rem;padding:2px 8px" onclick="setQuickMedia('https://iili.io/nPRiCvt.webp', 'University of Lagos Main Library Building')">Main Library Facade</button>
@@ -717,7 +717,7 @@
 
         <div class="field">
           <label for="secMediaCaption">Image Caption / Photo Credit</label>
-          <input type="text" id="secMediaCaption" placeholder="e.g. Multimedia Studio Broadcast Suite, Ground Floor, Main Library" oninput="updateLivePreview()">
+          <input type="text" id="secMediaCaption" placeholder="e.g. Multimedia Studio & Broadcast Suite, 3rd Floor, Main Library" oninput="updateLivePreview()">
         </div>
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px">
@@ -1226,12 +1226,12 @@
     function openNewSectionModal() {
       document.getElementById('modalTitle').textContent = `Add New Section (${currentCmsPage})`;
       document.getElementById('editSecId').value = '';
-      document.getElementById('secEyebrow').value = 'NEW SPACE · GROUND FLOOR';
+      document.getElementById('secEyebrow').value = 'NEW SPACE · 3RD FLOOR';
       document.getElementById('secHeadline').value = '';
       document.getElementById('secBody').value = '';
       document.getElementById('secPosition').value = 'middle';
-      document.getElementById('secMediaUrl').value = 'https://iili.io/nPRigmg.webp';
-      document.getElementById('secMediaCaption').value = 'Multimedia Studio Broadcast Suite, Ground Floor';
+      document.getElementById('secMediaUrl').value = 'https://iili.io/nPRQAMJ.webp';
+      document.getElementById('secMediaCaption').value = 'Multimedia Studio & Broadcast Suite, 3rd Floor';
       document.getElementById('secPlacement').value = 'media-right';
       document.getElementById('secCtaText').value = 'Learn More';
       document.getElementById('secCtaUrl').value = 'services.html';

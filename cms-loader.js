@@ -109,7 +109,11 @@
 
     sorted.forEach(function (sec) {
       if (sec.status !== 'published') return;
-      if (document.getElementById(sec.id)) return; // already injected
+      var existing = document.getElementById(sec.id);
+      if (existing) {
+        existing.parentNode.replaceChild(secNode, existing);
+        return;
+      }
 
       var html = buildCmsSectionHtml(sec);
       var pos = sec.position || 'middle';

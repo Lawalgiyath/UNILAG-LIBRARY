@@ -453,7 +453,7 @@
             </div>
             <div class="bk-slip-row">
               <span>Facility:</span>
-              <span>Main Library Multimedia Studio &amp; Podcast Suite (1st Floor)</span>
+              <span>Main Library Multimedia Studio &amp; Podcast Suite (3rd Floor)</span>
             </div>
           </div>
 
@@ -461,7 +461,7 @@
             <h4 style="margin:0 0 6px;color:#6C0000;font-size:1rem">Reach Out for Admin Approval:</h4>
             <p style="font-size:.85rem;margin:0 0 12px;color:rgba(13,11,10,.75)">
               1. <strong>Email Studio Desk:</strong> Send a pre-filled confirmation email to <code>studio@library.unilag.edu.ng</code>.<br>
-              2. <strong>In-Person Walk-in:</strong> Visit the Automation &amp; Multimedia Office (1st Floor, Main Library) quoting Ref <strong>${booking.id}</strong>.
+              2. <strong>In-Person Walk-in:</strong> Visit the Automation &amp; Multimedia Studio Office (3rd Floor, Main Library) quoting Ref <strong>${booking.id}</strong>.
             </p>
             <div style="display:flex;gap:10px;flex-wrap:wrap">
               <a href="${mailtoLink}" class="btn btn--sm" style="background:#6C0000;color:#fff;text-decoration:none">
