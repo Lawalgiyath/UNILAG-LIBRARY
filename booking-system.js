@@ -270,7 +270,7 @@
         const saved = JSON.parse(localStorage.getItem('unilag_book_reservations') || '[]');
         saved.unshift(reservation);
         localStorage.setItem('unilag_book_reservations', JSON.stringify(saved));
-      } catch (e) {}
+      } catch (e) { }
     }
 
     // Render Confirmation Slip
@@ -402,7 +402,7 @@
         const saved = JSON.parse(localStorage.getItem('unilag_studio_bookings') || '[]');
         saved.unshift(booking);
         localStorage.setItem('unilag_studio_bookings', JSON.stringify(saved));
-      } catch (e) {}
+      } catch (e) { }
     }
 
     // Render Approval-Required Confirmation Screen
@@ -497,3 +497,4 @@
     });
   });
 })();
+

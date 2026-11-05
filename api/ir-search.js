@@ -54,7 +54,7 @@ export default async function handler(req, res) {
 
         const docType = meta['dc.type']?.[0]?.value || 'Research Article';
         const badgeType = docType.toLowerCase().includes('thesis') ? 'Ph.D. Thesis' :
-                          docType.toLowerCase().includes('inaugural') ? 'Inaugural Lecture' : 'Journal Article';
+          docType.toLowerCase().includes('inaugural') ? 'Inaugural Lecture' : 'Journal Article';
         const dept = meta['dc.publisher']?.[0]?.value || meta['dc.contributor.department']?.[0]?.value || 'University of Lagos';
         const subjects = (meta['dc.subject'] || []).map(s => s.value);
 
