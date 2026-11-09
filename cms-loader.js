@@ -138,10 +138,13 @@
           document.body.appendChild(secNode);
         }
       } else {
-        // 'middle'
+        // 'middle' - always keep the CTA ("Come and read") at the very bottom
         var main = document.querySelector('main');
+        var cta = document.querySelector('#cta, .cta');
         var footer = document.querySelector('footer, .ftr');
-        if (main) {
+        if (main && cta && cta.parentNode === main) {
+          main.insertBefore(secNode, cta);
+        } else if (main) {
           main.appendChild(secNode);
         } else if (footer) {
           footer.parentNode.insertBefore(secNode, footer);

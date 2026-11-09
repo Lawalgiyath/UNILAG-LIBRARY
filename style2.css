@@ -46,8 +46,8 @@
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(180deg, rgba(13, 11, 10, .82) 0%, rgba(13, 11, 10, .18) 34%, rgba(13, 11, 10, .55) 74%, rgba(13, 11, 10, .92) 100%),
-    linear-gradient(100deg, rgba(64, 0, 0, .72) 0%, rgba(108, 0, 0, .22) 46%, rgba(13, 11, 10, .1) 100%);
+    linear-gradient(180deg, rgba(13, 11, 10, .88) 0%, rgba(13, 11, 10, .46) 32%, rgba(13, 11, 10, .78) 72%, rgba(13, 11, 10, .96) 100%),
+    linear-gradient(100deg, rgba(64, 0, 0, .88) 0%, rgba(108, 0, 0, .48) 48%, rgba(13, 11, 10, .38) 100%);
 }
 
 .hero--bg .wrap {
@@ -133,7 +133,7 @@
 }
 
 .hero-plate .arch img {
-  object-position: 58% 22%
+  object-position: center 20%;
 }
 
 .hero-plate .hp-tag {

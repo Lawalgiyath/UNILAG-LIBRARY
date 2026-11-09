@@ -298,7 +298,7 @@
     { t: "University Librarian", k: "Library", u: "about.html", d: "Prof Olatokunbo Christopher Okiki, University Librarian (CLN)." },
     { t: "Pod seats", k: "Library", u: "index.html", d: "Pod seats at the Main Library, Main Library reading space." },
     { t: "Catalogue OPAC", k: "Search", u: "search.html", d: "Search the live UNILAG Online Public Access Catalogue." },
-    { t: "Repository search", k: "Search", u: "search.html", d: "Search the institutional repository in DSpace at ir.unilag.edu.ng." },
+    { t: "Institutional Repository search", k: "Search", u: "search.html", d: "Search the Institutional Repository in DSpace at ir.unilag.edu.ng." },
     { t: "Faculty Libraries", k: "Library", u: "libraries.html", d: "Nineteen faculty libraries across campus with dedicated liaison services." },
     { t: "Faculty of Law Library", k: "Library", u: "libraries.html", d: "Constitutional law, jurisprudence, Nigerian legal system and reports, situated at the basement." },
     { t: "College of Medicine Library", k: "Library", u: "libraries.html", d: "Library card registration point for medical students, Idi Araba." },

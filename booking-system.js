@@ -117,7 +117,7 @@
                   <input type="text" id="stDept" required placeholder="e.g. Mass Communication / Arts">
                 </div>
                 <div class="bk-field">
-                  <label for="stEmail">UNILAG / Contact Email *</label>
+                  <label for="stEmail">UNILAG Email (@unilag.edu.ng or @live.unilag.edu.ng) *</label>
                   <input type="email" id="stEmail" required placeholder="e.g. o.adeleke@live.unilag.edu.ng">
                 </div>
                 <div class="bk-field">
@@ -212,7 +212,7 @@
                   <input type="text" id="cmDept" required placeholder="e.g. Computer Sciences / Science">
                 </div>
                 <div class="bk-field">
-                  <label for="cmEmail">UNILAG / Contact Email *</label>
+                  <label for="cmEmail">UNILAG Email (@unilag.edu.ng or @live.unilag.edu.ng) *</label>
                   <input type="email" id="cmEmail" required placeholder="e.g. c.okonkwo@live.unilag.edu.ng">
                 </div>
                 <div class="bk-field">
@@ -496,7 +496,7 @@
     // Render Approval-Required Confirmation Screen
     const bodyEl = document.getElementById('studioModalBody');
     if (bodyEl) {
-      const mailtoLink = `mailto:studio@library.unilag.edu.ng?subject=Approval%20Request%20for%20Multimedia%20Studio%20Booking%20${booking.id}&body=Dear%20Multimedia%20Studio%20Administrator,%0D%0A%0D%0AI%20have%20submitted%20a%20booking%20request%20for%20the%20Multimedia%20Studio%20(Ref:%20${booking.id})%20scheduled%20for%20${encodeURIComponent(booking.date)}%20during%20the%20${encodeURIComponent(booking.slot)}%20slot.%0D%0A%0D%0AMy%20details:%0D%0AName:%20${encodeURIComponent(booking.name)}%0D%0AMatric/Staff%20ID:%20${encodeURIComponent(booking.matric)}%0D%0ADepartment:%20${encodeURIComponent(booking.department)}%0D%0APurpose:%20${encodeURIComponent(booking.purpose)}%0D%0A%0D%0APlease%20review%20and%20approve%20this%20session%20in%20the%20admin%20portal.%0D%0A%0D%0AThank%20you.`;
+      const mailtoLink = `mailto:library@unilag.edu.ng?subject=Approval%20Request%20for%20Multimedia%20Studio%20Booking%20${booking.id}&body=Dear%20Multimedia%20Studio%20Administrator,%0D%0A%0D%0AI%20have%20submitted%20a%20booking%20request%20for%20the%20Multimedia%20Studio%20(Ref:%20${booking.id})%20scheduled%20for%20${encodeURIComponent(booking.date)}%20during%20the%20${encodeURIComponent(booking.slot)}%20slot.%0D%0A%0D%0AMy%20details:%0D%0AName:%20${encodeURIComponent(booking.name)}%0D%0AMatric/Staff%20ID:%20${encodeURIComponent(booking.matric)}%0D%0ADepartment:%20${encodeURIComponent(booking.department)}%0D%0APurpose:%20${encodeURIComponent(booking.purpose)}%0D%0A%0D%0APlease%20review%20and%20approve%20this%20session%20in%20the%20admin%20portal.%0D%0A%0D%0AThank%20you.`;
 
       bodyEl.innerHTML = `
         <div class="bk-slip">
@@ -548,7 +548,7 @@
           <div class="bk-reachout-box">
             <h4 style="margin:0 0 6px;color:#6C0000;font-size:1rem">Reach Out for Admin Approval:</h4>
             <p style="font-size:.85rem;margin:0 0 12px;color:rgba(13,11,10,.75)">
-              1. <strong>Email Studio Desk:</strong> Send a pre-filled confirmation email to <code>studio@library.unilag.edu.ng</code>.<br>
+              1. <strong>Email Studio Desk:</strong> Send a pre-filled confirmation email to <code>library@unilag.edu.ng</code>.<br>
               2. <strong>In-Person Walk-in:</strong> Visit the Automation &amp; Multimedia Studio Office (3rd Floor, Main Library) quoting Ref <strong>${booking.id}</strong>.
             </p>
             <div style="display:flex;gap:10px;flex-wrap:wrap">
