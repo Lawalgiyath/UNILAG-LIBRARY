@@ -1,5 +1,6 @@
 # Temp & scratch directories
 scratch/
+cleanpics/
 .system_generated/
 *.log
 *.tmp
