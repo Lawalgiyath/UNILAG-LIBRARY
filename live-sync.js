@@ -33,7 +33,7 @@
 
       // Render book cards dynamically with .in class so they are immediately visible
       rail.innerHTML = books.map((b, idx) => {
-        const cover = b.cover || `assets/bk${(idx % 5) + 1}.${idx % 5 === 0 ? 'jpeg' : 'jpg'}`;
+        const cover = b.cover || 'assets/covers/bk_algorithms.jpg';
         const searchUrl = b.searchUrl || `search.html?q=${encodeURIComponent(b.title)}`;
         const callNo = b.callNumber ? `<span class="b-call mono">${escapeHtml(b.callNumber)}</span>` : '';
         const tag = b.tag || b.discipline || 'Recent Acquisition';
