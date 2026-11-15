@@ -2269,6 +2269,8 @@ a:hover .ico-badge,
 }
 
 /* Enhanced Book Cards in Rail */
+.rail .book-card,
+.rail .book,
 .book-card {
   display: flex;
   flex-direction: column;
@@ -2281,6 +2283,8 @@ a:hover .ico-badge,
   border-radius: 4px;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s;
   position: relative;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .book-card:hover {

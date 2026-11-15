@@ -15,8 +15,11 @@
     if (!rail) return;
 
     try {
-      const resp = await fetch("/api/opac-recent");
-      if (!resp.ok) return;
+      let resp = await fetch("/api/opac-recent").catch(() => null);
+      if (!resp || !resp.ok) {
+        resp = await fetch("data/opac_recent_books.json").catch(() => null);
+      }
+      if (!resp || !resp.ok) return;
       const data = await resp.json();
       const books = data.books || [];
       if (!books.length) return;
@@ -28,7 +31,7 @@
         pill.title = `Last synced: ${data.last_updated_display || "Just now"}`;
       }
 
-      // Render book cards dynamically
+      // Render book cards dynamically with .in class so they are immediately visible
       rail.innerHTML = books.map((b, idx) => {
         const cover = b.cover || `assets/bk${(idx % 5) + 1}.${idx % 5 === 0 ? 'jpeg' : 'jpg'}`;
         const searchUrl = b.searchUrl || `search.html?q=${encodeURIComponent(b.title)}`;
@@ -36,7 +39,7 @@
         const tag = b.tag || b.discipline || 'Recent Acquisition';
 
         return `
-          <div class="book-card" data-reveal>
+          <div class="book-card in" data-reveal>
             <a class="book" href="${searchUrl}" title="View ${escapeHtml(b.title)} in Library Catalogue">
               <div class="arch arch--soft">
                 <img src="${cover}" alt="${escapeHtml(b.title)} cover" loading="lazy">
@@ -61,6 +64,8 @@
           </div>
         `;
       }).join("");
+
+      rail.querySelectorAll(".book-card").forEach(el => el.classList.add("in"));
 
       // Wire quick reserve buttons
       rail.querySelectorAll(".btn-borrow-quick").forEach(btn => {
@@ -93,8 +98,11 @@
     if (!newsGrid && !newsList) return;
 
     try {
-      const resp = await fetch("/api/news-sync");
-      if (!resp.ok) return;
+      let resp = await fetch("/api/news-sync").catch(() => null);
+      if (!resp || !resp.ok) {
+        resp = await fetch("data/library_news.json").catch(() => null);
+      }
+      if (!resp || !resp.ok) return;
       const data = await resp.json();
       const notices = data.notices || [];
       if (!notices.length) return;
@@ -112,7 +120,7 @@
           const isExternal = n.link && (n.link.startsWith("http://") || n.link.startsWith("https://"));
           const targetAttr = isExternal ? 'target="_blank" rel="noopener"' : '';
           return `
-            <a class="n-row" href="${n.link}" ${targetAttr} data-reveal>
+            <a class="n-row in" href="${n.link}" ${targetAttr} data-reveal>
               <span class="nr-date mono">${escapeHtml(n.displayDate || n.date)}</span>
               <h3>${escapeHtml(n.title)}</h3>
               <span class="nr-cat">${escapeHtml(n.category)}</span>
@@ -120,6 +128,7 @@
             </a>
           `;
         }).join("");
+        newsList.querySelectorAll(".n-row").forEach(el => el.classList.add("in"));
       }
 
       // If on index.html (has .news-grid)

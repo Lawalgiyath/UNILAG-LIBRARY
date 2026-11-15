@@ -11,22 +11,29 @@
   const bar = $("#preBar");
   const num = $("#preNum");
   if (pre) {
-    let p = 0;
-    const tick = setInterval(() => {
-      p = Math.min(100, p + Math.random() * 18 + 6);
-      if (bar) bar.style.transform = "scaleX(" + p / 100 + ")";
-      if (num) num.textContent = String(Math.round(p)).padStart(2, "0");
-      if (p >= 100) {
-        clearInterval(tick);
-        setTimeout(() => {
-          pre.classList.add("done");
-          document.body.classList.add("loaded");
-          const hero = $(".hero");
-          if (hero) hero.classList.add("ready");
-          setTimeout(() => pre.remove(), 1300);
-        }, 220);
-      }
-    }, 130);
+    const dismissPreloader = () => {
+      pre.classList.add("done");
+      document.body.classList.add("loaded");
+      const hero = $(".hero");
+      if (hero) hero.classList.add("ready");
+      setTimeout(() => { if (pre && pre.parentNode) pre.remove(); }, 380);
+    };
+
+    if (sessionStorage.getItem("unilag_visited")) {
+      dismissPreloader();
+    } else {
+      sessionStorage.setItem("unilag_visited", "1");
+      let p = 0;
+      const tick = setInterval(() => {
+        p = Math.min(100, p + Math.random() * 32 + 24);
+        if (bar) bar.style.transform = "scaleX(" + p / 100 + ")";
+        if (num) num.textContent = String(Math.round(p)).padStart(2, "0");
+        if (p >= 100) {
+          clearInterval(tick);
+          setTimeout(dismissPreloader, 60);
+        }
+      }, 25);
+    }
   }
 
   /* ---------------- cursor ---------------- */
@@ -427,12 +434,13 @@
   /* ---------------- year ---------------- */
   const yr = $("#yr"); if (yr) yr.textContent = new Date().getFullYear();
 
-  /* ---------------- deterministic reveal for headless capture ---------------- */
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      $$("[data-reveal], .line-mask, .stagger").forEach((el) => {
-        if (el.getBoundingClientRect().top < window.innerHeight * 1.2) el.classList.add("in");
-      });
-    }, 900);
-  });
+  /* ---------------- deterministic reveal for headless capture & fast rendering ---------------- */
+  const checkInitialReveals = () => {
+    $$("[data-reveal], .line-mask, .stagger").forEach((el) => {
+      if (el.getBoundingClientRect().top < window.innerHeight * 1.35) el.classList.add("in");
+    });
+  };
+  window.addEventListener("DOMContentLoaded", checkInitialReveals);
+  window.addEventListener("load", checkInitialReveals);
+  checkInitialReveals();
 })();

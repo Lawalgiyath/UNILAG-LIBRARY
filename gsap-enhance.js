@@ -8,17 +8,22 @@
 
   var lenis = null;
   if (window.Lenis) {
-    lenis = new window.Lenis({ duration: 1.15, easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
+    lenis = new window.Lenis({
+      duration: 0.7,
+      easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+      smoothWheel: true,
+      wheelMultiplier: 1.05
+    });
     function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
     lenis.on("scroll", ST.update);
   }
 
-  gsap.to(".hero h1 .row > span", { y: 0, duration: 1.3, ease: "expo.out", stagger: 0.12, delay: 0.95 });
-  gsap.from(".hero-meta", { y: 16, opacity: 0, duration: 1, ease: "power3.out", delay: 0.9 });
+  gsap.to(".hero h1 .row > span", { y: 0, duration: 1.0, ease: "expo.out", stagger: 0.08, delay: 0.15 });
+  gsap.from(".hero-meta", { y: 16, opacity: 0, duration: 0.8, ease: "power3.out", delay: 0.2 });
 
   document.querySelectorAll(".phero h1").forEach(function (h) {
-    gsap.from(h, { y: 40, opacity: 0, duration: 1.1, ease: "expo.out", delay: 0.85 });
+    gsap.from(h, { y: 40, opacity: 0, duration: 0.85, ease: "expo.out", delay: 0.15 });
   });
 
   /* image scale-on-scroll inside arch frames */

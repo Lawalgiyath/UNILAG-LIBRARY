@@ -109,11 +109,6 @@
 
     sorted.forEach(function (sec) {
       if (sec.status !== 'published') return;
-      var existing = document.getElementById(sec.id);
-      if (existing) {
-        existing.parentNode.replaceChild(secNode, existing);
-        return;
-      }
 
       var html = buildCmsSectionHtml(sec);
       var pos = sec.position || 'middle';
@@ -122,6 +117,12 @@
       temp.innerHTML = html;
       var secNode = temp.firstElementChild;
       if (!secNode) return;
+
+      var existing = document.getElementById(sec.id);
+      if (existing) {
+        existing.parentNode.replaceChild(secNode, existing);
+        return;
+      }
 
       if (pos === 'top') {
         var hero = document.querySelector('.hero--bg, .page-hero, .hero-sub, header');
