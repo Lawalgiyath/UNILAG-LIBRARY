@@ -96,9 +96,8 @@
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="departments.html">Departments</a>
-    <a href="libraries.html">Faculty libraries</a>
+    <a href="libraries.html">Faculty &amp; College Libraries</a>
     <a href="services.html">Services</a>
-    <a href="libraries.html">Libraries</a>
     <a href="databases.html">Databases</a>
     <a href="journals-accredited.html">Where to Publish</a>
     <a href="archives.html">Archives</a>
@@ -334,11 +333,16 @@
       <div class="wrap">
         <div class="sec-head">
           <div data-reveal>
-            <div class="eyebrow mono">News &amp; Events</div>
+            <div class="eyebrow mono" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <span>News &amp; Events</span>
+              <span class="live-pill mono" id="newsSyncBadge"><span class="dot-pulse"></span> Live Feed</span>
+            </div>
             <h2 class="display">What happens<br>in the <em class="ital ox">library</em>.</h2>
           </div>
           <a class="btn btn--sm" href="news.html">All notices <i class="ar"></i></a>
         </div>
+
+        <div id="newsLiveTicker"></div>
 
         <div class="news-grid">
           <!-- Lead Card: Multimedia Studio (span 6) -->
@@ -645,7 +649,10 @@
       <div class="wrap">
         <div class="sec-head">
           <div data-reveal>
-            <div class="eyebrow mono">Latest Collections</div>
+            <div class="eyebrow mono" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <span>Latest Collections</span>
+              <span class="live-pill mono" id="opacSyncPill"><span class="dot-pulse"></span> Live from OPAC Catalogue</span>
+            </div>
             <h2 class="display">New on<br>the <em class="ital ox">shelves</em>.</h2>
           </div>
           <div class="rail-nav" data-reveal>
@@ -876,6 +883,7 @@
   <script src="app2.js"></script>
   <script src="booking-system.js?v=20261105"></script>
   <script src="cms-loader.js?v=20261105"></script>
+  <script src="live-sync.js?v=20261115"></script>
 </body>
 
 </html>

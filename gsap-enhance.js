@@ -68,4 +68,121 @@
       }
     });
   }
+
+  /* ---------------- Interactive Magnetic Elements ---------------- */
+  if (window.matchMedia("(hover: hover)").matches) {
+    document.querySelectorAll(".btn, .icon-btn, .n-more, .rail-nav button, .live-pill").forEach(function (btn) {
+      btn.addEventListener("mousemove", function (e) {
+        var rect = btn.getBoundingClientRect();
+        var x = e.clientX - rect.left - rect.width / 2;
+        var y = e.clientY - rect.top - rect.height / 2;
+        gsap.to(btn, {
+          x: x * 0.28,
+          y: y * 0.28,
+          rotation: x * 0.04,
+          duration: 0.35,
+          ease: "power2.out"
+        });
+      });
+      btn.addEventListener("mouseleave", function () {
+        gsap.to(btn, {
+          x: 0,
+          y: 0,
+          rotation: 0,
+          duration: 0.5,
+          ease: "elastic.out(1, 0.4)"
+        });
+      });
+    });
+
+    /* 3D Tilt on Cards */
+    document.querySelectorAll(".n-card, .book-card, .arch-card, .fac-card").forEach(function (card) {
+      card.addEventListener("mousemove", function (e) {
+        var rect = card.getBoundingClientRect();
+        var x = (e.clientX - rect.left) / rect.width - 0.5;
+        var y = (e.clientY - rect.top) / rect.height - 0.5;
+        gsap.to(card, {
+          rotationY: x * 7,
+          rotationX: -y * 7,
+          transformPerspective: 900,
+          duration: 0.4,
+          ease: "power2.out"
+        });
+      });
+      card.addEventListener("mouseleave", function () {
+        gsap.to(card, {
+          rotationY: 0,
+          rotationX: 0,
+          duration: 0.7,
+          ease: "power3.out"
+        });
+      });
+    });
+  }
+
+  /* ---------------- Animated Stats Counter ---------------- */
+  document.querySelectorAll(".stat .num span[data-count]").forEach(function (el) {
+    var target = parseInt(el.getAttribute("data-count"), 10) || 0;
+    var obj = { val: 0 };
+    ScrollTrigger.create({
+      trigger: el,
+      start: "top 90%",
+      once: true,
+      onEnter: function () {
+        gsap.to(obj, {
+          val: target,
+          duration: 1.8,
+          ease: "power2.out",
+          onUpdate: function () {
+            el.textContent = Math.round(obj.val);
+          }
+        });
+      }
+    });
+  });
+
+  /* ---------------- Rotating Search Placeholder ---------------- */
+  var searchInput = document.querySelector(".searchbar input[name='q']");
+  if (searchInput) {
+    var placeholders = [
+      "Search books, journals, the site...",
+      "Search UNILAG OPAC catalogue by title, author, or class number...",
+      "Search UNILAG Institutional Repository (DSpace 7)...",
+      "Search 15+ subscribed databases & e-journals...",
+      "Find Scopus & Web of Science accredited journals...",
+      "Explore 19 Faculty & College libraries..."
+    ];
+    var pIdx = 0;
+    var charIdx = 0;
+    var isDeleting = false;
+    var currentPlaceholder = "";
+
+    function typeLoop() {
+      if (document.activeElement === searchInput) {
+        setTimeout(typeLoop, 1500);
+        return;
+      }
+      var fullTxt = placeholders[pIdx];
+      if (isDeleting) {
+        currentPlaceholder = fullTxt.substring(0, charIdx - 1);
+        charIdx--;
+      } else {
+        currentPlaceholder = fullTxt.substring(0, charIdx + 1);
+        charIdx++;
+      }
+      searchInput.setAttribute("placeholder", currentPlaceholder);
+
+      var speed = isDeleting ? 30 : 60;
+      if (!isDeleting && charIdx === fullTxt.length) {
+        speed = 2200; // Pause at end of sentence
+        isDeleting = true;
+      } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        pIdx = (pIdx + 1) % placeholders.length;
+        speed = 400; // Pause before next sentence
+      }
+      setTimeout(typeLoop, speed);
+    }
+    setTimeout(typeLoop, 2000);
+  }
 })();

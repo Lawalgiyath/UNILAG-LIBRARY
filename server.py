@@ -467,6 +467,32 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_json(cms_data)
             return
 
+        # 7. OPAC RECENT BOOKS API (GET)
+        elif parsed.path == '/api/opac-recent':
+            books_file = os.path.join(DIRECTORY, 'data', 'opac_recent_books.json')
+            if os.path.exists(books_file):
+                try:
+                    with open(books_file, 'r', encoding='utf-8') as f:
+                        self.send_json(json.load(f))
+                        return
+                except Exception as e:
+                    pass
+            self.send_json({'total': 0, 'books': []})
+            return
+
+        # 8. LIBRARY NEWS SYNDICATED API (GET)
+        elif parsed.path == '/api/news-sync':
+            news_file = os.path.join(DIRECTORY, 'data', 'library_news.json')
+            if os.path.exists(news_file):
+                try:
+                    with open(news_file, 'r', encoding='utf-8') as f:
+                        self.send_json(json.load(f))
+                        return
+                except Exception as e:
+                    pass
+            self.send_json({'total': 0, 'notices': []})
+            return
+
         # Default: Serve static files
         return super().do_GET()
 
@@ -737,6 +763,32 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_json({'error': 'Invalid action'}, status=400)
             return
 
+        # 8. OPAC RECENT ON-DEMAND REFRESH (POST)
+        elif parsed.path == '/api/opac-recent/refresh':
+            try:
+                import importlib.util
+                spec = importlib.util.spec_from_file_location("sync_opac_books", os.path.join(DIRECTORY, "scripts", "sync_opac_books.py"))
+                sync_module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(sync_module)
+                result = sync_module.sync()
+                self.send_json({'status': 'success', 'data': result})
+            except Exception as e:
+                self.send_json({'status': 'error', 'message': str(e)}, status=500)
+            return
+
+        # 9. LIBRARY NEWS ON-DEMAND REFRESH (POST)
+        elif parsed.path == '/api/news-sync/refresh':
+            try:
+                import importlib.util
+                spec = importlib.util.spec_from_file_location("sync_library_news", os.path.join(DIRECTORY, "scripts", "sync_library_news.py"))
+                sync_module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(sync_module)
+                result = sync_module.sync()
+                self.send_json({'status': 'success', 'data': result})
+            except Exception as e:
+                self.send_json({'status': 'error', 'message': str(e)}, status=500)
+            return
+
         self.send_json({'error': 'Endpoint not found'}, status=404)
 
     def send_json(self, data, status=200):
@@ -750,8 +802,36 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+def start_background_auto_sync():
+    import threading
+    import time
+    def auto_sync_worker():
+        # Wait 10 seconds after server boot, then run sync loop every 30 minutes
+        time.sleep(10)
+        while True:
+            try:
+                print("[AutoSync] Checking UNILAG OPAC and News syndication feeds...")
+                import importlib.util
+                opac_spec = importlib.util.spec_from_file_location("sync_opac_books", os.path.join(DIRECTORY, "scripts", "sync_opac_books.py"))
+                opac_mod = importlib.util.module_from_spec(opac_spec)
+                opac_spec.loader.exec_module(opac_mod)
+                opac_mod.sync()
+
+                news_spec = importlib.util.spec_from_file_location("sync_library_news", os.path.join(DIRECTORY, "scripts", "sync_library_news.py"))
+                news_mod = importlib.util.module_from_spec(news_spec)
+                news_spec.loader.exec_module(news_mod)
+                news_mod.sync()
+                print("[AutoSync] Background sync completed successfully.")
+            except Exception as e:
+                print("[AutoSync Error]:", e)
+            time.sleep(1800) # 30 minutes
+
+    t = threading.Thread(target=auto_sync_worker, daemon=True)
+    t.start()
+
 if __name__ == '__main__':
     socketserver.TCPServer.allow_reuse_address = True
+    start_background_auto_sync()
     with socketserver.TCPServer(("", PORT), ProxyHTTPRequestHandler) as httpd:
-        print(f"Serving UNILAG Library with Live DSpace 7, OPAC & Studio/Book Booking API on port {PORT}...")
+        print(f"Serving UNILAG Library with Live OPAC Sync, News Auto-Update & DSpace 7 on port {PORT}...")
         httpd.serve_forever()

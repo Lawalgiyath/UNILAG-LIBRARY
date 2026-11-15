@@ -2214,3 +2214,345 @@ a:hover .ico-badge,
   border-radius: 3px;
   margin-top: 16px;
 }
+
+
+/* ============================================================
+   LIVE OPAC & NEWS SYNDICATION + HIGH-END INTERACTIVE STYLES
+   ============================================================ */
+
+/* Pulsing live dot */
+.dot-pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: pulseGreen 2s infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+@keyframes pulseGreen {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 7px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* Live sync badge */
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--oxblood, #6C0000);
+  background: rgba(108, 0, 0, 0.06);
+  border: 1px solid rgba(108, 0, 0, 0.16);
+  padding: 5px 12px;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+}
+
+.live-pill:hover {
+  background: rgba(108, 0, 0, 0.1);
+  border-color: rgba(108, 0, 0, 0.3);
+}
+
+/* Enhanced Book Cards in Rail */
+.book-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: clamp(240px, 22vw, 290px);
+  flex-shrink: 0;
+  background: #ffffff;
+  border: 1px solid rgba(13, 11, 10, 0.1);
+  padding: 14px;
+  border-radius: 4px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s;
+  position: relative;
+}
+
+.book-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 36px -12px rgba(13, 11, 10, 0.15), 0 0 0 1px rgba(108, 0, 0, 0.2);
+  border-color: rgba(108, 0, 0, 0.3);
+}
+
+.book-card .book {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  flex: 1;
+}
+
+.book-card .arch {
+  position: relative;
+  aspect-ratio: 1 / 1.35;
+  overflow: hidden;
+  background: var(--sand, #EDE5D6);
+  border-radius: 3px;
+  margin-bottom: 14px;
+}
+
+.book-card .arch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.book-card:hover .arch img {
+  transform: scale(1.06);
+}
+
+.book-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(13, 11, 10, 0.82);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  padding: 3px 8px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.book-card h3 {
+  font-family: var(--serif, "Instrument Serif", Georgia, serif);
+  font-size: 1.25rem;
+  line-height: 1.15;
+  margin-bottom: 6px;
+  color: var(--ink, #0D0B0A);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-weight: 500;
+}
+
+.book-card .b-auth {
+  font-size: 0.82rem;
+  color: var(--ink-50, #666);
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.b-sub-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(13, 11, 10, 0.1);
+}
+
+.b-sub-meta .b-tag {
+  font-size: 0.68rem;
+  color: var(--oxblood, #6C0000);
+  background: rgba(108, 0, 0, 0.08);
+  padding: 2px 7px;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
+.b-call {
+  font-size: 0.66rem;
+  color: var(--ink-50, #777);
+  letter-spacing: 0.04em;
+}
+
+.book-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(13, 11, 10, 0.08);
+}
+
+.btn-opac {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  color: var(--ink, #0D0B0A);
+  background: var(--sand, #F4EEE2);
+  border: 1px solid rgba(13, 11, 10, 0.12);
+  padding: 7px 10px;
+  border-radius: 3px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-opac:hover {
+  background: var(--ink, #0D0B0A);
+  color: #ffffff;
+  border-color: var(--ink, #0D0B0A);
+}
+
+.btn-borrow-quick {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  background: var(--oxblood, #6C0000);
+  color: #ffffff;
+  border: 1px solid var(--oxblood, #6C0000);
+  padding: 7px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-borrow-quick:hover {
+  background: #8b0000;
+  box-shadow: 0 4px 12px rgba(108, 0, 0, 0.25);
+  transform: translateY(-1px);
+}
+
+/* News ticker bar */
+.news-ticker-bar {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid rgba(13, 11, 10, 0.1);
+  border-left: 4px solid var(--oxblood, #6C0000);
+  padding: 10px 16px;
+  border-radius: 3px;
+  margin-bottom: 24px;
+  font-size: 0.78rem;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.ntb-label {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  color: var(--oxblood, #6C0000);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  margin-right: 14px;
+  padding-right: 14px;
+  border-right: 1px solid rgba(13, 11, 10, 0.15);
+}
+
+.ntb-scroll {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ntb-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.ntb-item {
+  color: var(--ink, #0D0B0A);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.ntb-item:hover {
+  color: var(--oxblood, #6C0000);
+  text-decoration: underline;
+}
+
+.ntb-date {
+  color: var(--gold, #C59B27);
+  font-weight: 600;
+}
+
+/* Glassmorphism searchbar focus effect */
+.searchbar {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease !important;
+}
+
+.searchbar:focus-within {
+  box-shadow: 0 16px 36px -8px rgba(108, 0, 0, 0.25), 0 0 0 2px rgba(197, 155, 39, 0.5) !important;
+  border-color: var(--gold, #C59B27) !important;
+  transform: translateY(-2px);
+}
+
+/* Magnetic and interactive button animation */
+.btn {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background 0.25s ease !important;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.btn:hover::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* Polished Drawer Animation */
+.drawer {
+  backdrop-filter: blur(24px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
+  background: rgba(13, 11, 10, 0.92) !important;
+}
+
+.drawer a {
+  opacity: 0;
+  transform: translateX(18px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+}
+
+body.menu-open .drawer a {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+body.menu-open .drawer a:nth-child(1) { transition-delay: 0.04s; }
+body.menu-open .drawer a:nth-child(2) { transition-delay: 0.08s; }
+body.menu-open .drawer a:nth-child(3) { transition-delay: 0.12s; }
+body.menu-open .drawer a:nth-child(4) { transition-delay: 0.16s; }
+body.menu-open .drawer a:nth-child(5) { transition-delay: 0.20s; }
+body.menu-open .drawer a:nth-child(6) { transition-delay: 0.24s; }
+body.menu-open .drawer a:nth-child(7) { transition-delay: 0.28s; }
+body.menu-open .drawer a:nth-child(8) { transition-delay: 0.32s; }
+body.menu-open .drawer a:nth-child(9) { transition-delay: 0.36s; }
+body.menu-open .drawer a:nth-child(10) { transition-delay: 0.40s; }
+body.menu-open .drawer a:nth-child(11) { transition-delay: 0.44s; }
+body.menu-open .drawer a:nth-child(12) { transition-delay: 0.48s; }
+body.menu-open .drawer a:nth-child(13) { transition-delay: 0.52s; }
+body.menu-open .drawer a:nth-child(14) { transition-delay: 0.56s; }
