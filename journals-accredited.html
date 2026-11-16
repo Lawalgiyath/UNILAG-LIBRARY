@@ -1,900 +1,1057 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Where to Publish: Accredited &amp; High-Impact Journals | UNILAG Library</title>
-<meta name="description" content="University of Lagos Library guide and search tool for faculty, lecturers and researchers to discover accredited, Scopus, Web of Science, and NUC-recognized journals for scholarly publishing.">
-<meta name="theme-color" content="#6C0000">
-<link rel="icon" href="assets/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="style2.css">
-<style>
-  /* Custom refinements matching UNILAG Library design system */
-  .j-filter-card {
-    background: #fff;
-    border: 1px solid var(--line);
-    padding: 24px;
-    margin-bottom: 24px;
-  }
-  .j-filter-title {
-    font-family: var(--mono);
-    font-size: 0.74rem;
-    color: var(--oxblood);
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    font-weight: 700;
-    margin-bottom: 12px;
-  }
-  .j-pill-btn {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding: 9px 12px;
-    font-family: var(--mono);
-    font-size: 0.76rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    border: 1px solid transparent;
-    background: transparent;
-    cursor: pointer;
-    color: var(--ink);
-    border-radius: 2px;
-    transition: all 0.2s;
-    margin-bottom: 4px;
-  }
-  .j-pill-btn:hover {
-    background: var(--sand);
-    color: var(--oxblood);
-  }
-  .j-pill-btn.active {
-    background: var(--oxblood);
-    color: #fff;
-    font-weight: 600;
-  }
-  .journal-entry {
-    background: #fff;
-    border: 1px solid var(--line);
-    padding: clamp(20px, 3vw, 28px);
-    margin-bottom: 18px;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-  }
-  .journal-entry:hover {
-    border-color: var(--oxblood);
-    box-shadow: 0 10px 28px rgba(108, 0, 0, 0.05);
-    transform: translateY(-2px);
-  }
-  .j-badge-tag {
-    display: inline-block;
-    padding: 3px 8px;
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    border-radius: 2px;
-  }
-  .tag-q1 { background: #E8F5E9; color: #1B5E20; border: 1px solid #C8E6C9; }
-  .tag-q2 { background: #E0F2FE; color: #0369A1; border: 1px solid #BAE6FD; }
-  .tag-q3 { background: #FFF3E0; color: #E65100; border: 1px solid #FFE0B2; }
-  .tag-index { background: var(--sand); color: var(--ink); border: 1px solid var(--line); }
-  .tag-oa { background: #EDE7F6; color: #4A148C; border: 1px solid #D1C4E9; }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Where to Publish: Accredited &amp; High-Impact Journals | UNILAG Library</title>
+  <meta name="description"
+    content="University of Lagos Library guide and search tool for faculty, lecturers and researchers to discover accredited, Scopus, Web of Science, and NUC-recognized journals for scholarly publishing.">
+  <meta name="theme-color" content="#6C0000">
+  <link rel="icon" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style2.css">
+  <style>
+    /* Custom refinements matching UNILAG Library design system */
+    .j-filter-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
 
-  .matcher-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    margin-top: 24px;
-  }
-  .matcher-card {
-    background: #fff;
-    border: 1px solid var(--line);
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: border-color 0.2s;
-  }
-  .matcher-card:hover { border-color: var(--oxblood); }
-  .check-item {
-    position: relative;
-    padding-left: 28px;
-    margin-bottom: 14px;
-    font-size: 0.94rem;
-    line-height: 1.55;
-  }
-  .check-item::before {
-    content: "—";
-    position: absolute;
-    left: 4px;
-    color: var(--oxblood);
-    font-weight: 700;
-  }
-</style>
+    .j-filter-title {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      color: var(--oxblood);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .j-pill-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 9px 12px;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      color: var(--ink);
+      border-radius: 2px;
+      transition: all 0.2s;
+      margin-bottom: 4px;
+    }
+
+    .j-pill-btn:hover {
+      background: var(--sand);
+      color: var(--oxblood);
+    }
+
+    .j-pill-btn.active {
+      background: var(--oxblood);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .journal-entry {
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: clamp(20px, 3vw, 28px);
+      margin-bottom: 18px;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .journal-entry:hover {
+      border-color: var(--oxblood);
+      box-shadow: 0 10px 28px rgba(108, 0, 0, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .j-badge-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 2px;
+    }
+
+    .tag-q1 {
+      background: #E8F5E9;
+      color: #1B5E20;
+      border: 1px solid #C8E6C9;
+    }
+
+    .tag-q2 {
+      background: #E0F2FE;
+      color: #0369A1;
+      border: 1px solid #BAE6FD;
+    }
+
+    .tag-q3 {
+      background: #FFF3E0;
+      color: #E65100;
+      border: 1px solid #FFE0B2;
+    }
+
+    .tag-index {
+      background: var(--sand);
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .tag-oa {
+      background: #EDE7F6;
+      color: #4A148C;
+      border: 1px solid #D1C4E9;
+    }
+
+    .matcher-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .matcher-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.2s;
+    }
+
+    .matcher-card:hover {
+      border-color: var(--oxblood);
+    }
+
+    .check-item {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 14px;
+      font-size: 0.94rem;
+      line-height: 1.55;
+    }
+
+    .check-item::before {
+      content: "—";
+      position: absolute;
+      left: 4px;
+      color: var(--oxblood);
+      font-weight: 700;
+    }
+  </style>
 </head>
+
 <body data-page="services">
-<div id="pre">
-  <div class="pre-in">
-    <div class="pre-top"><span class="mono">University of Lagos Library</span><span class="mono" id="preNum">00</span></div>
-    <div class="pre-name">Akoka, Lagos</div>
-    <div class="pre-bar"><span id="preBar"></span></div>
-    <div class="pre-top" style="margin-top:18px"><span class="mono">Scholarly Publishing Guide</span><span class="mono">library.unilag.edu.ng</span></div>
+  <div id="pre">
+    <div class="pre-in">
+      <div class="pre-top"><span class="mono">University of Lagos Library</span><span class="mono" id="preNum">00</span>
+      </div>
+      <div class="pre-name">Akoka, Lagos</div>
+      <div class="pre-bar"><span id="preBar"></span></div>
+      <div class="pre-top" style="margin-top:18px"><span class="mono">Scholarly Publishing Guide</span><span
+          class="mono">library.unilag.edu.ng</span></div>
+    </div>
   </div>
-</div>
-<div class="grain"></div>
-<div class="cur"></div><div class="cur-dot"></div>
-<div id="pt"></div>
+  <div class="grain"></div>
+  <div class="cur"></div>
+  <div class="cur-dot"></div>
+  <div id="pt"></div>
 
-<!-- Topbar -->
-<div class="topbar">
-  <div class="tb-l">
-    <a href="https://unilag.edu.ng/" target="_blank" rel="noopener">Unilag Home</a>
-    <span class="dot"></span>
-    <a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram</a>
-    <a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X</a>
-    <a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
-    <a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube</a>
-    <a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok</a>
-    <a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Linktree</a>
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="tb-l">
+      <a href="https://unilag.edu.ng/" target="_blank" rel="noopener">Unilag Home</a>
+      <span class="dot"></span>
+      <a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X</a>
+      <a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener"
+        style="color:var(--gold,#C59B27);font-weight:600">Linktree</a>
+    </div>
+    <div class="tb-r">
+      <span class="dot"></span>
+      <a href="accessibility.html">Accessibility</a>
+      <span class="dot"></span>
+      <a href="admin/index.html">Staff Portal</a>
+    </div>
   </div>
-  <div class="tb-r">
-    <span class="dot"></span>
-    <a href="accessibility.html">Accessibility</a>
-    <span class="dot"></span>
-    <a href="admin/index.html">Staff Portal</a>
-  </div>
-</div>
 
-<!-- Main Header / Nav -->
-<header class="site-head" id="head">
-  <div class="head-row">
-    <a class="brand" href="index.html" aria-label="University of Lagos Library, home">
-      <img src="assets/logo.png" alt="University of Lagos Library crest">
-      <span class="bw">
-        <b>University of Lagos</b>
-        <span>Library</span>
-      </span>
-    </a>
-    <nav class="nav" aria-label="Primary">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="departments.html">Departments</a>
-      <a href="libraries.html">Faculty libraries</a>
-      <a href="services.html">Services</a>
-      <a href="databases.html">Databases</a>
-      <a href="journals-accredited.html">Where to Publish</a>
-      <a href="oer.html">OER</a>
-      <a href="archives.html">Archives</a>
-      <a href="museum.html">Museum</a>
-      <a href="contact.html">Contact</a>
-      <a href="help.html">Help</a>
-    </nav>
-    <div class="head-tools">
-      <button class="icon-btn desk" data-search-open aria-label="Open search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
-      </button>
-      <a class="icon-btn desk" href="help.html" aria-label="Help and FAQs">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.6 2.6 0 115 .9c0 1.5-2.5 1.9-2.5 3.4"/><path d="M12 17.2v.1"/></svg>
+  <!-- Main Header / Nav -->
+  <header class="site-head" id="head">
+    <div class="head-row">
+      <a class="brand" href="index.html" aria-label="University of Lagos Library, home">
+        <img src="assets/logo.png" alt="University of Lagos Library crest">
+        <span class="bw">
+          <b>University of Lagos</b>
+          <span>Library</span>
+        </span>
       </a>
-      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="departments.html">Departments</a>
+        <a href="libraries.html">Faculty libraries</a>
+        <a href="services.html">Services</a>
+        <a href="databases.html">Databases</a>
+        <a href="journals-accredited.html">Where to Publish</a>
+        <a href="oer.html">OER</a>
+        <a href="archives.html">Archives</a>
+        <a href="museum.html">Museum</a>
+        <a href="contact.html">Contact</a>
+        <a href="help.html">Help</a>
+      </nav>
+      <div class="head-tools">
+        <button class="icon-btn desk" data-search-open aria-label="Open search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M16.5 16.5L21 21" />
+          </svg>
+        </button>
+        <a class="icon-btn desk" href="help.html" aria-label="Help and FAQs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M9.5 9.2a2.6 2.6 0 115 .9c0 1.5-2.5 1.9-2.5 3.4" />
+            <path d="M12 17.2v.1" />
+          </svg>
+        </a>
+        <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
+      </div>
     </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="drawer" id="drawer">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="departments.html">Departments</a>
+    <a href="libraries.html">Faculty libraries</a>
+    <a href="services.html">Services</a>
+    <a href="databases.html">Databases</a>
+    <a href="journals-accredited.html">Where to Publish</a>
+    <a href="oer.html">OER (19 Faculties)</a>
+    <a href="archives.html">Archives</a>
+    <a href="museum.html">Museum</a>
+    <a href="news.html">News &amp; Events</a>
+    <a href="contact.html">Contact</a>
+    <a href="help.html">Help</a>
+    <a href="admin/index.html">Staff Portal</a>
+    <div class="d-meta">8:00 a.m. to 9:00 p.m. Monday to Saturday<br>Akoka, Lagos</div>
   </div>
-</header>
 
-<!-- Mobile Navigation Drawer -->
-<div class="drawer" id="drawer">
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="departments.html">Departments</a>
-  <a href="libraries.html">Faculty libraries</a>
-  <a href="services.html">Services</a>
-  <a href="databases.html">Databases</a>
-  <a href="journals-accredited.html">Where to Publish</a>
-  <a href="oer.html">OER (19 Faculties)</a>
-  <a href="archives.html">Archives</a>
-  <a href="museum.html">Museum</a>
-  <a href="news.html">News &amp; Events</a>
-  <a href="contact.html">Contact</a>
-  <a href="help.html">Help</a>
-  <a href="admin/index.html">Staff Portal</a>
-  <div class="d-meta">8:00 a.m. to 9:00 p.m. Monday to Saturday<br>Akoka, Lagos</div>
-</div>
-
-<main>
-  <!-- Page Hero (Conforms exactly to UNILAG phero standard) -->
-  <section class="phero">
-    <div class="wrap">
-      <div class="crumbs mono"><a href="index.html">Home</a><i></i><a href="services.html">Services</a><i></i><span>Where to Publish</span></div>
-      <h1 class="display">Where to<br><em class="ital ox">Publish</em>.</h1>
-      <div class="ph-sub">
-        <p class="lede" data-reveal>
-          The official University of Lagos Library guide and discovery engine for academic lecturers, faculty, and doctoral researchers to identify accredited, Scopus, Web of Science, and NUC-recognized publishing venues.
-        </p>
-        <div class="mono" data-reveal style="color:var(--ink-50);display:flex;gap:22px;flex-wrap:wrap">
-          <span>Scopus &bull; Web of Science &bull; DOAJ</span>
-          <span>Accredited Journals</span>
-          <span>APC Waivers</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Faculty-Based Compilation Downloads & Hub -->
-  <section class="section" style="background:#FAF7F0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(36px,4.5vw,64px) 0">
-    <div class="wrap">
-      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;flex-wrap:wrap;gap:18px" data-reveal>
-        <div>
-          <div class="mono" style="color:var(--oxblood);font-weight:700;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:6px">
-            Official University Library Compilation
-          </div>
-          <h2 class="display" style="font-size:clamp(1.8rem,3.2vw,2.7rem);margin:0">
-            Faculty-Based Scopus &amp; AJOL <em class="ital ox">Directories</em>.
-          </h2>
-        </div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <a href="downloads/faculty_journals/MASTER%20LIST%20-%20INDEXED%20JOURNALS.xlsx" download class="btn btn--solid btn--sm" style="display:inline-flex;align-items:center;gap:6px">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Master Scopus Directory (.xlsx)
-          </a>
-          <a href="downloads/faculty_journals/AJOL%20JOURNALS%20ACROSS%20FACULTIES.xls" download class="btn btn--sm" style="background:var(--oxblood);color:#fff;display:inline-flex;align-items:center;gap:6px">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            AJOL Journals Across Faculties (.xls)
-          </a>
-          <a href="downloads/faculty_journals/UNILAG_Faculty_Journal_Directories_All_19.zip" download class="btn btn--ghost btn--sm" style="display:inline-flex;align-items:center;gap:6px">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            All 19 Faculties (.zip bundle)
-          </a>
-        </div>
-      </div>
-
-      <div style="background:#fff;border:1px solid var(--line);border-radius:4px;padding:clamp(20px,3vw,30px);box-shadow:0 8px 24px rgba(0,0,0,0.03)" data-reveal>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px">
-          <div>
-            <h3 style="font-family:var(--serif);font-size:1.45rem;margin:0 0 4px 0">Official Faculty Directory Downloads</h3>
-            <p style="font-size:0.88rem;color:var(--ink-70);margin:0">Each workbook contains individual departmental breakdown sheets, CiteScore metrics, Quartiles (Q1–Q4), and publisher profiles compiled by the University Library.</p>
-          </div>
-          <span class="mono" style="font-size:0.75rem;color:var(--oxblood);font-weight:700">19 Faculties &bull; 84,029 Source Rows</span>
-        </div>
-
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px" id="facultyDownloadsGrid">
-          <!-- Populated dynamically or static fallback -->
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Interactive Directory with Side Navigation Layout -->
-  <section class="section" style="padding-top:clamp(32px,4vw,60px)">
-    <div class="wrap">
-      <div class="side-layout">
-        <!-- Sticky Filter Sidebar -->
-        <aside class="side-nav" data-reveal>
-          <div class="sn-title">Search &amp; Filter</div>
-          
-          <div class="j-filter-card" style="margin-top:14px;background:#fff">
-            <div class="j-filter-title">Filter by Index</div>
-            <button class="j-pill-btn active" onclick="setIndexFilter('ALL', this)">All Accredited Venues</button>
-            <button class="j-pill-btn" onclick="setIndexFilter('SCOPUS', this)">Scopus Indexed</button>
-            <button class="j-pill-btn" onclick="setIndexFilter('WOS', this)">Web of Science (WoS)</button>
-            <button class="j-pill-btn" onclick="setIndexFilter('DOAJ', this)">DOAJ Open Access</button>
-            <button class="j-pill-btn" onclick="setIndexFilter('AJOL', this)">African Journals (AJOL)</button>
-            <button class="j-pill-btn" onclick="setIndexFilter('Q1', this)">Top Quartile (Q1)</button>
-          </div>
-
-          <div class="j-filter-card" style="background:#fff">
-            <div class="j-filter-title">Faculty Filter</div>
-            <button class="j-pill-btn active" onclick="setFacultyFilter('ALL', this)">All 19 Faculties</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Architecture', this)">Architecture</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Arts', this)">Arts</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Basic Clinical', this)">Basic Clinical Sci</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Basic Medical', this)">Basic Medical Sci</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Clinical Sciences', this)">Clinical Sciences</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Communication', this)">Communication &amp; Media</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Computing', this)">Computing &amp; Informatics</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Creative Arts', this)">Creative Arts</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Dental', this)">Dental Sciences</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Education', this)">Education</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Engineering', this)">Engineering</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Environmental', this)">Environmental Sciences</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Health Professions', this)">Health Professions</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Law', this)">Law</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Life Sciences', this)">Life Sciences</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Management', this)">Management Sciences</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Pharmacy', this)">Pharmacy</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Physical', this)">Physical &amp; Earth Sci</button>
-            <button class="j-pill-btn" onclick="setFacultyFilter('Social', this)">Social Sciences</button>
-          </div>
-
-          <div class="sn-title" style="margin-top:26px">Quick Jump</div>
-          <a href="#matchers">Automated Matcher Tools</a>
-          <a href="#integrity">Think. Check. Submit.</a>
-          <a href="#consultation">Liaison Librarian Desk</a>
-        </aside>
-
-        <!-- Right Main Column: Search Bar & Journal Results -->
-        <div>
-          <!-- Search Header Bar -->
-          <div style="background:#fff;border:1px solid var(--line);padding:clamp(18px,3vw,24px);margin-bottom:24px;border-radius:2px">
-            <div class="mono" style="font-size:0.75rem;color:var(--oxblood);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px">Live Journal Discovery Engine</div>
-            <div style="display:flex;gap:12px;flex-wrap:wrap">
-              <input type="text" id="journalSearchInput" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSearchInput();}" placeholder="Search by title, ISSN, discipline, publisher, or keywords..."
-                style="flex:1;min-width:min(100%,280px);padding:12px 16px;border:1px solid var(--line);font-family:inherit;font-size:0.95rem;border-radius:2px"
-                oninput="handleSearchInput()">
-              <button onclick="resetAllFilters()" class="btn btn--sm btn--ghost" style="padding:0 20px">Reset Filters</button>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:0.78rem" class="mono">
-              <span id="journalCountDisplay" style="color:var(--ink-70)">Loading accredited journals...</span>
-              <span style="color:var(--oxblood);font-weight:600">Updated for 2026 UNILAG Promotion Criteria</span>
-            </div>
-          </div>
-
-          <!-- Dynamic Results Container -->
-          <div id="journalFeed"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Automated Manuscript Matchers Section -->
-  <section class="section" id="matchers" style="background:var(--cream);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(48px,6vw,84px) 0">
-    <div class="wrap">
-      <div class="sec-head">
-        <div data-reveal>
-          <div class="mono" style="color:var(--oxblood);font-weight:700;font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:12px">
-            Automated Research Tools
-          </div>
-          <h2 class="display" style="font-size:clamp(2rem,3.8vw,3rem)">Publisher Manuscript <em class="ital ox">Matchers</em>.</h2>
-        </div>
-        <div class="mono" data-reveal style="color:var(--ink-50);max-width:44ch">
-          Paste your abstract, title, and keywords to automatically discover indexed journals matching your manuscript scope.
-        </div>
-      </div>
-
-      <div class="matcher-grid">
-        <!-- Elsevier -->
-        <div class="matcher-card" data-reveal>
-          <div>
-            <div class="mono" style="font-size:0.72rem;color:var(--oxblood);font-weight:700;letter-spacing:0.1em;text-transform:uppercase">Elsevier ScienceDirect</div>
-            <h3 style="font-family:var(--serif);font-size:1.5rem;margin:6px 0 10px">Elsevier JournalFinder</h3>
-            <p style="font-size:0.88rem;color:var(--ink-70);line-height:1.55">
-              Searches 2,900+ peer-reviewed journals. Displays CiteScore, impact factor, acceptance rate, and average review speed.
-            </p>
-          </div>
-          <div style="margin-top:20px">
-            <a href="https://journalfinder.elsevier.com/" target="_blank" rel="noopener noreferrer" class="btn btn--solid btn--sm" data-hover>Launch JournalFinder &rarr;</a>
-          </div>
-        </div>
-
-        <!-- Springer Nature -->
-        <div class="matcher-card" data-reveal>
-          <div>
-            <div class="mono" style="font-size:0.72rem;color:var(--oxblood);font-weight:700;letter-spacing:0.1em;text-transform:uppercase">Springer Nature &bull; BMC</div>
-            <h3 style="font-family:var(--serif);font-size:1.5rem;margin:6px 0 10px">Springer Nature Suggester</h3>
-            <p style="font-size:0.88rem;color:var(--ink-70);line-height:1.55">
-              Semantic text comparison against 2,500+ Springer and BioMed Central titles. Filter by open access or subscription options.
-            </p>
-          </div>
-          <div style="margin-top:20px">
-            <a href="https://journalsuggester.springer.com/" target="_blank" rel="noopener noreferrer" class="btn btn--solid btn--sm" data-hover>Launch Suggester &rarr;</a>
-          </div>
-        </div>
-
-        <!-- Wiley -->
-        <div class="matcher-card" data-reveal>
-          <div>
-            <div class="mono" style="font-size:0.72rem;color:var(--oxblood);font-weight:700;letter-spacing:0.1em;text-transform:uppercase">Wiley Online Library</div>
-            <h3 style="font-family:var(--serif);font-size:1.5rem;margin:6px 0 10px">Wiley Journal Finder</h3>
-            <p style="font-size:0.88rem;color:var(--ink-70);line-height:1.55">
-              Matches manuscripts to accredited Wiley titles with direct links to author guidelines and African APC waiver criteria.
-            </p>
-          </div>
-          <div style="margin-top:20px">
-            <a href="https://journalfinder.wiley.com/" target="_blank" rel="noopener noreferrer" class="btn btn--solid btn--sm" data-hover>Launch Wiley Finder &rarr;</a>
-          </div>
-        </div>
-
-        <!-- Clarivate WoS -->
-        <div class="matcher-card" data-reveal>
-          <div>
-            <div class="mono" style="font-size:0.72rem;color:var(--oxblood);font-weight:700;letter-spacing:0.1em;text-transform:uppercase">Clarivate Analytics</div>
-            <h3 style="font-family:var(--serif);font-size:1.5rem;margin:6px 0 10px">WoS Manuscript Matcher</h3>
-            <p style="font-size:0.88rem;color:var(--ink-70);line-height:1.55">
-              Evaluates citation network data across thousands of Science Citation Index (SCI) and Social Sciences (SSCI) journals.
-            </p>
-          </div>
-          <div style="margin-top:20px">
-            <a href="https://mjl.clarivate.com/home" target="_blank" rel="noopener noreferrer" class="btn btn--solid btn--sm" data-hover>Master Journal List &rarr;</a>
-          </div>
-        </div>
-
-        <!-- IEEE -->
-        <div class="matcher-card" data-reveal>
-          <div>
-            <div class="mono" style="font-size:0.72rem;color:var(--oxblood);font-weight:700;letter-spacing:0.1em;text-transform:uppercase">IEEE Xplore</div>
-            <h3 style="font-family:var(--serif);font-size:1.5rem;margin:6px 0 10px">IEEE Publication Recommender</h3>
-            <p style="font-size:0.88rem;color:var(--ink-70);line-height:1.55">
-              Tailored for UNILAG Engineering, Computer Science, and Physical Sciences faculty. Matches IEEE Transactions and conferences.
-            </p>
-          </div>
-          <div style="margin-top:20px">
-            <a href="https://publication-recommender.ieee.org/home" target="_blank" rel="noopener noreferrer" class="btn btn--solid btn--sm" data-hover>Launch IEEE Recommender &rarr;</a>
-          </div>
-        </div>
-
-        <!-- AJOL -->
-        <div class="matcher-card" data-reveal>
-          <div>
-            <div class="mono" style="font-size:0.72rem;color:var(--oxblood);font-weight:700;letter-spacing:0.1em;text-transform:uppercase">African Research</div>
-            <h3 style="font-family:var(--serif);font-size:1.5rem;margin:6px 0 10px">African Journals Online (AJOL)</h3>
-            <p style="font-size:0.88rem;color:var(--ink-70);line-height:1.55">
-              The world's largest online platform of peer-reviewed, African-published scholarly journals, promoting African research output.
-            </p>
-          </div>
-          <div style="margin-top:20px">
-            <a href="https://www.ajol.info/" target="_blank" rel="noopener noreferrer" class="btn btn--solid btn--sm" data-hover>Browse AJOL Titles &rarr;</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Academic Integrity: Think. Check. Submit. -->
-  <section class="section" id="integrity">
-    <div class="wrap">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(32px,5vw,64px);align-items:center">
-        <div data-reveal>
-          <div class="mono" style="color:var(--oxblood);font-weight:700;font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:12px">
-            Publication Integrity &amp; Standards
-          </div>
-          <h2 class="display" style="font-size:clamp(2rem,3.8vw,3rem);margin-bottom:16px">
-            Avoiding Predatory Journals: <em class="ital ox">Think. Check. Submit.</em>
-          </h2>
-          <p class="lede" style="font-size:1rem;color:var(--ink-70);line-height:1.65;margin-bottom:20px">
-            Predatory and cloned journals target academics with unsolicited emails promising rapid publication without rigorous peer review. Publishing in predatory outlets invalidates promotion papers and compromises research credibility.
+  <main>
+    <!-- Page Hero (Conforms exactly to UNILAG phero standard) -->
+    <section class="phero">
+      <div class="wrap">
+        <div class="crumbs mono"><a href="index.html">Home</a><i></i><a
+            href="services.html">Services</a><i></i><span>Where to Publish</span></div>
+        <h1 class="display">Where to<br><em class="ital ox">Publish</em>.</h1>
+        <div class="ph-sub">
+          <p class="lede" data-reveal>
+            The official University of Lagos Library guide and discovery engine for academic lecturers, faculty, and
+            doctoral researchers to identify accredited, Scopus, Web of Science, and NUC-recognized publishing venues.
           </p>
-          
-          <div class="check-item">
-            <strong>Verify Editorial Board:</strong> Confirm that the editor-in-chief and editorial board members are recognized authorities with authentic institutional affiliations.
+          <div class="mono" data-reveal style="color:var(--ink-50);display:flex;gap:22px;flex-wrap:wrap">
+            <span>Scopus &bull; Web of Science &bull; DOAJ</span>
+            <span>Accredited Journals</span>
+            <span>APC Waivers</span>
           </div>
-          <div class="check-item">
-            <strong>Verify Direct Indexing:</strong> Never trust the badges on a journal website. Always verify the journal's active indexed status directly on <a href="https://www.scopus.com/sources" target="_blank" rel="noopener" style="color:var(--oxblood)">Scopus Sources</a> or the <a href="https://mjl.clarivate.com/" target="_blank" rel="noopener" style="color:var(--oxblood)">WoS Master List</a>.
-          </div>
-          <div class="check-item">
-            <strong>Clear Peer-Review Guidelines:</strong> Legitimate scholarly venues have a documented, double-blind or transparent peer review process that takes adequate time for independent expert assessment.
-          </div>
-          <div class="check-item">
-            <strong>Transparent Publication Fees:</strong> Genuine open access journals clearly state their Article Processing Charges (APCs) upfront before submission, never after acceptance.
-          </div>
+        </div>
+      </div>
+    </section>
 
-          <div style="margin-top:24px">
-            <a href="https://thinkchecksubmit.org/" target="_blank" rel="noopener noreferrer" class="btn btn--ghost" data-hover>
-              Think. Check. Submit. Official Guidelines &rarr;
+    <!-- Faculty-Based Compilation Downloads & Hub -->
+    <section class="section"
+      style="background:#FAF7F0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(36px,4.5vw,64px) 0">
+      <div class="wrap">
+        <div
+          style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;flex-wrap:wrap;gap:18px"
+          data-reveal>
+          <div>
+            <div class="mono"
+              style="color:var(--oxblood);font-weight:700;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:6px">
+              Official University Library Compilation
+            </div>
+            <h2 class="display" style="font-size:clamp(1.8rem,3.2vw,2.7rem);margin:0">
+              Faculty-Based Scopus &amp; AJOL <em class="ital ox">Directories</em>.
+            </h2>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <a href="downloads/faculty_journals/MASTER%20LIST%20-%20INDEXED%20JOURNALS.xlsx" download
+              class="btn btn--solid btn--sm" style="display:inline-flex;align-items:center;gap:6px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Master Scopus Directory (.xlsx)
+            </a>
+            <a href="downloads/faculty_journals/AJOL%20JOURNALS%20ACROSS%20FACULTIES.xls" download class="btn btn--sm"
+              style="background:var(--oxblood);color:#fff;display:inline-flex;align-items:center;gap:6px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              AJOL Journals Across Faculties (.xls)
+            </a>
+            <a href="downloads/faculty_journals/UNILAG_Faculty_Journal_Directories_All_19.zip" download
+              class="btn btn--ghost btn--sm" style="display:inline-flex;align-items:center;gap:6px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              All 19 Faculties (.zip bundle)
             </a>
           </div>
         </div>
 
-        <!-- Consultation Card (Right Column) -->
-        <div id="consultation" data-reveal style="background:#fff;border:1px solid var(--line);padding:clamp(24px,4vw,36px);box-shadow:0 8px 24px rgba(0,0,0,0.03)">
-          <div class="mono" style="color:var(--oxblood);font-weight:700;font-size:0.74rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:8px">
-            Research Support Desk
+        <div
+          style="background:#fff;border:1px solid var(--line);border-radius:4px;padding:clamp(20px,3vw,30px);box-shadow:0 8px 24px rgba(0,0,0,0.03)"
+          data-reveal>
+          <div
+            style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px">
+            <div>
+              <h3 style="font-family:var(--serif);font-size:1.45rem;margin:0 0 4px 0">Official Faculty Directory
+                Downloads</h3>
+              <p style="font-size:0.88rem;color:var(--ink-70);margin:0">Each workbook contains individual departmental
+                breakdown sheets, CiteScore metrics, Quartiles (Q1–Q4), and publisher profiles compiled by the
+                University Library.</p>
+            </div>
+            <span class="mono" style="font-size:0.75rem;color:var(--oxblood);font-weight:700">19 Faculties &bull; 84,029
+              Source Rows</span>
           </div>
-          <h3 style="font-family:var(--serif);font-size:1.8rem;margin-bottom:12px">Librarian Journal Verification Support</h3>
-          <p style="font-size:0.92rem;color:var(--ink-70);line-height:1.6;margin-bottom:20px">
-            Unsure if a journal is accredited for UNILAG promotion or indexed in Scopus/WoS? The Reference and Faculty Liaison Librarians provide official bibliographic verification reports.
-          </p>
-          <div style="background:var(--sand);padding:16px;border-radius:2px;font-size:0.84rem;margin-bottom:20px" class="mono">
-            <div><strong>Location:</strong> Reference Desk, Ground Floor, Main Library</div>
-            <div style="margin-top:6px"><strong>Email:</strong> <a href="mailto:reference@library.unilag.edu.ng" style="color:var(--oxblood)">reference@library.unilag.edu.ng</a></div>
-            <div style="margin-top:6px"><strong>Schedule:</strong> Monday to Friday &bull; 9:00 a.m. to 4:00 p.m.</div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px"
+            id="facultyDownloadsGrid">
+            <!-- Populated dynamically or static fallback -->
           </div>
-          <a href="contact.html" class="btn btn--solid" style="width:100%;text-align:center" data-hover>
-            Contact Liaison Librarian &rarr;
-          </a>
         </div>
       </div>
-    </div>
-  </section>
-</main>
+    </section>
 
-<!-- Standard UNILAG Library Footer -->
-<footer class="foot">
-  <div class="wrap">
-    <div class="f-top">
-      <div>
-        <div class="f-brand">
-          <img src="assets/logo.png" alt="University of Lagos Crest">
+    <!-- Interactive Directory with Side Navigation Layout -->
+    <section class="section" style="padding-top:clamp(32px,4vw,60px)">
+      <div class="wrap">
+        <div class="side-layout">
+          <!-- Sticky Filter Sidebar -->
+          <aside class="side-nav" data-reveal>
+            <div class="sn-title">Search &amp; Filter</div>
+
+            <div class="j-filter-card" style="margin-top:14px;background:#fff">
+              <div class="j-filter-title">Filter by Index</div>
+              <button class="j-pill-btn active" onclick="setIndexFilter('ALL', this)">All Accredited Venues</button>
+              <button class="j-pill-btn" onclick="setIndexFilter('SCOPUS', this)">Scopus Indexed</button>
+              <button class="j-pill-btn" onclick="setIndexFilter('WOS', this)">Web of Science (WoS)</button>
+              <button class="j-pill-btn" onclick="setIndexFilter('DOAJ', this)">DOAJ Open Access</button>
+              <button class="j-pill-btn" onclick="setIndexFilter('AJOL', this)">African Journals (AJOL)</button>
+              <button class="j-pill-btn" onclick="setIndexFilter('Q1', this)">Top Quartile (Q1)</button>
+            </div>
+
+            <div class="j-filter-card" style="background:#fff">
+              <div class="j-filter-title">Faculty Filter</div>
+              <button class="j-pill-btn active" onclick="setFacultyFilter('ALL', this)">All 19 Faculties</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Architecture', this)">Architecture</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Arts', this)">Arts</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Basic Clinical', this)">Basic Clinical Sci</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Basic Medical', this)">Basic Medical Sci</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Clinical Sciences', this)">Clinical
+                Sciences</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Communication', this)">Communication &amp;
+                Media</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Computing', this)">Computing &amp;
+                Informatics</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Creative Arts', this)">Creative Arts</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Dental', this)">Dental Sciences</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Education', this)">Education</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Engineering', this)">Engineering</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Environmental', this)">Environmental
+                Sciences</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Health Professions', this)">Health
+                Professions</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Law', this)">Law</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Life Sciences', this)">Life Sciences</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Management', this)">Management Sciences</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Pharmacy', this)">Pharmacy</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Physical', this)">Physical &amp; Earth Sci</button>
+              <button class="j-pill-btn" onclick="setFacultyFilter('Social', this)">Social Sciences</button>
+            </div>
+
+            <div class="sn-title" style="margin-top:26px">Quick Jump</div>
+            <a href="#matchers">Automated Matcher Tools</a>
+            <a href="#integrity">Think. Check. Submit.</a>
+            <a href="#consultation">Liaison Librarian Desk</a>
+          </aside>
+
+          <!-- Right Main Column: Search Bar & Journal Results -->
           <div>
-            <b>University of Lagos<br>Library</b>
+            <!-- Search Header Bar -->
+            <div
+              style="background:#fff;border:1px solid var(--line);padding:clamp(18px,3vw,24px);margin-bottom:24px;border-radius:2px">
+              <div class="mono"
+                style="font-size:0.75rem;color:var(--oxblood);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px">
+                Live Journal Discovery Engine</div>
+              <div style="display:flex;gap:12px;flex-wrap:wrap">
+                <input type="text" id="journalSearchInput"
+                  onkeydown="if(event.key==='Enter'){event.preventDefault();handleSearchInput();}"
+                  placeholder="Search by title, ISSN, discipline, publisher, or keywords..."
+                  style="flex:1;min-width:min(100%,280px);padding:12px 16px;border:1px solid var(--line);font-family:inherit;font-size:0.95rem;border-radius:2px"
+                  oninput="handleSearchInput()">
+                <button onclick="resetAllFilters()" class="btn btn--sm btn--ghost" style="padding:0 20px">Reset
+                  Filters</button>
+              </div>
+              <div
+                style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:0.78rem"
+                class="mono">
+                <span id="journalCountDisplay" style="color:var(--ink-70)">Loading accredited journals...</span>
+                <span style="color:var(--oxblood);font-weight:600">Updated for 2026 UNILAG Promotion Criteria</span>
+              </div>
+            </div>
+
+            <!-- Dynamic Results Container -->
+            <div id="journalFeed"></div>
           </div>
         </div>
-        <p>The academic hub of the University of Lagos, the University of First Choice and the Nation&rsquo;s Pride. Built to support cutting-edge research, teaching excellence, and global innovation.</p>
       </div>
-      <div>
-        <h5>Visit</h5>
-        <ul>
-          <li><a href="libraries.html">Faculty &amp; College Libraries</a></li>
-          <li><a href="archives.html">University Archives</a></li>
-          <li><a href="museum.html">Library Museum</a></li>
-          <li><a href="accessibility.html">Accessibility</a></li>
-          <li><a href="contact.html">Contact &amp; Map</a></li>
-        </ul>
+    </section>
+
+    <!-- Automated Manuscript Matchers Section -->
+    <section class="section" id="matchers"
+      style="background:var(--cream);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(48px,6vw,84px) 0">
+      <div class="wrap">
+        <div class="sec-head">
+          <div data-reveal>
+            <div class="mono"
+              style="color:var(--oxblood);font-weight:700;font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:12px">
+              Automated Research Tools
+            </div>
+            <h2 class="display" style="font-size:clamp(2rem,3.8vw,3rem)">Publisher Manuscript <em
+                class="ital ox">Matchers</em>.</h2>
+          </div>
+          <div class="mono" data-reveal style="color:var(--ink-50);max-width:44ch">
+            Paste your abstract, title, and keywords to automatically discover indexed journals matching your manuscript
+            scope.
+          </div>
+        </div>
+
+        <div class="matcher-grid">
+          <!-- Elsevier -->
+          <div class="matcher-card" data-reveal>
+            <div>
+              <div class="mono"
+                style="font-size:0.72rem;color:var(--oxblood);font-weight:700;letter-spacing:0.1em;text-transform:uppercase">
+                Elsevier ScienceDirect</div>
+              <h3 style="font-family:var(--serif);font-size:1.5rem;margin:6px 0 10px">Elsevier JournalFinder</h3>
+              <p style="font-size:0.88rem;color:var(--ink-70);line-height:1.55">
+                Searches 2,900+ peer-reviewed journals. Displays CiteScore, impact factor, acceptance rate, and average
+                review speed.
+              </p>
+            </div>
+            <div style="margin-top:20px">
+              <a href="https://journalfinder.elsevier.com/" target="_blank" rel="noopener noreferrer"
+                class="btn btn--solid btn--sm" data-hover>Launch JournalFinder &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Springer Nature -->
+          <div class="matcher-card" data-reveal>
+            <div>
+              <div class="mono"
+                style="font-size:0.72rem;color:var(--oxblood);font-weight:700;letter-spacing:0.1em;text-transform:uppercase">
+                Springer Nature &bull; BMC</div>
+              <h3 style="font-family:var(--serif);font-size:1.5rem;margin:6px 0 10px">Springer Nature Suggester</h3>
+              <p style="font-size:0.88rem;color:var(--ink-70);line-height:1.55">
+                Semantic text comparison against 2,500+ Springer and BioMed Central titles. Filter by open access or
+                subscription options.
+              </p>
+            </div>
+            <div style="margin-top:20px">
+              <a href="https://journalsuggester.springer.com/" target="_blank" rel="noopener noreferrer"
+                class="btn btn--solid btn--sm" data-hover>Launch Suggester &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Wiley -->
+          <div class="matcher-card" data-reveal>
+            <div>
+              <div class="mono"
+                style="font-size:0.72rem;color:var(--oxblood);font-weight:700;letter-spacing:0.1em;text-transform:uppercase">
+                Wiley Online Library</div>
+              <h3 style="font-family:var(--serif);font-size:1.5rem;margin:6px 0 10px">Wiley Journal Finder</h3>
+              <p style="font-size:0.88rem;color:var(--ink-70);line-height:1.55">
+                Matches manuscripts to accredited Wiley titles with direct links to author guidelines and African APC
+                waiver criteria.
+              </p>
+            </div>
+            <div style="margin-top:20px">
+              <a href="https://journalfinder.wiley.com/" target="_blank" rel="noopener noreferrer"
+                class="btn btn--solid btn--sm" data-hover>Launch Wiley Finder &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Clarivate WoS -->
+          <div class="matcher-card" data-reveal>
+            <div>
+              <div class="mono"
+                style="font-size:0.72rem;color:var(--oxblood);font-weight:700;letter-spacing:0.1em;text-transform:uppercase">
+                Clarivate Analytics</div>
+              <h3 style="font-family:var(--serif);font-size:1.5rem;margin:6px 0 10px">WoS Manuscript Matcher</h3>
+              <p style="font-size:0.88rem;color:var(--ink-70);line-height:1.55">
+                Evaluates citation network data across thousands of Science Citation Index (SCI) and Social Sciences
+                (SSCI) journals.
+              </p>
+            </div>
+            <div style="margin-top:20px">
+              <a href="https://mjl.clarivate.com/home" target="_blank" rel="noopener noreferrer"
+                class="btn btn--solid btn--sm" data-hover>Master Journal List &rarr;</a>
+            </div>
+          </div>
+
+          <!-- IEEE -->
+          <div class="matcher-card" data-reveal>
+            <div>
+              <div class="mono"
+                style="font-size:0.72rem;color:var(--oxblood);font-weight:700;letter-spacing:0.1em;text-transform:uppercase">
+                IEEE Xplore</div>
+              <h3 style="font-family:var(--serif);font-size:1.5rem;margin:6px 0 10px">IEEE Publication Recommender</h3>
+              <p style="font-size:0.88rem;color:var(--ink-70);line-height:1.55">
+                Tailored for UNILAG Engineering, Computer Science, and Physical Sciences faculty. Matches IEEE
+                Transactions and conferences.
+              </p>
+            </div>
+            <div style="margin-top:20px">
+              <a href="https://publication-recommender.ieee.org/home" target="_blank" rel="noopener noreferrer"
+                class="btn btn--solid btn--sm" data-hover>Launch IEEE Recommender &rarr;</a>
+            </div>
+          </div>
+
+          <!-- AJOL -->
+          <div class="matcher-card" data-reveal>
+            <div>
+              <div class="mono"
+                style="font-size:0.72rem;color:var(--oxblood);font-weight:700;letter-spacing:0.1em;text-transform:uppercase">
+                African Research</div>
+              <h3 style="font-family:var(--serif);font-size:1.5rem;margin:6px 0 10px">African Journals Online (AJOL)
+              </h3>
+              <p style="font-size:0.88rem;color:var(--ink-70);line-height:1.55">
+                The world's largest online platform of peer-reviewed, African-published scholarly journals, promoting
+                African research output.
+              </p>
+            </div>
+            <div style="margin-top:20px">
+              <a href="https://www.ajol.info/" target="_blank" rel="noopener noreferrer" class="btn btn--solid btn--sm"
+                data-hover>Browse AJOL Titles &rarr;</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        <h5>Use</h5>
-        <ul>
-          <li><a href="services.html">Our Services &amp; Spaces</a></li>
-          <li><a href="https://library.unilag.edu.ng/opac" target="_blank" rel="noopener">OPAC Catalogue</a></li>
-          <li><a href="databases.html">Subscribed Databases</a></li>
-          <li><a href="journals-accredited.html">Where to Publish (Accredited Journals)</a></li>
-          <li><a href="oer.html">Open Educational Resources</a></li>
-          <li><a href="help.html">Research Help &amp; FAQs</a></li>
-        </ul>
+    </section>
+
+    <!-- Academic Integrity: Think. Check. Submit. -->
+    <section class="section" id="integrity">
+      <div class="wrap">
+        <div
+          style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(32px,5vw,64px);align-items:center">
+          <div data-reveal>
+            <div class="mono"
+              style="color:var(--oxblood);font-weight:700;font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:12px">
+              Publication Integrity &amp; Standards
+            </div>
+            <h2 class="display" style="font-size:clamp(2rem,3.8vw,3rem);margin-bottom:16px">
+              Avoiding Predatory Journals: <em class="ital ox">Think. Check. Submit.</em>
+            </h2>
+            <p class="lede" style="font-size:1rem;color:var(--ink-70);line-height:1.65;margin-bottom:20px">
+              Predatory and cloned journals target academics with unsolicited emails promising rapid publication without
+              rigorous peer review. Publishing in predatory outlets invalidates promotion papers and compromises
+              research credibility.
+            </p>
+
+            <div class="check-item">
+              <strong>Verify Editorial Board:</strong> Confirm that the editor-in-chief and editorial board members are
+              recognized authorities with authentic institutional affiliations.
+            </div>
+            <div class="check-item">
+              <strong>Verify Direct Indexing:</strong> Never trust the badges on a journal website. Always verify the
+              journal's active indexed status directly on <a href="https://www.scopus.com/sources" target="_blank"
+                rel="noopener" style="color:var(--oxblood)">Scopus Sources</a> or the <a
+                href="https://mjl.clarivate.com/" target="_blank" rel="noopener" style="color:var(--oxblood)">WoS Master
+                List</a>.
+            </div>
+            <div class="check-item">
+              <strong>Clear Peer-Review Guidelines:</strong> Legitimate scholarly venues have a documented, double-blind
+              or transparent peer review process that takes adequate time for independent expert assessment.
+            </div>
+            <div class="check-item">
+              <strong>Transparent Publication Fees:</strong> Genuine open access journals clearly state their Article
+              Processing Charges (APCs) upfront before submission, never after acceptance.
+            </div>
+
+            <div style="margin-top:24px">
+              <a href="https://thinkchecksubmit.org/" target="_blank" rel="noopener noreferrer" class="btn btn--ghost"
+                data-hover>
+                Think. Check. Submit. Official Guidelines &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Consultation Card (Right Column) -->
+          <div id="consultation" data-reveal
+            style="background:#fff;border:1px solid var(--line);padding:clamp(24px,4vw,36px);box-shadow:0 8px 24px rgba(0,0,0,0.03)">
+            <div class="mono"
+              style="color:var(--oxblood);font-weight:700;font-size:0.74rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:8px">
+              Research Support Desk
+            </div>
+            <h3 style="font-family:var(--serif);font-size:1.8rem;margin-bottom:12px">Librarian Journal Verification
+              Support</h3>
+            <p style="font-size:0.92rem;color:var(--ink-70);line-height:1.6;margin-bottom:20px">
+              Unsure if a journal is accredited for UNILAG promotion or indexed in Scopus/WoS? The Reference and Faculty
+              Liaison Librarians provide official bibliographic verification reports.
+            </p>
+            <div style="background:var(--sand);padding:16px;border-radius:2px;font-size:0.84rem;margin-bottom:20px"
+              class="mono">
+              <div><strong>Location:</strong> Reference Desk, Ground Floor, Main Library</div>
+              <div style="margin-top:6px"><strong>Email:</strong> <a href="mailto:reference@library.unilag.edu.ng"
+                  style="color:var(--oxblood)">reference@library.unilag.edu.ng</a></div>
+              <div style="margin-top:6px"><strong>Schedule:</strong> Monday to Friday &bull; 9:00 a.m. to 4:00 p.m.
+              </div>
+            </div>
+            <a href="contact.html" class="btn btn--solid" style="width:100%;text-align:center" data-hover>
+              Contact Liaison Librarian &rarr;
+            </a>
+          </div>
+        </div>
       </div>
-      <div>
-        <h5>Inside</h5>
-        <ul>
-          <li><a href="about.html">About the Library</a></li>
-          <li><a href="departments.html">Departments &amp; Units</a></li>
-          <li><a href="news.html">News &amp; Events</a></li>
-          <li><a href="help.html#faqs">FAQs</a></li>
-          <li><a href="admin/index.html">Staff Portal</a></li>
-        </ul>
+    </section>
+  </main>
+
+  <!-- Standard UNILAG Library Footer -->
+  <footer class="foot">
+    <div class="wrap">
+      <div class="f-top">
+        <div>
+          <div class="f-brand">
+            <img src="assets/logo.png" alt="University of Lagos Crest">
+            <div>
+              <b>University of Lagos<br>Library</b>
+            </div>
+          </div>
+          <p>The academic hub of the University of Lagos, the University of First Choice and the Nation&rsquo;s Pride.
+            Built to support cutting-edge research, teaching excellence, and global innovation.</p>
+        </div>
+        <div>
+          <h5>Visit</h5>
+          <ul>
+            <li><a href="libraries.html">Faculty &amp; College Libraries</a></li>
+            <li><a href="archives.html">University Archives</a></li>
+            <li><a href="museum.html">Library Museum</a></li>
+            <li><a href="accessibility.html">Accessibility</a></li>
+            <li><a href="contact.html">Contact &amp; Map</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Use</h5>
+          <ul>
+            <li><a href="services.html">Our Services &amp; Spaces</a></li>
+            <li><a href="https://library.unilag.edu.ng/opac" target="_blank" rel="noopener">OPAC Catalogue</a></li>
+            <li><a href="databases.html">Subscribed Databases</a></li>
+            <li><a href="journals-accredited.html">Where to Publish (Accredited Journals)</a></li>
+            <li><a href="oer.html">Open Educational Resources</a></li>
+            <li><a href="help.html">Research Help &amp; FAQs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Inside</h5>
+          <ul>
+            <li><a href="about.html">About the Library</a></li>
+            <li><a href="departments.html">Departments &amp; Units</a></li>
+            <li><a href="news.html">News &amp; Events</a></li>
+            <li><a href="help.html#faqs">FAQs</a></li>
+            <li><a href="admin/index.html">Staff Portal</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Connect</h5>
+          <ul>
+            <li><a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram:
+                @library.unilag</a></li>
+            <li><a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X (Twitter): @unilaglibrary</a>
+            </li>
+            <li><a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank"
+                rel="noopener">Facebook</a></li>
+            <li><a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube:
+                @UnilagLibrary</a></li>
+            <li><a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok: @unilaglibrary</a>
+            </li>
+            <li><a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener"
+                style="color:var(--gold,#C59B27);font-weight:600">Official Linktree Hub &rarr;</a></li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <h5>Connect</h5>
-        <ul>
-          <li><a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram: @library.unilag</a></li>
-          <li><a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X (Twitter): @unilaglibrary</a></li>
-          <li><a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a></li>
-          <li><a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube: @UnilagLibrary</a></li>
-          <li><a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok: @unilaglibrary</a></li>
-          <li><a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Official Linktree Hub &rarr;</a></li>
-        </ul>
+      <div class="f-bot">
+        <span>University of Lagos Library, P.M.B 1012, Akoka, Lagos</span>
+        <span>library@unilag.edu.ng &nbsp;&bull;&nbsp; 0906 396 9206</span>
+        <span>Powered by CITS</span>
+        <span>&copy; <span id="yr">2026</span> University of Lagos</span>
       </div>
+      <div class="f-word">UNIVERSITY OF LAGOS LIBRARY</div>
     </div>
-    <div class="f-bot">
-      <span>University of Lagos Library, P.M.B 1012, Akoka, Lagos</span>
-      <span>library@unilag.edu.ng &nbsp;&bull;&nbsp; 0906 396 9206</span>
-      <span>Powered by CITS</span>
-      <span>&copy; <span id="yr">2026</span> University of Lagos</span>
+  </footer>
+
+  <!-- Global Search Overlay -->
+  <div class="sov" id="sov" role="dialog" aria-label="Search the library">
+    <div class="sov-top">
+      <div class="sov-q">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="11" cy="11" r="7" />
+          <path d="M16.5 16.5L21 21" />
+        </svg>
+        <input id="sovInput" type="text" placeholder="Search catalogue, journals, databases, spaces..."
+          autocomplete="off">
+      </div>
+      <button class="sov-close" data-search-close>Close</button>
     </div>
-    <div class="f-word">UNIVERSITY OF LAGOS LIBRARY</div>
-  </div>
-</footer>
-
-<!-- Global Search Overlay -->
-<div class="sov" id="sov" role="dialog" aria-label="Search the library">
-  <div class="sov-top">
-    <div class="sov-q">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
-      <input id="sovInput" type="text" placeholder="Search catalogue, journals, databases, spaces..." autocomplete="off">
+    <div class="sov-body">
+      <div class="sov-hint">Try: Scopus, Lancet, Law, Engineering, ScienceDirect</div>
+      <div class="sov-res" id="sovRes"></div>
     </div>
-    <button class="sov-close" data-search-close>Close</button>
   </div>
-  <div class="sov-body">
-    <div class="sov-hint">Try: Scopus, Lancet, Law, Engineering, ScienceDirect</div>
-    <div class="sov-res" id="sovRes"></div>
-  </div>
-</div>
 
-<button class="totop" id="totop" aria-label="Back to top">
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20V4M5 11l7-7 7 7"/></svg>
-</button>
+  <button class="totop" id="totop" aria-label="Back to top">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+      <path d="M12 20V4M5 11l7-7 7 7" />
+    </svg>
+  </button>
 
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-<script src="app.js"></script>
-<script src="gsap-enhance.js"></script>
-<script src="app2.js"></script>
-<script src="booking-system.js?v=20261105"></script>
-<script src="cms-loader.js?v=20261105"></script>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="app.js"></script>
+  <script src="gsap-enhance.js"></script>
+  <script src="app2.js"></script>
+  <script src="booking-system.js?v=20261105"></script>
+  <script src="cms-loader.js?v=20261105"></script>
 
-<script>
-  // Curated Accredited Journals Dataset for UNILAG Lecturers & Researchers
-  const accreditedJournals = [
-    {
-      title: "Lancet Global Health / Lancet Infectious Diseases",
-      issn: "2214-109X / 1473-3099",
-      discipline: "Health",
-      faculty: "College of Medicine (Basic & Clinical Sciences)",
-      publisher: "Elsevier",
-      index: ["SCOPUS", "WOS", "MEDLINE"],
-      quartile: "Q1",
-      citescore: "38.4",
-      jif: "25.1",
-      openAccess: "Hybrid & Gold OA (Eligible for UNILAG APC Waiver)",
-      scope: "Global epidemiology, clinical infectious disease, malaria, maternal health, and sub-Saharan healthcare systems.",
-      url: "https://www.thelancet.com/journals/langlo/home"
-    },
-    {
-      title: "African Journal of Reproductive Health (AJRH)",
-      issn: "1118-4841",
-      discipline: "Health",
-      faculty: "College of Medicine / Health Professions",
-      publisher: "Women's Health and Action Research Centre",
-      index: ["SCOPUS", "AJOL", "MEDLINE", "DOAJ"],
-      quartile: "Q2",
-      citescore: "2.1",
-      jif: "1.4",
-      openAccess: "Fully Open Access (DOAJ Indexed)",
-      scope: "Reproductive epidemiology, public health, maternal welfare, and healthcare policy in Africa.",
-      url: "https://www.ajrh.info/"
-    },
-    {
-      title: "Journal of Ethnopharmacology",
-      issn: "0378-8741",
-      discipline: "Health",
-      faculty: "Faculty of Pharmacy / Basic Medical",
-      publisher: "Elsevier / International Society for Ethnopharmacology",
-      index: ["SCOPUS", "WOS", "MEDLINE"],
-      quartile: "Q1",
-      citescore: "9.2",
-      jif: "5.4",
-      openAccess: "Hybrid Open Access",
-      scope: "Biological and pharmacological effects of indigenous medicinal plants, natural products, and traditional medicine.",
-      url: "https://www.sciencedirect.com/journal/journal-of-ethnopharmacology"
-    },
-    {
-      title: "Community Dentistry and Oral Epidemiology",
-      issn: "0301-5661",
-      discipline: "Health",
-      faculty: "Faculty of Dental Sciences",
-      publisher: "Wiley-Blackwell",
-      index: ["SCOPUS", "WOS", "MEDLINE"],
-      quartile: "Q1",
-      citescore: "6.8",
-      jif: "3.9",
-      openAccess: "Hybrid Open Access",
-      scope: "Public oral health, dental epidemiology, community periodontal interventions, and dental service delivery.",
-      url: "https://onlinelibrary.wiley.com/journal/16000528"
-    },
-    {
-      title: "IEEE Transactions on Power Systems",
-      issn: "0885-8950",
-      discipline: "Engineering",
-      faculty: "Faculty of Engineering",
-      publisher: "IEEE Power & Energy Society",
-      index: ["SCOPUS", "WOS"],
-      quartile: "Q1",
-      citescore: "13.6",
-      jif: "7.3",
-      openAccess: "Hybrid Open Access",
-      scope: "Electrical power grids, renewable energy systems, grid protection, and computational power engineering.",
-      url: "https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=59"
-    },
-    {
-      title: "IEEE Transactions on Knowledge and Data Engineering",
-      issn: "1041-4347",
-      discipline: "Engineering",
-      faculty: "Computing & Informatics / Systems Engineering",
-      publisher: "IEEE Computer Society",
-      index: ["SCOPUS", "WOS"],
-      quartile: "Q1",
-      citescore: "18.1",
-      jif: "8.9",
-      openAccess: "Hybrid Open Access",
-      scope: "Data mining, artificial intelligence algorithms, knowledge bases, database systems, and big data architectures.",
-      url: "https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=69"
-    },
-    {
-      title: "Journal of Cleaner Production",
-      issn: "0959-6526",
-      discipline: "Engineering",
-      faculty: "Engineering & Environmental Sciences",
-      publisher: "Elsevier",
-      index: ["SCOPUS", "WOS"],
-      quartile: "Q1",
-      citescore: "18.5",
-      jif: "9.7",
-      openAccess: "Hybrid Open Access",
-      scope: "Sustainable industrial engineering, waste minimization, lifecycle assessment, and environmental technologies.",
-      url: "https://www.sciencedirect.com/journal/journal-of-cleaner-production"
-    },
-    {
-      title: "Journal of African Law",
-      issn: "0021-8553",
-      discipline: "Law",
-      faculty: "Faculty of Law",
-      publisher: "Cambridge University Press (for SOAS)",
-      index: ["SCOPUS", "WOS"],
-      quartile: "Q2",
-      citescore: "1.8",
-      jif: "1.1",
-      openAccess: "Hybrid Open Access",
-      scope: "Comparative jurisprudence, constitutional law, international trade law, and human rights in African states.",
-      url: "https://www.cambridge.org/core/journals/journal-of-african-law"
-    },
-    {
-      title: "Modern Law Review",
-      issn: "0026-7961",
-      discipline: "Law",
-      faculty: "Faculty of Law",
-      publisher: "Wiley-Blackwell (for Modern Law Review Ltd)",
-      index: ["SCOPUS", "WOS"],
-      quartile: "Q1",
-      citescore: "3.4",
-      jif: "2.3",
-      openAccess: "Hybrid Open Access",
-      scope: "General legal scholarship, jurisprudence, civil litigation, commercial arbitration, and administrative law.",
-      url: "https://onlinelibrary.wiley.com/journal/14682230"
-    },
-    {
-      title: "Nigerian Journal of Clinical Practice",
-      issn: "1119-3077",
-      discipline: "Health",
-      faculty: "College of Medicine (Clinical Sciences)",
-      publisher: "Wolters Kluwer - Medknow",
-      index: ["SCOPUS", "WOS", "MEDLINE", "DOAJ"],
-      quartile: "Q3",
-      citescore: "1.4",
-      jif: "0.9",
-      openAccess: "Fully Open Access",
-      scope: "Clinical surgery, internal medicine, community pathology, pharmacology, and tropical diagnostics.",
-      url: "https://journals.lww.com/njcp/pages/default.aspx"
-    },
-    {
-      title: "Journal of African Economies",
-      issn: "0963-8024",
-      discipline: "Management",
-      faculty: "Management Sciences & Social Sciences",
-      publisher: "Oxford University Press",
-      index: ["SCOPUS", "WOS"],
-      quartile: "Q2",
-      citescore: "2.6",
-      jif: "1.7",
-      openAccess: "Hybrid Open Access",
-      scope: "Applied econometrics, monetary policy, financial institutions, and macroeconomic development in Africa.",
-      url: "https://academic.oup.com/jae"
-    },
-    {
-      title: "Journal of Business Ethics",
-      issn: "0167-4544",
-      discipline: "Management",
-      faculty: "Faculty of Management Sciences",
-      publisher: "Springer Nature",
-      index: ["SCOPUS", "WOS"],
-      quartile: "Q1",
-      citescore: "12.4",
-      jif: "6.1",
-      openAccess: "Hybrid Open Access",
-      scope: "Corporate governance, corporate social responsibility, accounting standards, and business ethics.",
-      url: "https://www.springer.com/journal/10551"
-    },
-    {
-      title: "African Studies Review",
-      issn: "0002-0206",
-      discipline: "Arts",
-      faculty: "Faculty of Arts & Humanities",
-      publisher: "Cambridge University Press",
-      index: ["SCOPUS", "WOS"],
-      quartile: "Q1",
-      citescore: "3.2",
-      jif: "2.1",
-      openAccess: "Hybrid Open Access",
-      scope: "African historiography, post-colonial literature, linguistic heritage, philosophy, and cultural politics.",
-      url: "https://www.cambridge.org/core/journals/african-studies-review"
-    },
-    {
-      title: "Water Research",
-      issn: "0043-1354",
-      discipline: "Science",
-      faculty: "Faculty of Science (Life & Physical Sciences)",
-      publisher: "Elsevier / International Water Association",
-      index: ["SCOPUS", "WOS"],
-      quartile: "Q1",
-      citescore: "21.4",
-      jif: "11.4",
-      openAccess: "Hybrid Open Access",
-      scope: "Aquatic toxicology, hydrology, water purification chemistry, estuarine ecology, and wastewater bio-engineering.",
-      url: "https://www.sciencedirect.com/journal/water-research"
-    },
-    {
-      title: "Journal of Materials Chemistry A",
-      issn: "2050-7488",
-      discipline: "Science",
-      faculty: "Faculty of Science (Physical & Chemical)",
-      publisher: "Royal Society of Chemistry",
-      index: ["SCOPUS", "WOS"],
-      quartile: "Q1",
-      citescore: "17.9",
-      jif: "10.7",
-      openAccess: "Hybrid Open Access",
-      scope: "Energy storage materials, catalysis, renewable materials, electrochemistry, and nanomaterials synthesis.",
-      url: "https://pubs.rsc.org/en/journals/journalissues/ta"
-    },
-    {
-      title: "Telecommunications Policy",
-      issn: "0308-5961",
-      discipline: "Social",
-      faculty: "Communication & Media Studies / Computing",
-      publisher: "Elsevier",
-      index: ["SCOPUS", "WOS"],
-      quartile: "Q1",
-      citescore: "10.1",
-      jif: "4.8",
-      openAccess: "Hybrid Open Access",
-      scope: "Telecommunications regulation, broadband adoption, digital broadcasting, media economics, and digital policy.",
-      url: "https://www.sciencedirect.com/journal/telecommunications-policy"
-    },
-    {
-      title: "Journalism & Mass Communication Quarterly",
-      issn: "1077-6990",
-      discipline: "Social",
-      faculty: "Faculty of Communication & Media Studies",
-      publisher: "SAGE Publications (for AEJMC)",
-      index: ["SCOPUS", "WOS"],
-      quartile: "Q1",
-      citescore: "5.8",
-      jif: "3.4",
-      openAccess: "Hybrid Open Access",
-      scope: "Media theory, investigative journalism, digital misinformation, political communication, and public relations.",
-      url: "https://journals.sagepub.com/home/jmq"
-    },
-    {
-      title: "Computers & Education",
-      issn: "0360-1315",
-      discipline: "Education",
-      faculty: "Faculty of Education",
-      publisher: "Elsevier",
-      index: ["SCOPUS", "WOS"],
-      quartile: "Q1",
-      citescore: "23.5",
-      jif: "12.0",
-      openAccess: "Hybrid Open Access",
-      scope: "Digital pedagogy, virtual learning systems, educational technology, curriculum design, and learning analytics.",
-      url: "https://www.sciencedirect.com/journal/computers-and-education"
-    },
-    {
-      title: "Building and Environment",
-      issn: "0360-1323",
-      discipline: "Environmental",
-      faculty: "Faculty of Environmental Sciences",
-      publisher: "Elsevier",
-      index: ["SCOPUS", "WOS"],
-      quartile: "Q1",
-      citescore: "14.2",
-      jif: "7.4",
-      openAccess: "Hybrid Open Access",
-      scope: "Architectural science, sustainable tropical construction, urban environmental microclimate, and indoor environmental quality.",
-      url: "https://www.sciencedirect.com/journal/building-and-environment"
-    },
-    {
-      title: "Habitat International",
-      issn: "0197-3975",
-      discipline: "Environmental",
-      faculty: "Architecture & Urban Planning",
-      publisher: "Elsevier",
-      index: ["SCOPUS", "WOS"],
-      quartile: "Q1",
-      citescore: "13.1",
-      jif: "6.5",
-      openAccess: "Hybrid Open Access",
-      scope: "Urban development in developing countries, informal housing, land tenure, spatial economics, and megacity planning.",
-      url: "https://www.sciencedirect.com/journal/habitat-international"
-    }
-  ];  let activeIndexFilter = 'ALL';
-  let activeFacultyFilter = 'ALL';
-  let searchQuery = '';
-  let currentPage = 1;
-  const limitPerPage = 20;
-  let totalApiJournals = 0;
-  let totalApiPages = 1;
+  <script>
+    // Curated Accredited Journals Dataset for UNILAG Lecturers & Researchers
+    const accreditedJournals = [
+      {
+        title: "Lancet Global Health / Lancet Infectious Diseases",
+        issn: "2214-109X / 1473-3099",
+        discipline: "Health",
+        faculty: "College of Medicine (Basic & Clinical Sciences)",
+        publisher: "Elsevier",
+        index: ["SCOPUS", "WOS", "MEDLINE"],
+        quartile: "Q1",
+        citescore: "38.4",
+        jif: "25.1",
+        openAccess: "Hybrid & Gold OA (Eligible for UNILAG APC Waiver)",
+        scope: "Global epidemiology, clinical infectious disease, malaria, maternal health, and sub-Saharan healthcare systems.",
+        url: "https://www.thelancet.com/journals/langlo/home"
+      },
+      {
+        title: "African Journal of Reproductive Health (AJRH)",
+        issn: "1118-4841",
+        discipline: "Health",
+        faculty: "College of Medicine / Health Professions",
+        publisher: "Women's Health and Action Research Centre",
+        index: ["SCOPUS", "AJOL", "MEDLINE", "DOAJ"],
+        quartile: "Q2",
+        citescore: "2.1",
+        jif: "1.4",
+        openAccess: "Fully Open Access (DOAJ Indexed)",
+        scope: "Reproductive epidemiology, public health, maternal welfare, and healthcare policy in Africa.",
+        url: "https://www.ajrh.info/"
+      },
+      {
+        title: "Journal of Ethnopharmacology",
+        issn: "0378-8741",
+        discipline: "Health",
+        faculty: "Faculty of Pharmacy / Basic Medical",
+        publisher: "Elsevier / International Society for Ethnopharmacology",
+        index: ["SCOPUS", "WOS", "MEDLINE"],
+        quartile: "Q1",
+        citescore: "9.2",
+        jif: "5.4",
+        openAccess: "Hybrid Open Access",
+        scope: "Biological and pharmacological effects of indigenous medicinal plants, natural products, and traditional medicine.",
+        url: "https://www.sciencedirect.com/journal/journal-of-ethnopharmacology"
+      },
+      {
+        title: "Community Dentistry and Oral Epidemiology",
+        issn: "0301-5661",
+        discipline: "Health",
+        faculty: "Faculty of Dental Sciences",
+        publisher: "Wiley-Blackwell",
+        index: ["SCOPUS", "WOS", "MEDLINE"],
+        quartile: "Q1",
+        citescore: "6.8",
+        jif: "3.9",
+        openAccess: "Hybrid Open Access",
+        scope: "Public oral health, dental epidemiology, community periodontal interventions, and dental service delivery.",
+        url: "https://onlinelibrary.wiley.com/journal/16000528"
+      },
+      {
+        title: "IEEE Transactions on Power Systems",
+        issn: "0885-8950",
+        discipline: "Engineering",
+        faculty: "Faculty of Engineering",
+        publisher: "IEEE Power & Energy Society",
+        index: ["SCOPUS", "WOS"],
+        quartile: "Q1",
+        citescore: "13.6",
+        jif: "7.3",
+        openAccess: "Hybrid Open Access",
+        scope: "Electrical power grids, renewable energy systems, grid protection, and computational power engineering.",
+        url: "https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=59"
+      },
+      {
+        title: "IEEE Transactions on Knowledge and Data Engineering",
+        issn: "1041-4347",
+        discipline: "Engineering",
+        faculty: "Computing & Informatics / Systems Engineering",
+        publisher: "IEEE Computer Society",
+        index: ["SCOPUS", "WOS"],
+        quartile: "Q1",
+        citescore: "18.1",
+        jif: "8.9",
+        openAccess: "Hybrid Open Access",
+        scope: "Data mining, artificial intelligence algorithms, knowledge bases, database systems, and big data architectures.",
+        url: "https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=69"
+      },
+      {
+        title: "Journal of Cleaner Production",
+        issn: "0959-6526",
+        discipline: "Engineering",
+        faculty: "Engineering & Environmental Sciences",
+        publisher: "Elsevier",
+        index: ["SCOPUS", "WOS"],
+        quartile: "Q1",
+        citescore: "18.5",
+        jif: "9.7",
+        openAccess: "Hybrid Open Access",
+        scope: "Sustainable industrial engineering, waste minimization, lifecycle assessment, and environmental technologies.",
+        url: "https://www.sciencedirect.com/journal/journal-of-cleaner-production"
+      },
+      {
+        title: "Journal of African Law",
+        issn: "0021-8553",
+        discipline: "Law",
+        faculty: "Faculty of Law",
+        publisher: "Cambridge University Press (for SOAS)",
+        index: ["SCOPUS", "WOS"],
+        quartile: "Q2",
+        citescore: "1.8",
+        jif: "1.1",
+        openAccess: "Hybrid Open Access",
+        scope: "Comparative jurisprudence, constitutional law, international trade law, and human rights in African states.",
+        url: "https://www.cambridge.org/core/journals/journal-of-african-law"
+      },
+      {
+        title: "Modern Law Review",
+        issn: "0026-7961",
+        discipline: "Law",
+        faculty: "Faculty of Law",
+        publisher: "Wiley-Blackwell (for Modern Law Review Ltd)",
+        index: ["SCOPUS", "WOS"],
+        quartile: "Q1",
+        citescore: "3.4",
+        jif: "2.3",
+        openAccess: "Hybrid Open Access",
+        scope: "General legal scholarship, jurisprudence, civil litigation, commercial arbitration, and administrative law.",
+        url: "https://onlinelibrary.wiley.com/journal/14682230"
+      },
+      {
+        title: "Nigerian Journal of Clinical Practice",
+        issn: "1119-3077",
+        discipline: "Health",
+        faculty: "College of Medicine (Clinical Sciences)",
+        publisher: "Wolters Kluwer - Medknow",
+        index: ["SCOPUS", "WOS", "MEDLINE", "DOAJ"],
+        quartile: "Q3",
+        citescore: "1.4",
+        jif: "0.9",
+        openAccess: "Fully Open Access",
+        scope: "Clinical surgery, internal medicine, community pathology, pharmacology, and tropical diagnostics.",
+        url: "https://journals.lww.com/njcp/pages/default.aspx"
+      },
+      {
+        title: "Journal of African Economies",
+        issn: "0963-8024",
+        discipline: "Management",
+        faculty: "Management Sciences & Social Sciences",
+        publisher: "Oxford University Press",
+        index: ["SCOPUS", "WOS"],
+        quartile: "Q2",
+        citescore: "2.6",
+        jif: "1.7",
+        openAccess: "Hybrid Open Access",
+        scope: "Applied econometrics, monetary policy, financial institutions, and macroeconomic development in Africa.",
+        url: "https://academic.oup.com/jae"
+      },
+      {
+        title: "Journal of Business Ethics",
+        issn: "0167-4544",
+        discipline: "Management",
+        faculty: "Faculty of Management Sciences",
+        publisher: "Springer Nature",
+        index: ["SCOPUS", "WOS"],
+        quartile: "Q1",
+        citescore: "12.4",
+        jif: "6.1",
+        openAccess: "Hybrid Open Access",
+        scope: "Corporate governance, corporate social responsibility, accounting standards, and business ethics.",
+        url: "https://www.springer.com/journal/10551"
+      },
+      {
+        title: "African Studies Review",
+        issn: "0002-0206",
+        discipline: "Arts",
+        faculty: "Faculty of Arts & Humanities",
+        publisher: "Cambridge University Press",
+        index: ["SCOPUS", "WOS"],
+        quartile: "Q1",
+        citescore: "3.2",
+        jif: "2.1",
+        openAccess: "Hybrid Open Access",
+        scope: "African historiography, post-colonial literature, linguistic heritage, philosophy, and cultural politics.",
+        url: "https://www.cambridge.org/core/journals/african-studies-review"
+      },
+      {
+        title: "Water Research",
+        issn: "0043-1354",
+        discipline: "Science",
+        faculty: "Faculty of Science (Life & Physical Sciences)",
+        publisher: "Elsevier / International Water Association",
+        index: ["SCOPUS", "WOS"],
+        quartile: "Q1",
+        citescore: "21.4",
+        jif: "11.4",
+        openAccess: "Hybrid Open Access",
+        scope: "Aquatic toxicology, hydrology, water purification chemistry, estuarine ecology, and wastewater bio-engineering.",
+        url: "https://www.sciencedirect.com/journal/water-research"
+      },
+      {
+        title: "Journal of Materials Chemistry A",
+        issn: "2050-7488",
+        discipline: "Science",
+        faculty: "Faculty of Science (Physical & Chemical)",
+        publisher: "Royal Society of Chemistry",
+        index: ["SCOPUS", "WOS"],
+        quartile: "Q1",
+        citescore: "17.9",
+        jif: "10.7",
+        openAccess: "Hybrid Open Access",
+        scope: "Energy storage materials, catalysis, renewable materials, electrochemistry, and nanomaterials synthesis.",
+        url: "https://pubs.rsc.org/en/journals/journalissues/ta"
+      },
+      {
+        title: "Telecommunications Policy",
+        issn: "0308-5961",
+        discipline: "Social",
+        faculty: "Communication & Media Studies / Computing",
+        publisher: "Elsevier",
+        index: ["SCOPUS", "WOS"],
+        quartile: "Q1",
+        citescore: "10.1",
+        jif: "4.8",
+        openAccess: "Hybrid Open Access",
+        scope: "Telecommunications regulation, broadband adoption, digital broadcasting, media economics, and digital policy.",
+        url: "https://www.sciencedirect.com/journal/telecommunications-policy"
+      },
+      {
+        title: "Journalism & Mass Communication Quarterly",
+        issn: "1077-6990",
+        discipline: "Social",
+        faculty: "Faculty of Communication & Media Studies",
+        publisher: "SAGE Publications (for AEJMC)",
+        index: ["SCOPUS", "WOS"],
+        quartile: "Q1",
+        citescore: "5.8",
+        jif: "3.4",
+        openAccess: "Hybrid Open Access",
+        scope: "Media theory, investigative journalism, digital misinformation, political communication, and public relations.",
+        url: "https://journals.sagepub.com/home/jmq"
+      },
+      {
+        title: "Computers & Education",
+        issn: "0360-1315",
+        discipline: "Education",
+        faculty: "Faculty of Education",
+        publisher: "Elsevier",
+        index: ["SCOPUS", "WOS"],
+        quartile: "Q1",
+        citescore: "23.5",
+        jif: "12.0",
+        openAccess: "Hybrid Open Access",
+        scope: "Digital pedagogy, virtual learning systems, educational technology, curriculum design, and learning analytics.",
+        url: "https://www.sciencedirect.com/journal/computers-and-education"
+      },
+      {
+        title: "Building and Environment",
+        issn: "0360-1323",
+        discipline: "Environmental",
+        faculty: "Faculty of Environmental Sciences",
+        publisher: "Elsevier",
+        index: ["SCOPUS", "WOS"],
+        quartile: "Q1",
+        citescore: "14.2",
+        jif: "7.4",
+        openAccess: "Hybrid Open Access",
+        scope: "Architectural science, sustainable tropical construction, urban environmental microclimate, and indoor environmental quality.",
+        url: "https://www.sciencedirect.com/journal/building-and-environment"
+      },
+      {
+        title: "Habitat International",
+        issn: "0197-3975",
+        discipline: "Environmental",
+        faculty: "Architecture & Urban Planning",
+        publisher: "Elsevier",
+        index: ["SCOPUS", "WOS"],
+        quartile: "Q1",
+        citescore: "13.1",
+        jif: "6.5",
+        openAccess: "Hybrid Open Access",
+        scope: "Urban development in developing countries, informal housing, land tenure, spatial economics, and megacity planning.",
+        url: "https://www.sciencedirect.com/journal/habitat-international"
+      }
+    ]; let activeIndexFilter = 'ALL';
+    let activeFacultyFilter = 'ALL';
+    let searchQuery = '';
+    let currentPage = 1;
+    const limitPerPage = 20;
+    let totalApiJournals = 0;
+    let totalApiPages = 1;
 
-  async function loadFacultyDownloadsGrid() {
-    const grid = document.getElementById('facultyDownloadsGrid');
-    if (!grid) return;
-    try {
-      const res = await fetch('/api/faculty-journals-summary');
-      if (res.ok) {
-        const data = await res.json();
-        const facs = data.faculties || [];
-        if (facs.length) {
-          grid.innerHTML = facs.map(f => `
+    async function loadFacultyDownloadsGrid() {
+      const grid = document.getElementById('facultyDownloadsGrid');
+      if (!grid) return;
+      try {
+        const res = await fetch('/api/faculty-journals-summary');
+        if (res.ok) {
+          const data = await res.json();
+          const facs = data.faculties || [];
+          if (facs.length) {
+            grid.innerHTML = facs.map(f => `
             <div style="background:#FAF7F0;border:1px solid var(--line);border-radius:4px;padding:14px 16px;display:flex;flex-direction:column;justify-content:space-between;transition:border-color 0.2s">
               <div>
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px;margin-bottom:6px">
@@ -914,122 +1071,122 @@
               </div>
             </div>
           `).join('');
-          return;
+            return;
+          }
         }
+      } catch (e) {
+        console.warn('Could not load faculty summary API, using static grid:', e);
       }
-    } catch (e) {
-      console.warn('Could not load faculty summary API, using static grid:', e);
     }
-  }
 
-  function setIndexFilter(idx, elem) {
-    activeIndexFilter = idx;
-    currentPage = 1;
-    document.querySelectorAll('.side-nav .j-filter-card:first-of-type .j-pill-btn').forEach(b => b.classList.remove('active'));
-    if (elem) elem.classList.add('active');
-    renderJournalFeed();
-  }
-
-  function setFacultyFilter(fac, elem) {
-    activeFacultyFilter = fac;
-    currentPage = 1;
-    document.querySelectorAll('.side-nav .j-filter-card:nth-of-type(2) .j-pill-btn').forEach(b => {
-      b.classList.remove('active');
-      if (b.textContent.toLowerCase().includes(fac.toLowerCase())) {
-        b.classList.add('active');
-      }
-    });
-    if (elem) elem.classList.add('active');
-    renderJournalFeed();
-  }
-
-  let searchDebounce = null;
-  function handleSearchInput() {
-    clearTimeout(searchDebounce);
-    searchDebounce = setTimeout(() => {
-      searchQuery = document.getElementById('journalSearchInput').value.trim().toLowerCase();
+    function setIndexFilter(idx, elem) {
+      activeIndexFilter = idx;
       currentPage = 1;
+      document.querySelectorAll('.side-nav .j-filter-card:first-of-type .j-pill-btn').forEach(b => b.classList.remove('active'));
+      if (elem) elem.classList.add('active');
       renderJournalFeed();
-    }, 250);
-  }
-
-  function resetAllFilters() {
-    searchQuery = '';
-    document.getElementById('journalSearchInput').value = '';
-    activeIndexFilter = 'ALL';
-    activeFacultyFilter = 'ALL';
-    currentPage = 1;
-    document.querySelectorAll('.j-pill-btn').forEach(b => {
-      if (b.textContent.includes('All')) b.classList.add('active');
-      else b.classList.remove('active');
-    });
-    renderJournalFeed();
-  }
-
-  function goToPage(p) {
-    if (p < 1 || p > totalApiPages) return;
-    currentPage = p;
-    renderJournalFeed();
-    const el = document.getElementById('journalSearchInput');
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-
-  async function renderJournalFeed() {
-    const host = document.getElementById('journalFeed');
-    const displayCount = document.getElementById('journalCountDisplay');
-    if (!host) return;
-
-    displayCount.textContent = 'Searching accredited repository...';
-
-    let items = [];
-    let total = 0;
-    let isApi = false;
-
-    try {
-      const url = `/api/journals?page=${currentPage}&limit=${limitPerPage}&q=${encodeURIComponent(searchQuery)}&faculty=${encodeURIComponent(activeFacultyFilter)}&index=${encodeURIComponent(activeIndexFilter)}`;
-      const res = await fetch(url);
-      if (res.ok) {
-        const d = await res.json();
-        items = d.journals || [];
-        total = d.total || 0;
-        totalApiJournals = total;
-        totalApiPages = d.total_pages || 1;
-        isApi = true;
-      }
-    } catch (err) {
-      console.warn('API error, falling back to local dataset:', err);
     }
 
-    if (!isApi) {
-      const filtered = accreditedJournals.filter(j => {
-        const q = searchQuery;
-        const matchesQ = !q ||
-          j.title.toLowerCase().includes(q) ||
-          j.issn.toLowerCase().includes(q) ||
-          j.publisher.toLowerCase().includes(q) ||
-          j.faculty.toLowerCase().includes(q) ||
-          j.scope.toLowerCase().includes(q);
-        const matchesFac = activeFacultyFilter === 'ALL' || (j.faculty && j.faculty.toLowerCase().includes(activeFacultyFilter.toLowerCase()));
-        let matchesIdx = true;
-        if (activeIndexFilter === 'Q1') matchesIdx = j.quartile === 'Q1';
-        else if (activeIndexFilter === 'SCOPUS') matchesIdx = (j.index || []).includes('SCOPUS');
-        else if (activeIndexFilter === 'WOS') matchesIdx = (j.index || []).includes('WOS');
-        else if (activeIndexFilter === 'DOAJ') matchesIdx = (j.index || []).includes('DOAJ');
-        else if (activeIndexFilter === 'AJOL') matchesIdx = (j.index || []).includes('AJOL');
-        return matchesQ && matchesFac && matchesIdx;
+    function setFacultyFilter(fac, elem) {
+      activeFacultyFilter = fac;
+      currentPage = 1;
+      document.querySelectorAll('.side-nav .j-filter-card:nth-of-type(2) .j-pill-btn').forEach(b => {
+        b.classList.remove('active');
+        if (b.textContent.toLowerCase().includes(fac.toLowerCase())) {
+          b.classList.add('active');
+        }
       });
-      total = filtered.length;
-      totalApiJournals = total;
-      totalApiPages = Math.ceil(total / limitPerPage) || 1;
-      const start = (currentPage - 1) * limitPerPage;
-      items = filtered.slice(start, start + limitPerPage);
+      if (elem) elem.classList.add('active');
+      renderJournalFeed();
     }
 
-    displayCount.textContent = `Showing ${(items.length ? (currentPage - 1) * limitPerPage + 1 : 0)}–${Math.min(currentPage * limitPerPage, total)} of ${total.toLocaleString()} verified journals (Scopus & AJOL)`;
+    let searchDebounce = null;
+    function handleSearchInput() {
+      clearTimeout(searchDebounce);
+      searchDebounce = setTimeout(() => {
+        searchQuery = document.getElementById('journalSearchInput').value.trim().toLowerCase();
+        currentPage = 1;
+        renderJournalFeed();
+      }, 250);
+    }
 
-    if (!items.length) {
-      const qVal = searchQuery;
-      host.innerHTML = `
+    function resetAllFilters() {
+      searchQuery = '';
+      document.getElementById('journalSearchInput').value = '';
+      activeIndexFilter = 'ALL';
+      activeFacultyFilter = 'ALL';
+      currentPage = 1;
+      document.querySelectorAll('.j-pill-btn').forEach(b => {
+        if (b.textContent.includes('All')) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+      renderJournalFeed();
+    }
+
+    function goToPage(p) {
+      if (p < 1 || p > totalApiPages) return;
+      currentPage = p;
+      renderJournalFeed();
+      const el = document.getElementById('journalSearchInput');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    async function renderJournalFeed() {
+      const host = document.getElementById('journalFeed');
+      const displayCount = document.getElementById('journalCountDisplay');
+      if (!host) return;
+
+      displayCount.textContent = 'Searching accredited repository...';
+
+      let items = [];
+      let total = 0;
+      let isApi = false;
+
+      try {
+        const url = `/api/journals?page=${currentPage}&limit=${limitPerPage}&q=${encodeURIComponent(searchQuery)}&faculty=${encodeURIComponent(activeFacultyFilter)}&index=${encodeURIComponent(activeIndexFilter)}`;
+        const res = await fetch(url);
+        if (res.ok) {
+          const d = await res.json();
+          items = d.journals || [];
+          total = d.total || 0;
+          totalApiJournals = total;
+          totalApiPages = d.total_pages || 1;
+          isApi = true;
+        }
+      } catch (err) {
+        console.warn('API error, falling back to local dataset:', err);
+      }
+
+      if (!isApi) {
+        const filtered = accreditedJournals.filter(j => {
+          const q = searchQuery;
+          const matchesQ = !q ||
+            j.title.toLowerCase().includes(q) ||
+            j.issn.toLowerCase().includes(q) ||
+            j.publisher.toLowerCase().includes(q) ||
+            j.faculty.toLowerCase().includes(q) ||
+            j.scope.toLowerCase().includes(q);
+          const matchesFac = activeFacultyFilter === 'ALL' || (j.faculty && j.faculty.toLowerCase().includes(activeFacultyFilter.toLowerCase()));
+          let matchesIdx = true;
+          if (activeIndexFilter === 'Q1') matchesIdx = j.quartile === 'Q1';
+          else if (activeIndexFilter === 'SCOPUS') matchesIdx = (j.index || []).includes('SCOPUS');
+          else if (activeIndexFilter === 'WOS') matchesIdx = (j.index || []).includes('WOS');
+          else if (activeIndexFilter === 'DOAJ') matchesIdx = (j.index || []).includes('DOAJ');
+          else if (activeIndexFilter === 'AJOL') matchesIdx = (j.index || []).includes('AJOL');
+          return matchesQ && matchesFac && matchesIdx;
+        });
+        total = filtered.length;
+        totalApiJournals = total;
+        totalApiPages = Math.ceil(total / limitPerPage) || 1;
+        const start = (currentPage - 1) * limitPerPage;
+        items = filtered.slice(start, start + limitPerPage);
+      }
+
+      displayCount.textContent = `Showing ${(items.length ? (currentPage - 1) * limitPerPage + 1 : 0)}–${Math.min(currentPage * limitPerPage, total)} of ${total.toLocaleString()} verified journals (Scopus & AJOL)`;
+
+      if (!items.length) {
+        const qVal = searchQuery;
+        host.innerHTML = `
         <div style="background:#fff;border:1px dashed var(--line);padding:48px 24px;text-align:center">
           <h3 style="font-family:var(--serif);font-size:1.6rem;margin-bottom:8px">No matching journals found</h3>
           <p style="font-size:0.92rem;color:var(--ink-70);max-width:540px;margin:0 auto 20px auto">
@@ -1042,16 +1199,16 @@
           <div id="globalResultsBox" style="margin-top:28px;text-align:left"></div>
         </div>
       `;
-      return;
-    }
+        return;
+      }
 
-    const journalHtml = items.map(j => {
-      const qTag = String(j.quartile).includes('Q1') ? 'tag-q1' :
-                   String(j.quartile).includes('Q2') ? 'tag-q2' :
-                   String(j.quartile).includes('AJOL') ? 'tag-oa' : 'tag-q3';
-      const indexList = Array.isArray(j.index) ? j.index.join(' &bull; ') : 'Accredited';
+      const journalHtml = items.map(j => {
+        const qTag = String(j.quartile).includes('Q1') ? 'tag-q1' :
+          String(j.quartile).includes('Q2') ? 'tag-q2' :
+            String(j.quartile).includes('AJOL') ? 'tag-oa' : 'tag-q3';
+        const indexList = Array.isArray(j.index) ? j.index.join(' &bull; ') : 'Accredited';
 
-      return `
+        return `
         <div class="journal-entry">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
             <div style="flex:1;min-width:min(100%,340px)">
@@ -1091,10 +1248,10 @@
           </div>
         </div>
       `;
-    }).join('');
+      }).join('');
 
-    // Pagination bar
-    const paginationHtml = totalApiPages > 1 ? `
+      // Pagination bar
+      const paginationHtml = totalApiPages > 1 ? `
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)">
         <div class="mono" style="font-size:0.8rem;color:var(--ink-70)">
           Page <strong>${currentPage}</strong> of <strong>${totalApiPages}</strong> (${total.toLocaleString()} total outlets)
@@ -1106,8 +1263,8 @@
       </div>
     ` : '';
 
-    host.innerHTML = journalHtml + paginationHtml;
-  }
+      host.innerHTML = journalHtml + paginationHtml;
+    }
 
     if (!filtered.length) {
       const qVal = searchQuery;
@@ -1174,26 +1331,26 @@
   }
 
 
-  async function searchGlobalCrossref(query) {
-    const btn = document.getElementById('globalSearchBtn');
-    const box = document.getElementById('globalResultsBox');
-    if (!btn || !box) return;
-    btn.textContent = 'Searching Crossref Global Registry...';
-    btn.disabled = true;
+    async function searchGlobalCrossref(query) {
+      const btn = document.getElementById('globalSearchBtn');
+      const box = document.getElementById('globalResultsBox');
+      if (!btn || !box) return;
+      btn.textContent = 'Searching Crossref Global Registry...';
+      btn.disabled = true;
 
-    try {
-      const res = await fetch(`https://api.crossref.org/journals?query=${encodeURIComponent(query)}&rows=8`);
-      if (!res.ok) throw new Error('Network error');
-      const data = await res.json();
-      const items = data.message?.items || [];
+      try {
+        const res = await fetch(`https://api.crossref.org/journals?query=${encodeURIComponent(query)}&rows=8`);
+        if (!res.ok) throw new Error('Network error');
+        const data = await res.json();
+        const items = data.message?.items || [];
 
-      if (!items.length) {
-        box.innerHTML = `<div style="padding:16px;background:var(--sand);text-align:center" class="mono">No global registry records found for "${escapeHtml(query)}". Please consult the Liaison Librarian Desk.</div>`;
-        btn.textContent = 'Search Completed';
-        return;
-      }
+        if (!items.length) {
+          box.innerHTML = `<div style="padding:16px;background:var(--sand);text-align:center" class="mono">No global registry records found for "${escapeHtml(query)}". Please consult the Liaison Librarian Desk.</div>`;
+          btn.textContent = 'Search Completed';
+          return;
+        }
 
-      box.innerHTML = `
+        box.innerHTML = `
         <div class="mono" style="font-size:0.75rem;color:var(--oxblood);font-weight:700;margin-bottom:12px;text-transform:uppercase">
           Global Verified Journals from Crossref Academic Registry:
         </div>
@@ -1231,23 +1388,24 @@
           `;
         }).join('')}
       `;
-      btn.textContent = 'Search Completed (Results Below)';
-    } catch (e) {
-      box.innerHTML = `<div style="padding:16px;background:#FFEBEE;color:#B71C1C" class="mono">Unable to reach external journal registry. Please check your network connection or consult the Liaison Librarian Desk.</div>`;
-      btn.textContent = 'Retry Global Search';
-      btn.disabled = false;
+        btn.textContent = 'Search Completed (Results Below)';
+      } catch (e) {
+        box.innerHTML = `<div style="padding:16px;background:#FFEBEE;color:#B71C1C" class="mono">Unable to reach external journal registry. Please check your network connection or consult the Liaison Librarian Desk.</div>`;
+        btn.textContent = 'Retry Global Search';
+        btn.disabled = false;
+      }
     }
-  }
 
-  function escapeHtml(str) {
-    if (!str) return '';
-    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  }
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    loadFacultyDownloadsGrid();
-    renderJournalFeed();
-  });
-</script>
+    document.addEventListener('DOMContentLoaded', () => {
+      loadFacultyDownloadsGrid();
+      renderJournalFeed();
+    });
+  </script>
 </body>
+
 </html>
