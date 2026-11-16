@@ -14,6 +14,24 @@ PORT = 8000
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(DIRECTORY, 'data', 'bookings.json')
 CMS_FILE = os.path.join(DIRECTORY, 'data', 'cms_content.json')
+MESSAGES_FILE = os.path.join(DIRECTORY, 'data', 'contact_messages.json')
+
+def load_messages():
+    if os.path.exists(MESSAGES_FILE):
+        try:
+            with open(MESSAGES_FILE, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e:
+            print("Error loading contact messages:", e)
+    return {"total": 0, "messages": []}
+
+def save_messages(data):
+    try:
+        os.makedirs(os.path.dirname(MESSAGES_FILE), exist_ok=True)
+        with open(MESSAGES_FILE, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2)
+    except Exception as e:
+        print("Error saving contact messages:", e)
 
 def load_cms():
     if os.path.exists(CMS_FILE):
@@ -493,6 +511,79 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_json({'total': 0, 'notices': []})
             return
 
+        # 9. CONTACT MESSAGES & INQUIRIES API (GET)
+        elif parsed.path in ['/api/contact', '/api/messages']:
+            self.send_json(load_messages())
+            return
+
+        # 10. ACCREDITED JOURNALS SEARCH & DIRECTORY API (GET)
+        elif parsed.path == '/api/journals':
+            params = urllib.parse.parse_qs(parsed.query)
+            q = params.get('q', [''])[0].lower().strip()
+            faculty = params.get('faculty', ['ALL'])[0].strip()
+            idx = params.get('index', ['ALL'])[0].upper().strip()
+            page = int(params.get('page', ['1'])[0])
+            limit = int(params.get('limit', ['25'])[0])
+
+            catalog_path = os.path.join(DIRECTORY, 'data', 'accredited_journals_catalog.json')
+            catalog = []
+            if os.path.exists(catalog_path):
+                try:
+                    with open(catalog_path, 'r', encoding='utf-8') as f:
+                        catalog = json.load(f)
+                except Exception as e:
+                    print("Error loading journal catalog:", e)
+
+            filtered = []
+            for j in catalog:
+                matches_q = not q or (
+                    q in j.get('title', '').lower() or
+                    q in j.get('issn', '').lower() or
+                    q in j.get('publisher', '').lower() or
+                    q in j.get('faculty', '').lower() or
+                    q in j.get('scope', '').lower()
+                )
+                matches_fac = faculty == 'ALL' or faculty.lower() in j.get('faculty', '').lower()
+                matches_idx = True
+                if idx == 'Q1':
+                    matches_idx = j.get('quartile') == 'Q1'
+                elif idx == 'SCOPUS':
+                    matches_idx = 'SCOPUS' in j.get('index', [])
+                elif idx == 'WOS':
+                    matches_idx = 'WOS' in j.get('index', [])
+                elif idx == 'DOAJ':
+                    matches_idx = 'DOAJ' in j.get('index', [])
+                elif idx == 'AJOL':
+                    matches_idx = 'AJOL' in j.get('index', [])
+
+                if matches_q and matches_fac and matches_idx:
+                    filtered.append(j)
+
+            total = len(filtered)
+            start = (page - 1) * limit
+            paginated = filtered[start:start + limit]
+            self.send_json({
+                'total': total,
+                'page': page,
+                'limit': limit,
+                'total_pages': max(1, (total + limit - 1) // limit),
+                'journals': paginated
+            })
+            return
+
+        # 11. FACULTY JOURNALS SUMMARY & DOWNLOADS (GET)
+        elif parsed.path == '/api/faculty-journals-summary':
+            summary_path = os.path.join(DIRECTORY, 'data', 'faculty_journals_summary.json')
+            if os.path.exists(summary_path):
+                try:
+                    with open(summary_path, 'r', encoding='utf-8') as f:
+                        self.send_json(json.load(f))
+                        return
+                except Exception as e:
+                    pass
+            self.send_json({'total_faculties': 0, 'faculties': []})
+            return
+
         # Default: Serve static files
         return super().do_GET()
 
@@ -787,6 +878,57 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_json({'status': 'success', 'data': result})
             except Exception as e:
                 self.send_json({'status': 'error', 'message': str(e)}, status=500)
+            return
+
+        # 10. SUBMIT CONTACT INQUIRY / MESSAGE (POST)
+        elif parsed.path in ['/api/contact', '/api/messages']:
+            data = load_messages()
+            msg_id = f"MSG-{random.randint(1000, 9999)}"
+            new_msg = {
+                'id': msg_id,
+                'name': body.get('name', 'Anonymous User').strip(),
+                'email': body.get('email', '').strip(),
+                'subject': body.get('subject', 'General Inquiry').strip(),
+                'message': body.get('message', '').strip(),
+                'status': 'UNREAD',
+                'created_at': datetime.datetime.utcnow().isoformat() + 'Z'
+            }
+            data.setdefault('messages', []).insert(0, new_msg)
+            data['total'] = len(data['messages'])
+            save_messages(data)
+            self.send_json({
+                'success': True,
+                'message': 'Your message has been sent to the University of Lagos Library administration. We will get back to you shortly.',
+                'inquiry': new_msg
+            }, status=201)
+            return
+
+        # 11. CONTACT MESSAGE ADMIN ACTION (RESOLVE/DELETE)
+        elif parsed.path == '/api/messages/action':
+            data = load_messages()
+            action = body.get('action')
+            msg_id = body.get('id')
+            messages = data.get('messages', [])
+            found = False
+            for m in messages:
+                if m.get('id') == msg_id:
+                    found = True
+                    if action in ['RESOLVE', 'RESOLVED']:
+                        m['status'] = 'RESOLVED'
+                    elif action in ['UNRESOLVE', 'UNREAD']:
+                        m['status'] = 'UNREAD'
+                    break
+
+            if action == 'DELETE':
+                data['messages'] = [m for m in messages if m.get('id') != msg_id]
+                found = True
+
+            if found:
+                data['total'] = len(data['messages'])
+                save_messages(data)
+                self.send_json({'success': True, 'message': f'Message {msg_id} updated'})
+            else:
+                self.send_json({'error': f'Message {msg_id} not found'}, status=404)
             return
 
         self.send_json({'error': 'Endpoint not found'}, status=404)

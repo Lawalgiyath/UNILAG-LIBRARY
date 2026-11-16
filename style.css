@@ -2456,22 +2456,74 @@ body.menu-open .drawer {
 
 .foot .f-top {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr;
-  gap: clamp(24px, 3vw, 50px);
+  grid-template-columns: 1.3fr 0.9fr 1.1fr 0.9fr 1.1fr;
+  gap: clamp(20px, 2.5vw, 44px);
   padding-bottom: clamp(34px, 4vw, 58px);
   border-bottom: 1px solid var(--line-light)
 }
 
-@media(max-width:900px) {
+@media(max-width:1080px) {
   .foot .f-top {
-    grid-template-columns: 1fr 1fr
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
   }
 }
 
-@media(max-width:560px) {
+@media(max-width:580px) {
   .foot .f-top {
-    grid-template-columns: 1fr
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
+}
+
+/* Social Media Hub Glassmorphism Card with Diagonal Sheen */
+.social-glass-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  box-shadow: 0 12px 36px rgba(108, 0, 0, 0.07), 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: clamp(22px, 3.5vw, 34px);
+  margin-bottom: 28px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
+}
+
+.social-glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 44px rgba(108, 0, 0, 0.11), 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.social-glass-card::after {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -80%;
+  width: 42%;
+  height: 220%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.65) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(30deg);
+  pointer-events: none;
+  animation: glassSheen 4.2s ease-in-out infinite;
+}
+
+@keyframes glassSheen {
+  0% { transform: translateX(0) rotate(30deg); opacity: 0; }
+  12% { opacity: 1; }
+  32% { transform: translateX(550%) rotate(30deg); opacity: 0; }
+  100% { transform: translateX(550%) rotate(30deg); opacity: 0; }
+}
+
+/* Page Hero Numbering Hidden Site-Wide */
+.phero-no {
+  display: none !important;
 }
 
 .foot .f-brand {
@@ -2839,6 +2891,61 @@ body.menu-open .drawer {
 
 .totop:hover {
   background: var(--oxblood)
+}
+
+/* Modal Overlay & Card System */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 11, 10, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9999;
+  place-items: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.modal-overlay.active {
+  display: grid;
+}
+
+.modal-box {
+  background: #fff;
+  width: min(840px, 94vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: clamp(24px, 3.5vw, 40px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.btn-close:hover {
+  background: var(--sand);
+  color: var(--oxblood);
 }
 
 /* helpers */

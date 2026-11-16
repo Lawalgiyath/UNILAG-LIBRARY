@@ -31,15 +31,17 @@
     <a href="https://unilag.edu.ng/" target="_blank" rel="noopener">Unilag Home</a>
     <span class="dot"></span>
     <a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X</a>
-      <a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
-      <a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube</a>
-      <a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok</a>
-      <a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Linktree</a>
+    <a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X</a>
+    <a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok</a>
+    <a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Linktree</a>
   </div>
   <div class="tb-r">
     <span class="dot"></span>
     <a href="accessibility.html">Accessibility</a>
+    <span class="dot"></span>
+    <a href="admin/index.html">Staff Portal</a>
   </div>
 </div>
 
@@ -53,16 +55,18 @@
       </span>
     </a>
     <nav class="nav" aria-label="Primary">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="search.html">Search</a>
-        <a href="libraries.html">Libraries</a>
-        <a href="oer.html">OER</a>
-        <a href="archives.html">Archives</a>
-        <a href="museum.html">Museum</a>
-        <a href="news.html">News &amp; Events</a>
-        <a href="contact.html">Contact</a>
-        <a href="help.html">Help</a>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="departments.html">Departments</a>
+      <a href="libraries.html">Faculty libraries</a>
+      <a href="services.html">Services</a>
+      <a href="databases.html">Databases</a>
+      <a href="journals-accredited.html">Where to Publish</a>
+      <a href="oer.html">OER</a>
+      <a href="archives.html">Archives</a>
+      <a href="museum.html">Museum</a>
+      <a href="contact.html">Contact</a>
+      <a href="help.html">Help</a>
     </nav>
     <div class="head-tools">
       <button class="icon-btn desk" data-search-open aria-label="Open search">
@@ -82,15 +86,15 @@
   <a href="departments.html">Departments</a>
   <a href="libraries.html">Faculty libraries</a>
   <a href="services.html">Services</a>
-  <a href="libraries.html">Libraries</a>
   <a href="databases.html">Databases</a>
-    <a href="journals-accredited.html">Where to Publish</a>
+  <a href="journals-accredited.html">Where to Publish</a>
+  <a href="oer.html">OER (19 Faculties)</a>
   <a href="archives.html">Archives</a>
   <a href="museum.html">Museum</a>
-  <a href="oer.html">OER</a>
-  <a href="news.html">News</a>
+  <a href="news.html">News &amp; Events</a>
   <a href="contact.html">Contact</a>
   <a href="help.html">Help</a>
+  <a href="admin/index.html">Staff Portal</a>
   <div class="d-meta">8:00 a.m. to 9:00 p.m. Monday to Saturday<br>Akoka, Lagos</div>
 </div>
 
@@ -98,7 +102,6 @@
 <section class="phero">
   <div class="wrap">
     <div class="crumbs mono"><a href="index.html">Home</a><i></i><span>Subscribed Databases</span></div>
-    <div class="phero-no">09</div>
     <h1 class="display">Subscribed<br><em class="ital ox">Databases</em>.</h1>
     <div class="ph-sub">
       <p class="lede" data-reveal>Fifteen e-resources licensed for the University of Lagos. Most are reached through the University IP address while on campus. Every logo below links to the provider.</p>
@@ -178,13 +181,21 @@
         <span class="er-go">Open on ScienceDirect <i></i></span>
       </a>
 
-      <a class="er-card" href="https://portal.igpublish.com/iglibrary/" target="_blank" rel="noopener" id="igpublishing" data-reveal>
-        <span class="er-badge ip">IP access</span>
-        <div class="er-logo"><img src="assets/db/igpublishing.png" alt="iG Publishing logo"></div>
-        <h3>iG Publishing</h3>
-        <p>One of the leading providers of ebook collections, with over 150,000 titles covering all disciplines.</p>
-        <span class="er-go">Open iG Publishing <i></i></span>
-      </a>
+      <div class="er-card" id="igpublishing" data-reveal style="cursor:default;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:6px">
+            <span class="er-badge ip">IP &bull; Subnet Recognition</span>
+            <button type="button" onclick="toggleIgModal()" class="mono" style="background:none;border:none;color:var(--oxblood);font-size:0.75rem;cursor:pointer;font-weight:700;text-decoration:underline">Access Setup &rarr;</button>
+          </div>
+          <div class="er-logo"><img src="assets/db/igpublishing.png" alt="iG Publishing logo"></div>
+          <h3>iG Publishing (iGLibrary)</h3>
+          <p>Evidence-Based Acquisitions (EBA) eBook collections (Archive &amp; Front List) with over 150,000 multidisciplinary titles for University of Lagos.</p>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+          <a class="er-go" href="https://portal.igpublish.com/iglibrary/" target="_blank" rel="noopener" style="flex:1;min-width:140px">Open iGLibrary <i></i></a>
+          <button type="button" onclick="toggleIgModal()" class="btn btn--sm btn--ghost" style="padding:6px 14px;font-size:0.75rem">Credentials &amp; CIP</button>
+        </div>
+      </div>
 
       <a class="er-card" href="https://www.emerald.com/insight/" target="_blank" rel="noopener" id="emerald" data-reveal>
         <span class="er-badge">Register for remote</span>
@@ -329,46 +340,59 @@
     <div class="f-top">
       <div>
         <div class="f-brand">
-          <img src="assets/logo.png" alt="">
+          <img src="assets/logo.png" alt="University of Lagos Crest">
           <div>
             <b>University of Lagos<br>Library</b>
-            </div>
+          </div>
         </div>
-        <p>The academic hub of the University of Lagos, the University of First Choice and the Nation&rsquo;s Pride. Built to support cutting edge research and high quality teaching.</p>
+        <p>The academic hub of the University of Lagos, the University of First Choice and the Nation&rsquo;s Pride. Built to support cutting-edge research, teaching excellence, and global innovation.</p>
       </div>
       <div>
         <h5>Visit</h5>
         <ul>
-          <li><a href="libraries.html">Libraries</a></li>
-          <li><a href="archives.html">Archives</a></li>
-          <li><a href="museum.html">Museum</a></li>
+          <li><a href="libraries.html">Faculty &amp; College Libraries</a></li>
+          <li><a href="archives.html">University Archives</a></li>
+          <li><a href="museum.html">Library Museum</a></li>
           <li><a href="accessibility.html">Accessibility</a></li>
-          <li><a href="contact.html">Contact and map</a></li>
+          <li><a href="contact.html">Contact &amp; Map</a></li>
         </ul>
       </div>
       <div>
         <h5>Use</h5>
         <ul>
-          <li><a href="services.html">Our services</a></li>
-          <li><a href="https://library.unilag.edu.ng/opac" target="_blank" rel="noopener">OPAC catalogue</a></li>
-          <li><a href="databases.html">Subscribed databases</a></li>
-          <li><a href="oer.html">Open educational resources</a></li>
-          <li><a href="help.html">Research help</a></li>
+          <li><a href="services.html">Our Services &amp; Spaces</a></li>
+          <li><a href="https://library.unilag.edu.ng/opac" target="_blank" rel="noopener">OPAC Catalogue</a></li>
+          <li><a href="databases.html">Subscribed Databases</a></li>
+          <li><a href="journals-accredited.html">Where to Publish (Accredited Journals)</a></li>
+          <li><a href="oer.html">Open Educational Resources</a></li>
+          <li><a href="help.html">Research Help &amp; FAQs</a></li>
         </ul>
       </div>
       <div>
         <h5>Inside</h5>
         <ul>
-          <li><a href="about.html">About the library</a></li>
-          <li><a href="departments.html">Departments and units</a></li>
-          <li><a href="news.html">News and events</a></li>
-          <li><a href="help.html">FAQs</a></li>
+          <li><a href="about.html">About the Library</a></li>
+          <li><a href="departments.html">Departments &amp; Units</a></li>
+          <li><a href="news.html">News &amp; Events</a></li>
+          <li><a href="help.html#faqs">FAQs</a></li>
+          <li><a href="admin/index.html">Staff Portal</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram: @library.unilag</a></li>
+          <li><a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X (Twitter): @unilaglibrary</a></li>
+          <li><a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube: @UnilagLibrary</a></li>
+          <li><a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok: @unilaglibrary</a></li>
+          <li><a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Official Linktree Hub &rarr;</a></li>
         </ul>
       </div>
     </div>
     <div class="f-bot">
       <span>University of Lagos Library, P.M.B 1012, Akoka, Lagos</span>
-      <span>library@unilag.edu.ng &nbsp; 0906 396 9206</span>
+      <span>library@unilag.edu.ng &nbsp;&bull;&nbsp; 0906 396 9206</span>
       <span>Powered by CITS</span>
       <span>&copy; <span id="yr">2026</span> University of Lagos</span>
     </div>
@@ -401,5 +425,96 @@
 <script src="gsap-enhance.js"></script>
 <script src="app2.js"></script>
   <script src="cms-loader.js?v=20261105"></script>
+<!-- iGLibrary Portal Access & Credentials Modal -->
+<div class="modal-overlay" id="igModal" onclick="if(event.target===this)toggleIgModal()">
+  <div class="modal-box" style="max-width:760px">
+    <div class="modal-head">
+      <div>
+        <span class="mono" style="font-size:0.75rem;color:var(--oxblood);font-weight:700;letter-spacing:0.12em;text-transform:uppercase">Institutional E-Resource Guide</span>
+        <h3 style="font-family:var(--serif);font-size:1.9rem;margin:4px 0 0">iGLibrary Portal Access Setup</h3>
+      </div>
+      <button class="btn-close" onclick="toggleIgModal()" aria-label="Close modal">&times;</button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-bottom:20px">
+      <div style="background:#FAF7F0;border:1px solid var(--line);padding:18px;border-radius:4px">
+        <h4 style="font-family:var(--serif);font-size:1.25rem;margin-bottom:8px;color:var(--oxblood)">Subscription Overview</h4>
+        <div style="font-size:0.88rem;line-height:1.6">
+          <strong>Customer Name:</strong> University of Lagos<br>
+          <strong>Product:</strong> Evidence Based Acquisitions<br>
+          &bull; Archive List<br>
+          &bull; Front List<br>
+          <strong>License Period:</strong> 2022-11-01 to 2023-10-31<br>
+          <strong>Portal URL:</strong> <a href="https://portal.igpublish.com/iglibrary/" target="_blank" rel="noopener" style="color:var(--oxblood);font-weight:600">https://portal.igpublish.com/iglibrary/</a>
+        </div>
+      </div>
+
+      <div style="background:#FAF7F0;border:1px solid var(--line);padding:18px;border-radius:4px">
+        <h4 style="font-family:var(--serif);font-size:1.25rem;margin-bottom:8px;color:var(--oxblood)">Authentication Options</h4>
+        <div style="font-size:0.88rem;line-height:1.6">
+          <strong>On-Campus IP Recognition:</strong><br>
+          <code style="background:#fff;border:1px solid var(--line);padding:1px 5px">196.220.240-255.*</code><br>
+          <code style="background:#fff;border:1px solid var(--line);padding:1px 5px">196.45.48-63.*</code><br>
+          <strong>Off-Campus Institutional Login:</strong><br>
+          User: <code style="background:#fff;border:1px solid var(--line);padding:1px 5px">unilag</code> / Pass: <code style="background:#fff;border:1px solid var(--line);padding:1px 5px">unilag</code><br>
+          <strong>Direct Student / Researcher User:</strong><br>
+          <code style="background:#fff;border:1px solid var(--line);padding:1px 5px">user01@unilag.edu.ng</code> / <code style="background:#fff;border:1px solid var(--line);padding:1px 5px">user01@unilag.edu.ng</code>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#fff;border:1px solid var(--line);padding:18px;border-radius:4px;margin-bottom:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+        <h4 style="font-family:var(--serif);font-size:1.3rem;margin:0">Customer Information Portal (CIP) — Staff &amp; Administrator</h4>
+        <a href="http://support.igpublish.com/info/" target="_blank" rel="noopener" class="btn btn--sm btn--solid" style="padding:4px 12px;font-size:0.75rem">Launch CIP Desk &rarr;</a>
+      </div>
+      <p style="font-size:0.88rem;color:var(--ink-70);margin-bottom:12px">Librarians and system administrators can retrieve title lists, holdings, MARC records, SUSHI statistics, and usage reports:</p>
+      
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;background:#FAF7F0;padding:12px;border-radius:4px;margin-bottom:12px">
+        <div>
+          <span class="mono" style="font-size:0.72rem;color:var(--oxblood);font-weight:700">PORTAL URL</span>
+          <div style="font-size:0.86rem"><a href="http://support.igpublish.com/info/" target="_blank" rel="noopener" style="color:var(--oxblood)">http://support.igpublish.com/info/</a></div>
+        </div>
+        <div>
+          <span class="mono" style="font-size:0.72rem;color:var(--oxblood);font-weight:700">CIP USERNAME</span>
+          <div style="font-size:0.88rem"><code style="background:#fff;padding:2px 6px">ng_unilag</code></div>
+        </div>
+        <div>
+          <span class="mono" style="font-size:0.72rem;color:var(--oxblood);font-weight:700">CIP PASSWORD</span>
+          <div style="font-size:0.88rem"><code style="background:#fff;padding:2px 6px">ng_unilag@report</code></div>
+        </div>
+      </div>
+
+      <div style="font-size:0.82rem;color:var(--ink-70);line-height:1.5">
+        <strong>Retrievable Information &amp; Tooling:</strong> Contacts &bull; Authentication &bull; Holdings on iGLibrary eBook platform &bull; Title list &bull; MARC records &bull; Usage report &bull; SUSHI Harvester &bull; EZproxy database stanza
+      </div>
+    </div>
+
+    <div style="background:#FAF7F0;border:1px solid var(--line);padding:16px;border-radius:4px;margin-bottom:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <span class="mono" style="font-size:0.74rem;color:var(--oxblood);font-weight:700;text-transform:uppercase">EZproxy Database Stanza</span>
+        <span class="mono" style="font-size:0.72rem;color:var(--ink-50)">Standard Config</span>
+      </div>
+      <pre style="background:#fff;border:1px solid var(--line);padding:12px;border-radius:3px;font-family:var(--mono);font-size:0.82rem;margin:0;line-height:1.4">Title iG Library (iG Publishing)
+URL https://portal.igpublish.com/iglibrary/
+HJ portal.igpublish.com
+DJ igpublish.com</pre>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <a href="https://portal.igpublish.com/iglibrary/" target="_blank" rel="noopener" class="btn btn--solid" style="padding:10px 22px">Launch iGLibrary Portal &rarr;</a>
+      <button type="button" onclick="toggleIgModal()" class="btn btn--ghost" style="padding:10px 20px">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleIgModal() {
+  const m = document.getElementById('igModal');
+  if (m) {
+    m.classList.toggle('active');
+  }
+}
+</script>
 </body>
 </html>
