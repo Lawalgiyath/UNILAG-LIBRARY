@@ -26,77 +26,118 @@
 <div class="cur"></div><div class="cur-dot"></div>
 <div id="pt"></div>
 
-<div class="topbar">
-  <div class="tb-l">
-    <a href="https://unilag.edu.ng/" target="_blank" rel="noopener">Unilag Home</a>
-    <span class="dot"></span>
-    <a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram</a>
-    <a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X</a>
-    <a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
-    <a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube</a>
-    <a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok</a>
-    <a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Linktree</a>
-  </div>
-  <div class="tb-r">
-    <span class="dot"></span>
-    <a href="accessibility.html">Accessibility</a>
-    <span class="dot"></span>
-    <a href="admin/index.html">Staff Portal</a>
-  </div>
-</div>
-
-<header class="site-head" id="head">
-  <div class="head-row">
-    <a class="brand" href="index.html" aria-label="University of Lagos Library, home">
-      <img src="assets/logo.png" alt="University of Lagos Library crest">
-      <span class="bw">
-        <b>University of Lagos</b>
-        <span>Library</span>
-      </span>
-    </a>
-    <nav class="nav" aria-label="Primary">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="departments.html">Departments</a>
-      <a href="libraries.html">Faculty libraries</a>
-      <a href="services.html">Services</a>
-      <a href="databases.html">Databases</a>
-      <a href="journals-accredited.html">Where to Publish</a>
-      <a href="oer.html">OER</a>
-      <a href="archives.html">Archives</a>
-      <a href="museum.html">Museum</a>
-      <a href="contact.html">Contact</a>
-      <a href="help.html">Help</a>
-    </nav>
-    <div class="head-tools">
-      <button class="icon-btn desk" data-search-open aria-label="Open search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
-      </button>
-      <a class="icon-btn desk" href="help.html" aria-label="Help and FAQs">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.6 2.6 0 115 .9c0 1.5-2.5 1.9-2.5 3.4"/><path d="M12 17.2v.1"/></svg>
-      </a>
-      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
+  <div class="topbar">
+    <div class="tb-l">
+      <a href="https://unilag.edu.ng/" target="_blank" rel="noopener">Unilag Home</a>
+      <span class="dot tb-hide-sm"></span>
+      <span data-status>Checking hours</span>
+    </div>
+    <div class="tb-r">
+      <a href="news.html" class="tb-hide-sm">News &amp; Events</a>
+      <span class="dot tb-hide-sm"></span>
+      <a href="accessibility.html">Accessibility</a>
+      <span class="dot"></span>
+      <a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Linktree Hub</a>
+      <span class="dot tb-hide-sm"></span>
+      <a href="admin/index.html" class="tb-hide-sm">Staff Portal</a>
     </div>
   </div>
-</header>
 
-<div class="drawer" id="drawer">
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="departments.html">Departments</a>
-  <a href="libraries.html">Faculty libraries</a>
-  <a href="services.html">Services</a>
-  <a href="databases.html">Databases</a>
-  <a href="journals-accredited.html">Where to Publish</a>
-  <a href="oer.html">OER (19 Faculties)</a>
-  <a href="archives.html">Archives</a>
-  <a href="museum.html">Museum</a>
-  <a href="news.html">News &amp; Events</a>
-  <a href="contact.html">Contact</a>
-  <a href="help.html">Help</a>
-  <a href="admin/index.html">Staff Portal</a>
-  <div class="d-meta">8:00 a.m. to 9:00 p.m. Monday to Saturday<br>Akoka, Lagos</div>
-</div>
+  <header class="site-head" id="head">
+    <div class="head-row">
+      <a class="brand" href="index.html" aria-label="University of Lagos Library, home">
+        <img src="assets/logo.png" alt="University of Lagos Library crest" decoding="async">
+        <span class="bw">
+          <b>University of Lagos</b>
+          <span>Library</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">The Library <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="about.html"><span class="nav-dd-title">About &amp; Welcome</span><span class="nav-dd-sub">Vision, mission, and the University Librarian&rsquo;s welcome</span></a>
+            <a href="departments.html"><span class="nav-dd-title">Departments &amp; Units</span><span class="nav-dd-sub">Readers&rsquo;, Technical, Research &amp; Automation units</span></a>
+            <a href="libraries.html"><span class="nav-dd-title">Faculty &amp; College Libraries</span><span class="nav-dd-sub">19 faculty libraries across Akoka &amp; Idi-Araba</span></a>
+            <a href="news.html"><span class="nav-dd-title">News &amp; Notices</span><span class="nav-dd-sub">Latest announcements, spaces, and scholarly updates</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Services <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="services.html"><span class="nav-dd-title">Services &amp; Modern Spaces</span><span class="nav-dd-sub">Multimedia Studio, Learning Commons, Makerspace &amp; loans</span></a>
+            <a href="accessibility.html"><span class="nav-dd-title">Accessibility &amp; Inclusion</span><span class="nav-dd-sub">Visually Impaired Resource Centre &amp; adaptive tools</span></a>
+            <a href="help.html"><span class="nav-dd-title">Help, FAQs &amp; Book Purchases</span><span class="nav-dd-sub">Research appointments, borrowing rules &amp; requests</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Research <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="search.html"><span class="nav-dd-title">Catalogue &amp; Search</span><span class="nav-dd-sub">OPAC holdings, call numbers &amp; discovery</span></a>
+            <a href="databases.html"><span class="nav-dd-title">Subscribed E-Databases</span><span class="nav-dd-sub">ScienceDirect, JSTOR, HeinOnline, ProQuest &amp; iGLibrary</span></a>
+            <a href="journals-accredited.html"><span class="nav-dd-title">Where to Publish</span><span class="nav-dd-sub">Scopus &amp; AJOL accredited journals directory by faculty</span></a>
+            <a href="oer.html"><span class="nav-dd-title">Open Educational Resources</span><span class="nav-dd-sub">Curated open textbooks &amp; courseware across 19 faculties</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Heritage <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="archives.html"><span class="nav-dd-title">University Archives</span><span class="nav-dd-sub">Gandhi Library special collections &amp; primary sources</span></a>
+            <a href="museum.html"><span class="nav-dd-title">University Museum</span><span class="nav-dd-sub">123+ curated sculptures, textiles &amp; cultural artefacts</span></a>
+          </div>
+        </div>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="head-tools">
+        <button class="icon-btn desk" data-search-open aria-label="Open search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
+        </button>
+        <a class="head-cat-btn" href="search.html" aria-label="Search OPAC Catalogue">
+          <span>Catalogue</span>
+        </a>
+        <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="drawer" id="drawer">
+    <div class="drawer-grid">
+      <div class="dr-col">
+        <div class="dr-heading">The Library</div>
+        <a href="index.html">Home</a>
+        <a href="about.html">About &amp; Welcome</a>
+        <a href="departments.html">Departments &amp; Units</a>
+        <a href="libraries.html">Faculty &amp; College Libraries</a>
+        <a href="news.html">News &amp; Notices</a>
+      </div>
+      <div class="dr-col">
+        <div class="dr-heading">Services &amp; Spaces</div>
+        <a href="services.html">Services &amp; Spaces</a>
+        <a href="accessibility.html">Accessibility &amp; Inclusion</a>
+        <a href="help.html">Help, FAQs &amp; Book Purchase</a>
+        <a href="contact.html">Contact &amp; Map</a>
+      </div>
+      <div class="dr-col">
+        <div class="dr-heading">Research &amp; E-Resources</div>
+        <a href="search.html">Catalogue Search (OPAC)</a>
+        <a href="databases.html">Subscribed Databases</a>
+        <a href="journals-accredited.html">Where to Publish</a>
+        <a href="oer.html">Open Educational Resources</a>
+      </div>
+      <div class="dr-col">
+        <div class="dr-heading">Heritage &amp; Portal</div>
+        <a href="archives.html">University Archives</a>
+        <a href="museum.html">Library Museum</a>
+        <a href="admin/index.html">Staff Portal</a>
+        <a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener">Official Linktree Hub</a>
+      </div>
+    </div>
+    <div class="d-meta">
+      <span>8:00 a.m. to 9:00 p.m. Monday to Saturday</span>
+      <span>library@unilag.edu.ng &bull; Akoka, Lagos</span>
+    </div>
+  </div>
 
 <main>
 <section class="phero">
@@ -115,7 +156,10 @@
     <div class="grid-2" style="gap:clamp(24px,4vw,66px);align-items:start">
       <div data-reveal>
         <div class="arch">
-          <img src="assets/makerspace.jpg" alt="Library study space">
+          <picture>
+            <source srcset="assets/reading_booth_study.webp" type="image/webp">
+            <img src="assets/reading_booth_study.jpg" alt="Inclusive library reading booth and accessible study seating" decoding="async" loading="lazy">
+          </picture>
           <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
         </div>
         <div class="mono" style="color:var(--ink-50);margin-top:14px">PL. 03 / Within the library</div>
@@ -168,70 +212,70 @@
 
 </main>
 
-<footer class="foot">
-  <div class="wrap">
-    <div class="f-top">
-      <div>
-        <div class="f-brand">
-          <img src="assets/logo.png" alt="University of Lagos Crest">
-          <div>
-            <b>University of Lagos<br>Library</b>
+  <footer class="foot">
+    <div class="wrap">
+      <div class="f-top">
+        <div>
+          <div class="f-brand">
+            <img src="assets/logo.png" alt="University of Lagos Crest" loading="lazy" decoding="async">
+            <div>
+              <b>University of Lagos<br>Library</b>
+            </div>
           </div>
+          <p>The academic hub of the University of Lagos, the University of First Choice and the Nation&rsquo;s Pride. Built to support cutting-edge research, teaching excellence, and global innovation.</p>
         </div>
-        <p>The academic hub of the University of Lagos, the University of First Choice and the Nation&rsquo;s Pride. Built to support cutting-edge research, teaching excellence, and global innovation.</p>
+        <div>
+          <h5>Visit</h5>
+          <ul>
+            <li><a href="libraries.html">Faculty &amp; College Libraries</a></li>
+            <li><a href="archives.html">University Archives</a></li>
+            <li><a href="museum.html">Library Museum</a></li>
+            <li><a href="accessibility.html">Accessibility</a></li>
+            <li><a href="contact.html">Contact &amp; Map</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Use</h5>
+          <ul>
+            <li><a href="services.html">Our Services &amp; Spaces</a></li>
+            <li><a href="search.html">Search OPAC Catalogue</a></li>
+            <li><a href="databases.html">Subscribed Databases</a></li>
+            <li><a href="journals-accredited.html">Where to Publish (Accredited Journals)</a></li>
+            <li><a href="oer.html">Open Educational Resources</a></li>
+            <li><a href="help.html">Research Help &amp; FAQs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Inside</h5>
+          <ul>
+            <li><a href="about.html">About the Library</a></li>
+            <li><a href="departments.html">Departments &amp; Units</a></li>
+            <li><a href="news.html">News &amp; Events</a></li>
+            <li><a href="help.html#faqs">FAQs</a></li>
+            <li><a href="admin/index.html">Staff Portal</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Connect</h5>
+          <ul>
+            <li><a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram: @library.unilag</a></li>
+            <li><a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X (Twitter): @unilaglibrary</a></li>
+            <li><a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a></li>
+            <li><a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube: @UnilagLibrary</a></li>
+            <li><a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok: @unilaglibrary</a></li>
+            <li><a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Official Linktree Hub &rarr;</a></li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <h5>Visit</h5>
-        <ul>
-          <li><a href="libraries.html">Faculty &amp; College Libraries</a></li>
-          <li><a href="archives.html">University Archives</a></li>
-          <li><a href="museum.html">Library Museum</a></li>
-          <li><a href="accessibility.html">Accessibility</a></li>
-          <li><a href="contact.html">Contact &amp; Map</a></li>
-        </ul>
+      <div class="f-bot">
+        <span>University of Lagos Library, P.M.B 1012, Akoka, Lagos</span>
+        <span>library@unilag.edu.ng &nbsp;&bull;&nbsp; 0906 396 9206</span>
+        <span>Powered by CITS</span>
+        <span>&copy; <span id="yr">2026</span> University of Lagos</span>
       </div>
-      <div>
-        <h5>Use</h5>
-        <ul>
-          <li><a href="services.html">Our Services &amp; Spaces</a></li>
-          <li><a href="https://library.unilag.edu.ng/opac" target="_blank" rel="noopener">OPAC Catalogue</a></li>
-          <li><a href="databases.html">Subscribed Databases</a></li>
-          <li><a href="journals-accredited.html">Where to Publish (Accredited Journals)</a></li>
-          <li><a href="oer.html">Open Educational Resources</a></li>
-          <li><a href="help.html">Research Help &amp; FAQs</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Inside</h5>
-        <ul>
-          <li><a href="about.html">About the Library</a></li>
-          <li><a href="departments.html">Departments &amp; Units</a></li>
-          <li><a href="news.html">News &amp; Events</a></li>
-          <li><a href="help.html#faqs">FAQs</a></li>
-          <li><a href="admin/index.html">Staff Portal</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Connect</h5>
-        <ul>
-          <li><a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram: @library.unilag</a></li>
-          <li><a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X (Twitter): @unilaglibrary</a></li>
-          <li><a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a></li>
-          <li><a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube: @UnilagLibrary</a></li>
-          <li><a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok: @unilaglibrary</a></li>
-          <li><a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Official Linktree Hub &rarr;</a></li>
-        </ul>
-      </div>
+      <div class="f-word">UNIVERSITY OF LAGOS LIBRARY</div>
     </div>
-    <div class="f-bot">
-      <span>University of Lagos Library, P.M.B 1012, Akoka, Lagos</span>
-      <span>library@unilag.edu.ng &nbsp;&bull;&nbsp; 0906 396 9206</span>
-      <span>Powered by CITS</span>
-      <span>&copy; <span id="yr">2026</span> University of Lagos</span>
-    </div>
-    <div class="f-word">UNIVERSITY OF LAGOS LIBRARY</div>
-  </div>
-</footer>
+  </footer>
 
 <div class="sov" id="sov" role="dialog" aria-label="Search the library">
   <div class="sov-top">
@@ -251,11 +295,10 @@
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20V4M5 11l7-7 7 7"/></svg>
 </button>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-<script src="app.js"></script>
-<script src="gsap-enhance.js"></script>
-<script src="app2.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script defer src="app.js"></script>
+<script defer src="gsap-enhance.js"></script>
+<script defer src="app2.js"></script>
 </body>
 </html>

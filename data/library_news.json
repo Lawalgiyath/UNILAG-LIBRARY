@@ -1,7 +1,7 @@
 {
   "source": "UNILAG Library Automated News & Notices Syndication",
-  "last_updated": "2026-11-21T07:05:15.181055",
-  "last_updated_display": "21 Nov 2026, 07:05 AM",
+  "last_updated": "2026-11-21T23:10:48.704338",
+  "last_updated_display": "21 Nov 2026, 11:10 PM",
   "total": 14,
   "notices": [
     {
@@ -15,7 +15,7 @@
       "location": "3rd Floor, Main Library",
       "summary": "State-of-the-art acoustic podcasting and video recording studio suite launched on 19th January 2026 on the 3rd Floor of the Main Library. Equipped with broadcast studio boom microphones, acoustic timber soundproofing, and overhead studio lighting for scholarly podcasts, lectures, and academic production.",
       "link": "services.html#multimedia-studio",
-      "image": "https://iili.io/nQKlFu2.webp",
+      "image": "assets/multimedia_studio_suite.webp",
       "badge": "Newly Commissioned"
     },
     {
@@ -29,7 +29,7 @@
       "location": "Ground Floor, Main Library",
       "summary": "Collaborative research workstations, high-speed institutional e-resource terminals, and on-site information desk guidance for interdisciplinary scholarly investigations.",
       "link": "services.html#learning-commons",
-      "image": "https://iili.io/nPRQeA7.webp",
+      "image": "assets/learning_commons_workstations.webp",
       "badge": "Collaborative Space"
     },
     {
@@ -57,7 +57,7 @@
       "location": "1st Floor, Main Library",
       "summary": "Interactive smart displays, design-thinking whiteboards, and comfortable circular collaboration pods designed to foster student innovation and interdisciplinary creative projects.",
       "link": "services.html#makerspace",
-      "image": "https://iili.io/nPRZAb9.webp",
+      "image": "assets/makerspace_arena.webp",
       "badge": "Ideation & Design"
     },
     {

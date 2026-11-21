@@ -36,27 +36,24 @@
   <div class="topbar">
     <div class="tb-l">
       <a href="https://unilag.edu.ng/" target="_blank" rel="noopener">Unilag Home</a>
-      <span class="dot"></span>
-      <a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X</a>
-      <a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
-      <a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube</a>
-      <a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok</a>
-      <a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener"
-        style="color:var(--gold,#C59B27);font-weight:600">Linktree</a>
+      <span class="dot tb-hide-sm"></span>
+      <span data-status>Checking hours</span>
     </div>
     <div class="tb-r">
-      <span class="dot"></span>
+      <a href="news.html" class="tb-hide-sm">News &amp; Events</a>
+      <span class="dot tb-hide-sm"></span>
       <a href="accessibility.html">Accessibility</a>
       <span class="dot"></span>
-      <a href="admin/index.html">Staff Portal</a>
+      <a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Linktree Hub</a>
+      <span class="dot tb-hide-sm"></span>
+      <a href="admin/index.html" class="tb-hide-sm">Staff Portal</a>
     </div>
   </div>
 
   <header class="site-head" id="head">
     <div class="head-row">
       <a class="brand" href="index.html" aria-label="University of Lagos Library, home">
-        <img src="assets/logo.png" alt="University of Lagos Library crest">
+        <img src="assets/logo.png" alt="University of Lagos Library crest" decoding="async">
         <span class="bw">
           <b>University of Lagos</b>
           <span>Library</span>
@@ -64,31 +61,47 @@
       </a>
       <nav class="nav" aria-label="Primary">
         <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="departments.html">Departments</a>
-        <a href="libraries.html">Faculty libraries</a>
-        <a href="services.html">Services</a>
-        <a href="databases.html">Databases</a>
-        <a href="journals-accredited.html">Where to Publish</a>
-        <a href="oer.html">OER</a>
-        <a href="archives.html">Archives</a>
-        <a href="museum.html">Museum</a>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">The Library <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="about.html"><span class="nav-dd-title">About &amp; Welcome</span><span class="nav-dd-sub">Vision, mission, and the University Librarian&rsquo;s welcome</span></a>
+            <a href="departments.html"><span class="nav-dd-title">Departments &amp; Units</span><span class="nav-dd-sub">Readers&rsquo;, Technical, Research &amp; Automation units</span></a>
+            <a href="libraries.html"><span class="nav-dd-title">Faculty &amp; College Libraries</span><span class="nav-dd-sub">19 faculty libraries across Akoka &amp; Idi-Araba</span></a>
+            <a href="news.html"><span class="nav-dd-title">News &amp; Notices</span><span class="nav-dd-sub">Latest announcements, spaces, and scholarly updates</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Services <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="services.html"><span class="nav-dd-title">Services &amp; Modern Spaces</span><span class="nav-dd-sub">Multimedia Studio, Learning Commons, Makerspace &amp; loans</span></a>
+            <a href="accessibility.html"><span class="nav-dd-title">Accessibility &amp; Inclusion</span><span class="nav-dd-sub">Visually Impaired Resource Centre &amp; adaptive tools</span></a>
+            <a href="help.html"><span class="nav-dd-title">Help, FAQs &amp; Book Purchases</span><span class="nav-dd-sub">Research appointments, borrowing rules &amp; requests</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Research <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="search.html"><span class="nav-dd-title">Catalogue &amp; Search</span><span class="nav-dd-sub">OPAC holdings, call numbers &amp; discovery</span></a>
+            <a href="databases.html"><span class="nav-dd-title">Subscribed E-Databases</span><span class="nav-dd-sub">ScienceDirect, JSTOR, HeinOnline, ProQuest &amp; iGLibrary</span></a>
+            <a href="journals-accredited.html"><span class="nav-dd-title">Where to Publish</span><span class="nav-dd-sub">Scopus &amp; AJOL accredited journals directory by faculty</span></a>
+            <a href="oer.html"><span class="nav-dd-title">Open Educational Resources</span><span class="nav-dd-sub">Curated open textbooks &amp; courseware across 19 faculties</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Heritage <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="archives.html"><span class="nav-dd-title">University Archives</span><span class="nav-dd-sub">Gandhi Library special collections &amp; primary sources</span></a>
+            <a href="museum.html"><span class="nav-dd-title">University Museum</span><span class="nav-dd-sub">123+ curated sculptures, textiles &amp; cultural artefacts</span></a>
+          </div>
+        </div>
         <a href="contact.html">Contact</a>
-        <a href="help.html">Help</a>
       </nav>
       <div class="head-tools">
         <button class="icon-btn desk" data-search-open aria-label="Open search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-            <circle cx="11" cy="11" r="7" />
-            <path d="M16.5 16.5L21 21" />
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
         </button>
-        <a class="icon-btn desk" href="help.html" aria-label="Help and FAQs">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-            <circle cx="12" cy="12" r="9" />
-            <path d="M9.5 9.2a2.6 2.6 0 115 .9c0 1.5-2.5 1.9-2.5 3.4" />
-            <path d="M12 17.2v.1" />
-          </svg>
+        <a class="head-cat-btn" href="search.html" aria-label="Search OPAC Catalogue">
+          <span>Catalogue</span>
         </a>
         <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
       </div>
@@ -96,21 +109,41 @@
   </header>
 
   <div class="drawer" id="drawer">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="departments.html">Departments</a>
-    <a href="libraries.html">Faculty libraries</a>
-    <a href="services.html">Services</a>
-    <a href="databases.html">Databases</a>
-    <a href="journals-accredited.html">Where to Publish</a>
-    <a href="oer.html">OER (19 Faculties)</a>
-    <a href="archives.html">Archives</a>
-    <a href="museum.html">Museum</a>
-    <a href="news.html">News &amp; Events</a>
-    <a href="contact.html">Contact</a>
-    <a href="help.html">Help</a>
-    <a href="admin/index.html">Staff Portal</a>
-    <div class="d-meta">8:00 a.m. to 9:00 p.m. Monday to Saturday<br>Akoka, Lagos</div>
+    <div class="drawer-grid">
+      <div class="dr-col">
+        <div class="dr-heading">The Library</div>
+        <a href="index.html">Home</a>
+        <a href="about.html">About &amp; Welcome</a>
+        <a href="departments.html">Departments &amp; Units</a>
+        <a href="libraries.html">Faculty &amp; College Libraries</a>
+        <a href="news.html">News &amp; Notices</a>
+      </div>
+      <div class="dr-col">
+        <div class="dr-heading">Services &amp; Spaces</div>
+        <a href="services.html">Services &amp; Spaces</a>
+        <a href="accessibility.html">Accessibility &amp; Inclusion</a>
+        <a href="help.html">Help, FAQs &amp; Book Purchase</a>
+        <a href="contact.html">Contact &amp; Map</a>
+      </div>
+      <div class="dr-col">
+        <div class="dr-heading">Research &amp; E-Resources</div>
+        <a href="search.html">Catalogue Search (OPAC)</a>
+        <a href="databases.html">Subscribed Databases</a>
+        <a href="journals-accredited.html">Where to Publish</a>
+        <a href="oer.html">Open Educational Resources</a>
+      </div>
+      <div class="dr-col">
+        <div class="dr-heading">Heritage &amp; Portal</div>
+        <a href="archives.html">University Archives</a>
+        <a href="museum.html">Library Museum</a>
+        <a href="admin/index.html">Staff Portal</a>
+        <a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener">Official Linktree Hub</a>
+      </div>
+    </div>
+    <div class="d-meta">
+      <span>8:00 a.m. to 9:00 p.m. Monday to Saturday</span>
+      <span>library@unilag.edu.ng &bull; Akoka, Lagos</span>
+    </div>
   </div>
 
   <main>
@@ -134,35 +167,35 @@
       </div>
       <div class="dm-track">
         <a class="dm-item" href="https://www.sciencedirect.com/" target="_blank" rel="noopener"><img
-            src="assets/db/sciencedirect.png" alt="ScienceDirect"></a>
+            src="assets/db/sciencedirect.png" alt="ScienceDirect" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://www.jstor.org/" target="_blank" rel="noopener"><img src="assets/db/jstor.png"
-            alt="JSTOR"></a>
+            alt="JSTOR" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://heinonline.org/HOL/Welcome" target="_blank" rel="noopener"><img
-            src="assets/db/heinonline.png" alt="HeinOnline"></a>
+            src="assets/db/heinonline.png" alt="HeinOnline" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://www.proquest.com/?accountid=173489" target="_blank" rel="noopener"><img
-            src="assets/db/proquest.jpg" alt="ProQuest Central"></a>
+            src="assets/db/proquest.jpg" alt="ProQuest Central" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://www.emerald.com/insight/" target="_blank" rel="noopener"><img
-            src="assets/db/emerald.png" alt="Emerald Insight"></a>
+            src="assets/db/emerald.png" alt="Emerald Insight" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://portal.igpublish.com/iglibrary/" target="_blank" rel="noopener"><img
-            src="assets/db/igpublishing.png" alt="iG Publishing"></a>
+            src="assets/db/igpublishing.png" alt="iG Publishing" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" rel="noopener"><img
-            src="assets/db/research4life.png" alt="Research4life"></a>
+            src="assets/db/research4life.png" alt="Research4life" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://asmedigitalcollection.asme.org/" target="_blank" rel="noopener"><img
-            src="assets/db/asme.jpg" alt="ASME Digital Collection"></a>
+            src="assets/db/asme.jpg" alt="ASME Digital Collection" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://brill.com/" target="_blank" rel="noopener"><img src="assets/db/brill.png"
-            alt="Brill"></a>
+            alt="Brill" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://www.springernature.com/" target="_blank" rel="noopener"><img
-            src="assets/db/springer.png" alt="Springer Nature"></a>
+            src="assets/db/springer.png" alt="Springer Nature" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://ebookcentral.proquest.com/lib/unilag/home.action" target="_blank"
-          rel="noopener"><img src="assets/db/ebookcentral.png" alt="ProQuest Ebook Central"></a>
+          rel="noopener"><img src="assets/db/ebookcentral.png" alt="ProQuest Ebook Central" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://www.jaypeedigital.com/home" target="_blank" rel="noopener"><img
-            src="assets/db/jaypee.png" alt="JaypeeDigital Medical"></a>
+            src="assets/db/jaypee.png" alt="JaypeeDigital Medical" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://www.cambridge.org/core/what-we-publish/journals" target="_blank"
-          rel="noopener"><img src="assets/db/cambridge.jpg" alt="Cambridge University Press"></a>
+          rel="noopener"><img src="assets/db/cambridge.jpg" alt="Cambridge University Press" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://hstalks.com/biosci/" target="_blank" rel="noopener"><img
-            src="assets/db/hstalks.png" alt="HSTalks"></a>
+            src="assets/db/hstalks.png" alt="HSTalks" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="http://ijmso.unilag.edu.ng/" target="_blank" rel="noopener"><img
-            src="assets/db/ijmso.png" alt="IJMSO"></a>
+            src="assets/db/ijmso.png" alt="IJMSO" decoding="async" loading="lazy"></a>
       </div>
     </div>
 
@@ -213,7 +246,7 @@
           <a class="er-card" href="https://www.sciencedirect.com/" target="_blank" rel="noopener" id="sciencedirect"
             data-reveal>
             <span class="er-badge ip">IP access</span>
-            <div class="er-logo"><img src="assets/db/sciencedirect.png" alt="ScienceDirect logo"></div>
+            <div class="er-logo"><img src="assets/db/sciencedirect.png" alt="ScienceDirect logo" decoding="async" loading="lazy"></div>
             <h3>ScienceDirect</h3>
             <p>More than 15 million scientific articles, of which over 900,000 are open access, peer reviewed and
               reusable.</p>
@@ -230,7 +263,7 @@
                   style="background:none;border:none;color:var(--oxblood);font-size:0.75rem;cursor:pointer;font-weight:700;text-decoration:underline">Access
                   Setup &rarr;</button>
               </div>
-              <div class="er-logo"><img src="assets/db/igpublishing.png" alt="iG Publishing logo"></div>
+              <div class="er-logo"><img src="assets/db/igpublishing.png" alt="iG Publishing logo" decoding="async" loading="lazy"></div>
               <h3>iG Publishing (iGLibrary)</h3>
               <p>Evidence-Based Acquisitions (EBA) eBook collections (Archive &amp; Front List) with over 150,000
                 multidisciplinary titles for University of Lagos.</p>
@@ -246,7 +279,7 @@
           <a class="er-card" href="https://www.emerald.com/insight/" target="_blank" rel="noopener" id="emerald"
             data-reveal>
             <span class="er-badge">Register for remote</span>
-            <div class="er-logo"><img src="assets/db/emerald.png" alt="Emerald Insight logo"></div>
+            <div class="er-logo"><img src="assets/db/emerald.png" alt="Emerald Insight logo" decoding="async" loading="lazy"></div>
             <h3>Emerald Insight</h3>
             <p>Scholarly journals in management, business, education, library studies, health care and engineering.</p>
             <span class="er-go">Open Emerald <i></i></span>
@@ -255,7 +288,7 @@
           <a class="er-card" href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" rel="noopener"
             id="research4life" data-reveal>
             <span class="er-badge">Credentials</span>
-            <div class="er-logo"><img src="assets/db/research4life.png" alt="Research4life logo"></div>
+            <div class="er-logo"><img src="assets/db/research4life.png" alt="Research4life logo" decoding="async" loading="lazy"></div>
             <h3>Research4life</h3>
             <p>AGORA for agriculture, HINARI for health, OARE for environment, GOALI for legal and ARDI for intellectual
               property.</p>
@@ -265,7 +298,7 @@
           <a class="er-card" href="https://heinonline.org/HOL/Welcome" target="_blank" rel="noopener" id="heinonline"
             data-reveal>
             <span class="er-badge ip">IP access</span>
-            <div class="er-logo"><img src="assets/db/heinonline.png" alt="HeinOnline logo"></div>
+            <div class="er-logo"><img src="assets/db/heinonline.png" alt="HeinOnline logo" decoding="async" loading="lazy"></div>
             <h3>HeinOnline</h3>
             <p>Comprehensive coverage from inception of more than 3,300 multidisciplinary periodicals, government
               documents, constitutions and world trials.</p>
@@ -274,7 +307,7 @@
 
           <a class="er-card" href="https://www.jstor.org/" target="_blank" rel="noopener" id="jstor" data-reveal>
             <span class="er-badge ip">IP access</span>
-            <div class="er-logo"><img src="assets/db/jstor.png" alt="JSTOR logo"></div>
+            <div class="er-logo"><img src="assets/db/jstor.png" alt="JSTOR logo" decoding="async" loading="lazy"></div>
             <h3>JSTOR</h3>
             <p>A digital library of more than 2,000 journals, nearly 20,000 books and two million primary source
               objects.</p>
@@ -284,7 +317,7 @@
           <a class="er-card" href="https://www.proquest.com/?accountid=173489" target="_blank" rel="noopener"
             id="proquest" data-reveal>
             <span class="er-badge ip">IP access</span>
-            <div class="er-logo"><img src="assets/db/proquest.jpg" alt="ProQuest logo"></div>
+            <div class="er-logo"><img src="assets/db/proquest.jpg" alt="ProQuest logo" decoding="async" loading="lazy"></div>
             <h3>ProQuest Central</h3>
             <p>The largest multidisciplinary full text database. Over 100,000 full text dissertations and 455,000
               working papers from NBER, OECD and others.</p>
@@ -294,7 +327,7 @@
           <a class="er-card" href="https://asmedigitalcollection.asme.org/" target="_blank" rel="noopener" id="asme"
             data-reveal>
             <span class="er-badge ip">IP access</span>
-            <div class="er-logo"><img src="assets/db/asme.jpg" alt="ASME logo"></div>
+            <div class="er-logo"><img src="assets/db/asme.jpg" alt="ASME logo" decoding="async" loading="lazy"></div>
             <h3>ASME Digital Collection</h3>
             <p>Journals from 1933 to present, conference proceedings from 2000 plus select back to 1955, and ebooks from
               1993.</p>
@@ -303,7 +336,7 @@
 
           <a class="er-card" href="https://brill.com/" target="_blank" rel="noopener" id="brill" data-reveal>
             <span class="er-badge ip">IP access</span>
-            <div class="er-logo"><img src="assets/db/brill.png" alt="Brill logo"></div>
+            <div class="er-logo"><img src="assets/db/brill.png" alt="Brill logo" decoding="async" loading="lazy"></div>
             <h3>Brill</h3>
             <p>Over 360 journals, 8,000 volumes and 150,000 articles back to the year 2000, in three subject
               collections.</p>
@@ -313,7 +346,7 @@
           <a class="er-card" href="https://www.springernature.com/" target="_blank" rel="noopener" id="springer"
             data-reveal>
             <span class="er-badge ip">IP access</span>
-            <div class="er-logo"><img src="assets/db/springer.png" alt="Springer Nature logo"></div>
+            <div class="er-logo"><img src="assets/db/springer.png" alt="Springer Nature logo" decoding="async" loading="lazy"></div>
             <h3>Springer Nature</h3>
             <p>Access to a world of science, technology, medicine, social sciences and humanities.</p>
             <span class="er-go">Open Springer Nature <i></i></span>
@@ -322,7 +355,7 @@
           <a class="er-card" href="https://ebookcentral.proquest.com/lib/unilag/home.action" target="_blank"
             rel="noopener" id="ebookcentral" data-reveal>
             <span class="er-badge ip">IP access</span>
-            <div class="er-logo"><img src="assets/db/ebookcentral.png" alt="ProQuest Ebook Central logo"></div>
+            <div class="er-logo"><img src="assets/db/ebookcentral.png" alt="ProQuest Ebook Central logo" decoding="async" loading="lazy"></div>
             <h3>ProQuest Ebook Central</h3>
             <p>Ebooks across business, health and medical, social sciences, arts and humanities, education, science and
               religion.</p>
@@ -331,7 +364,7 @@
 
           <a class="er-card" href="http://ijmso.unilag.edu.ng/" target="_blank" rel="noopener" id="ijmso" data-reveal>
             <span class="er-badge ip">IP access</span>
-            <div class="er-logo"><img src="assets/db/ijmso.png" alt="IJMSO logo"></div>
+            <div class="er-logo"><img src="assets/db/ijmso.png" alt="IJMSO logo" decoding="async" loading="lazy"></div>
             <h3>IJMSO</h3>
             <p>International Journal of Mathematical Sciences and Optimization, hosted by the University of Lagos.</p>
             <span class="er-go">Open IJMSO <i></i></span>
@@ -340,7 +373,7 @@
           <a class="er-card" href="https://www.jaypeedigital.com/home" target="_blank" rel="noopener" id="jaypee"
             data-reveal>
             <span class="er-badge ip">IP access</span>
-            <div class="er-logo"><img src="assets/db/jaypee.png" alt="JaypeeDigital logo"></div>
+            <div class="er-logo"><img src="assets/db/jaypee.png" alt="JaypeeDigital logo" decoding="async" loading="lazy"></div>
             <h3>JaypeeDigital Medical</h3>
             <p>More than 3,500 health science books, journals and procedure videos, with 350 new products each year.</p>
             <span class="er-go">Open JaypeeDigital <i></i></span>
@@ -349,7 +382,7 @@
           <a class="er-card" href="https://www.cambridge.org/core/what-we-publish/journals" target="_blank"
             rel="noopener" id="cambridge" data-reveal>
             <span class="er-badge ip">IP access</span>
-            <div class="er-logo"><img src="assets/db/cambridge.jpg" alt="Cambridge University Press logo"></div>
+            <div class="er-logo"><img src="assets/db/cambridge.jpg" alt="Cambridge University Press logo" decoding="async" loading="lazy"></div>
             <h3>Cambridge University Press</h3>
             <p>Cambridge Core, with more than 380 peer reviewed journals and more than 33,000 ebooks.</p>
             <span class="er-go">Open Cambridge Core <i></i></span>
@@ -357,21 +390,11 @@
 
           <a class="er-card" href="https://hstalks.com/biosci/" target="_blank" rel="noopener" id="hstalks" data-reveal>
             <span class="er-badge ip">IP access</span>
-            <div class="er-logo"><img src="assets/db/hstalks.png" alt="HSTalks logo"></div>
+            <div class="er-logo"><img src="assets/db/hstalks.png" alt="HSTalks logo" decoding="async" loading="lazy"></div>
             <h3>HSTalks</h3>
             <p>The Biomedical and Life Sciences Collection of audio visual lectures from leading scientists.</p>
             <span class="er-go">Open HSTalks <i></i></span>
           </a>
-        </div>
-
-        <div class="cmsbar mt-l" data-reveal>
-          <svg class="ico" viewBox="0 0 24 24" style="color:var(--oxblood)">
-            <path d="M12 8v8M8 12h8" />
-            <circle cx="12" cy="12" r="9" />
-          </svg>
-          <div><b>Source.</b> Names, descriptions, logos and access URLs are taken from the University Library&rsquo;s
-            own subscribed databases page. Logos are the providers&rsquo; marks as published by the Library and link to
-            each provider. Off campus, Research4life needs credentials from the Automation Unit.</div>
         </div>
       </div>
     </section>
@@ -422,13 +445,12 @@
       <div class="f-top">
         <div>
           <div class="f-brand">
-            <img src="assets/logo.png" alt="University of Lagos Crest">
+            <img src="assets/logo.png" alt="University of Lagos Crest" loading="lazy" decoding="async">
             <div>
               <b>University of Lagos<br>Library</b>
             </div>
           </div>
-          <p>The academic hub of the University of Lagos, the University of First Choice and the Nation&rsquo;s Pride.
-            Built to support cutting-edge research, teaching excellence, and global innovation.</p>
+          <p>The academic hub of the University of Lagos, the University of First Choice and the Nation&rsquo;s Pride. Built to support cutting-edge research, teaching excellence, and global innovation.</p>
         </div>
         <div>
           <h5>Visit</h5>
@@ -444,7 +466,7 @@
           <h5>Use</h5>
           <ul>
             <li><a href="services.html">Our Services &amp; Spaces</a></li>
-            <li><a href="https://library.unilag.edu.ng/opac" target="_blank" rel="noopener">OPAC Catalogue</a></li>
+            <li><a href="search.html">Search OPAC Catalogue</a></li>
             <li><a href="databases.html">Subscribed Databases</a></li>
             <li><a href="journals-accredited.html">Where to Publish (Accredited Journals)</a></li>
             <li><a href="oer.html">Open Educational Resources</a></li>
@@ -464,18 +486,12 @@
         <div>
           <h5>Connect</h5>
           <ul>
-            <li><a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram:
-                @library.unilag</a></li>
-            <li><a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X (Twitter): @unilaglibrary</a>
-            </li>
-            <li><a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank"
-                rel="noopener">Facebook</a></li>
-            <li><a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube:
-                @UnilagLibrary</a></li>
-            <li><a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok: @unilaglibrary</a>
-            </li>
-            <li><a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener"
-                style="color:var(--gold,#C59B27);font-weight:600">Official Linktree Hub &rarr;</a></li>
+            <li><a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram: @library.unilag</a></li>
+            <li><a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X (Twitter): @unilaglibrary</a></li>
+            <li><a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a></li>
+            <li><a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube: @UnilagLibrary</a></li>
+            <li><a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok: @unilaglibrary</a></li>
+            <li><a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Official Linktree Hub &rarr;</a></li>
           </ul>
         </div>
       </div>
@@ -512,13 +528,12 @@
     </svg>
   </button>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-  <script src="app.js"></script>
-  <script src="gsap-enhance.js"></script>
-  <script src="app2.js"></script>
-  <script src="cms-loader.js?v=20261105"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script defer src="app.js"></script>
+  <script defer src="gsap-enhance.js"></script>
+  <script defer src="app2.js"></script>
+  <script defer src="cms-loader.js?v=20261105"></script>
   <!-- iGLibrary Portal Access & Credentials Modal -->
   <div class="modal-overlay" id="igModal" onclick="if(event.target===this)toggleIgModal()">
     <div class="modal-box" style="max-width:760px">

@@ -35,84 +35,125 @@
   <div id="pt"></div>
 
   <div class="topbar">
-  <div class="tb-l">
-    <a href="https://unilag.edu.ng/" target="_blank" rel="noopener">Unilag Home</a>
-    <span class="dot"></span>
-    <a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram</a>
-    <a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X</a>
-    <a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
-    <a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube</a>
-    <a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok</a>
-    <a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Linktree</a>
-  </div>
-  <div class="tb-r">
-    <span class="dot"></span>
-    <a href="accessibility.html">Accessibility</a>
-    <span class="dot"></span>
-    <a href="admin/index.html">Staff Portal</a>
-  </div>
-</div>
-
-  <header class="site-head" id="head">
-  <div class="head-row">
-    <a class="brand" href="index.html" aria-label="University of Lagos Library, home">
-      <img src="assets/logo.png" alt="University of Lagos Library crest">
-      <span class="bw">
-        <b>University of Lagos</b>
-        <span>Library</span>
-      </span>
-    </a>
-    <nav class="nav" aria-label="Primary">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="departments.html">Departments</a>
-      <a href="libraries.html">Faculty libraries</a>
-      <a href="services.html">Services</a>
-      <a href="databases.html">Databases</a>
-      <a href="journals-accredited.html">Where to Publish</a>
-      <a href="oer.html">OER</a>
-      <a href="archives.html">Archives</a>
-      <a href="museum.html">Museum</a>
-      <a href="contact.html">Contact</a>
-      <a href="help.html">Help</a>
-    </nav>
-    <div class="head-tools">
-      <button class="icon-btn desk" data-search-open aria-label="Open search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
-      </button>
-      <a class="icon-btn desk" href="help.html" aria-label="Help and FAQs">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.6 2.6 0 115 .9c0 1.5-2.5 1.9-2.5 3.4"/><path d="M12 17.2v.1"/></svg>
-      </a>
-      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
+    <div class="tb-l">
+      <a href="https://unilag.edu.ng/" target="_blank" rel="noopener">Unilag Home</a>
+      <span class="dot tb-hide-sm"></span>
+      <span data-status>Checking hours</span>
+    </div>
+    <div class="tb-r">
+      <a href="news.html" class="tb-hide-sm">News &amp; Events</a>
+      <span class="dot tb-hide-sm"></span>
+      <a href="accessibility.html">Accessibility</a>
+      <span class="dot"></span>
+      <a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Linktree Hub</a>
+      <span class="dot tb-hide-sm"></span>
+      <a href="admin/index.html" class="tb-hide-sm">Staff Portal</a>
     </div>
   </div>
-</header>
+
+  <header class="site-head" id="head">
+    <div class="head-row">
+      <a class="brand" href="index.html" aria-label="University of Lagos Library, home">
+        <img src="assets/logo.png" alt="University of Lagos Library crest" decoding="async">
+        <span class="bw">
+          <b>University of Lagos</b>
+          <span>Library</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">The Library <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="about.html"><span class="nav-dd-title">About &amp; Welcome</span><span class="nav-dd-sub">Vision, mission, and the University Librarian&rsquo;s welcome</span></a>
+            <a href="departments.html"><span class="nav-dd-title">Departments &amp; Units</span><span class="nav-dd-sub">Readers&rsquo;, Technical, Research &amp; Automation units</span></a>
+            <a href="libraries.html"><span class="nav-dd-title">Faculty &amp; College Libraries</span><span class="nav-dd-sub">19 faculty libraries across Akoka &amp; Idi-Araba</span></a>
+            <a href="news.html"><span class="nav-dd-title">News &amp; Notices</span><span class="nav-dd-sub">Latest announcements, spaces, and scholarly updates</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Services <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="services.html"><span class="nav-dd-title">Services &amp; Modern Spaces</span><span class="nav-dd-sub">Multimedia Studio, Learning Commons, Makerspace &amp; loans</span></a>
+            <a href="accessibility.html"><span class="nav-dd-title">Accessibility &amp; Inclusion</span><span class="nav-dd-sub">Visually Impaired Resource Centre &amp; adaptive tools</span></a>
+            <a href="help.html"><span class="nav-dd-title">Help, FAQs &amp; Book Purchases</span><span class="nav-dd-sub">Research appointments, borrowing rules &amp; requests</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Research <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="search.html"><span class="nav-dd-title">Catalogue &amp; Search</span><span class="nav-dd-sub">OPAC holdings, call numbers &amp; discovery</span></a>
+            <a href="databases.html"><span class="nav-dd-title">Subscribed E-Databases</span><span class="nav-dd-sub">ScienceDirect, JSTOR, HeinOnline, ProQuest &amp; iGLibrary</span></a>
+            <a href="journals-accredited.html"><span class="nav-dd-title">Where to Publish</span><span class="nav-dd-sub">Scopus &amp; AJOL accredited journals directory by faculty</span></a>
+            <a href="oer.html"><span class="nav-dd-title">Open Educational Resources</span><span class="nav-dd-sub">Curated open textbooks &amp; courseware across 19 faculties</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Heritage <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="archives.html"><span class="nav-dd-title">University Archives</span><span class="nav-dd-sub">Gandhi Library special collections &amp; primary sources</span></a>
+            <a href="museum.html"><span class="nav-dd-title">University Museum</span><span class="nav-dd-sub">123+ curated sculptures, textiles &amp; cultural artefacts</span></a>
+          </div>
+        </div>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="head-tools">
+        <button class="icon-btn desk" data-search-open aria-label="Open search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
+        </button>
+        <a class="head-cat-btn" href="search.html" aria-label="Search OPAC Catalogue">
+          <span>Catalogue</span>
+        </a>
+        <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
+      </div>
+    </div>
+  </header>
 
   <div class="drawer" id="drawer">
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="departments.html">Departments</a>
-  <a href="libraries.html">Faculty libraries</a>
-  <a href="services.html">Services</a>
-  <a href="databases.html">Databases</a>
-  <a href="journals-accredited.html">Where to Publish</a>
-  <a href="oer.html">OER (19 Faculties)</a>
-  <a href="archives.html">Archives</a>
-  <a href="museum.html">Museum</a>
-  <a href="news.html">News &amp; Events</a>
-  <a href="contact.html">Contact</a>
-  <a href="help.html">Help</a>
-  <a href="admin/index.html">Staff Portal</a>
-  <div class="d-meta">8:00 a.m. to 9:00 p.m. Monday to Saturday<br>Akoka, Lagos</div>
-</div>
+    <div class="drawer-grid">
+      <div class="dr-col">
+        <div class="dr-heading">The Library</div>
+        <a href="index.html">Home</a>
+        <a href="about.html">About &amp; Welcome</a>
+        <a href="departments.html">Departments &amp; Units</a>
+        <a href="libraries.html">Faculty &amp; College Libraries</a>
+        <a href="news.html">News &amp; Notices</a>
+      </div>
+      <div class="dr-col">
+        <div class="dr-heading">Services &amp; Spaces</div>
+        <a href="services.html">Services &amp; Spaces</a>
+        <a href="accessibility.html">Accessibility &amp; Inclusion</a>
+        <a href="help.html">Help, FAQs &amp; Book Purchase</a>
+        <a href="contact.html">Contact &amp; Map</a>
+      </div>
+      <div class="dr-col">
+        <div class="dr-heading">Research &amp; E-Resources</div>
+        <a href="search.html">Catalogue Search (OPAC)</a>
+        <a href="databases.html">Subscribed Databases</a>
+        <a href="journals-accredited.html">Where to Publish</a>
+        <a href="oer.html">Open Educational Resources</a>
+      </div>
+      <div class="dr-col">
+        <div class="dr-heading">Heritage &amp; Portal</div>
+        <a href="archives.html">University Archives</a>
+        <a href="museum.html">Library Museum</a>
+        <a href="admin/index.html">Staff Portal</a>
+        <a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener">Official Linktree Hub</a>
+      </div>
+    </div>
+    <div class="d-meta">
+      <span>8:00 a.m. to 9:00 p.m. Monday to Saturday</span>
+      <span>library@unilag.edu.ng &bull; Akoka, Lagos</span>
+    </div>
+  </div>
 
   <main>
     <!-- ============ HERO · library photograph ============ -->
     <section class="hero--bg">
       <div class="hero-bg" aria-hidden="true">
         <picture>
-          <source srcset="https://iili.io/o9LWL6F.webp" type="image/webp">
-          <img src="assets/library_facade_enhanced.jpg?v=20261114_cleanpics"
+          <source srcset="assets/library_facade_enhanced.webp" type="image/webp">
+          <img src="assets/library_facade_enhanced.jpg" fetchpriority="high" decoding="async"
             alt="University of Lagos Main Library Building">
         </picture>
       </div>
@@ -152,8 +193,8 @@
       <div class="hero-plate" data-reveal>
         <div class="arch">
           <picture>
-            <source srcset="https://iili.io/nmJtNn4.webp" type="image/webp">
-            <img src="assets/vc_reading_booth.jpg?v=20261105"
+            <source srcset="assets/vc_reading_booth.webp" type="image/webp">
+            <img src="assets/vc_reading_booth.jpg" decoding="async"
               alt="Vice-Chancellor Prof. Folasade Ogunsola at the University of Lagos Main Library">
           </picture>
           <span class="tick tl"></span><span class="tick br"></span>
@@ -179,35 +220,35 @@
       </div>
       <div class="dm-track">
         <a class="dm-item" href="https://www.sciencedirect.com/" target="_blank" rel="noopener"><img
-            src="assets/db/sciencedirect.png" alt="ScienceDirect"></a>
+            src="assets/db/sciencedirect.png" alt="ScienceDirect" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://www.jstor.org/" target="_blank" rel="noopener"><img src="assets/db/jstor.png"
-            alt="JSTOR"></a>
+            alt="JSTOR" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://heinonline.org/HOL/Welcome" target="_blank" rel="noopener"><img
-            src="assets/db/heinonline.png" alt="HeinOnline"></a>
+            src="assets/db/heinonline.png" alt="HeinOnline" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://www.proquest.com/?accountid=173489" target="_blank" rel="noopener"><img
-            src="assets/db/proquest.jpg" alt="ProQuest Central"></a>
+            src="assets/db/proquest.jpg" alt="ProQuest Central" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://www.emerald.com/insight/" target="_blank" rel="noopener"><img
-            src="assets/db/emerald.png" alt="Emerald Insight"></a>
+            src="assets/db/emerald.png" alt="Emerald Insight" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://portal.igpublish.com/iglibrary/" target="_blank" rel="noopener"><img
-            src="assets/db/igpublishing.png" alt="iG Publishing"></a>
+            src="assets/db/igpublishing.png" alt="iG Publishing" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" rel="noopener"><img
-            src="assets/db/research4life.png" alt="Research4life"></a>
+            src="assets/db/research4life.png" alt="Research4life" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://asmedigitalcollection.asme.org/" target="_blank" rel="noopener"><img
-            src="assets/db/asme.jpg" alt="ASME Digital Collection"></a>
+            src="assets/db/asme.jpg" alt="ASME Digital Collection" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://brill.com/" target="_blank" rel="noopener"><img src="assets/db/brill.png"
-            alt="Brill"></a>
+            alt="Brill" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://www.springernature.com/" target="_blank" rel="noopener"><img
-            src="assets/db/springer.png" alt="Springer Nature"></a>
+            src="assets/db/springer.png" alt="Springer Nature" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://ebookcentral.proquest.com/lib/unilag/home.action" target="_blank"
-          rel="noopener"><img src="assets/db/ebookcentral.png" alt="ProQuest Ebook Central"></a>
+          rel="noopener"><img src="assets/db/ebookcentral.png" alt="ProQuest Ebook Central" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://www.jaypeedigital.com/home" target="_blank" rel="noopener"><img
-            src="assets/db/jaypee.png" alt="JaypeeDigital Medical"></a>
+            src="assets/db/jaypee.png" alt="JaypeeDigital Medical" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://www.cambridge.org/core/what-we-publish/journals" target="_blank"
-          rel="noopener"><img src="assets/db/cambridge.jpg" alt="Cambridge University Press"></a>
+          rel="noopener"><img src="assets/db/cambridge.jpg" alt="Cambridge University Press" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="https://hstalks.com/biosci/" target="_blank" rel="noopener"><img
-            src="assets/db/hstalks.png" alt="HSTalks"></a>
+            src="assets/db/hstalks.png" alt="HSTalks" decoding="async" loading="lazy"></a>
         <a class="dm-item" href="http://ijmso.unilag.edu.ng/" target="_blank" rel="noopener"><img
-            src="assets/db/ijmso.png" alt="IJMSO"></a>
+            src="assets/db/ijmso.png" alt="IJMSO" decoding="async" loading="lazy"></a>
       </div>
     </div>
 
@@ -268,64 +309,7 @@
       </div>
     </section>
 
-    <!-- ============ SEARCH / DISCOVER STRIP ============ -->
-    <section class="section section--tight" style="border-bottom:1px solid var(--line)">
-      <div class="wrap">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,54px);align-items:center"
-          class="grid-2">
-          <div data-reveal>
-            <div class="eyebrow mono"
-              style="display:flex;gap:14px;align-items:center;color:var(--oxblood);margin-bottom:16px"><span
-                style="width:34px;height:1px;background:var(--oxblood)"></span>Start here</div>
-            <h2 class="display" style="font-size:clamp(1.7rem,3.2vw,2.7rem);margin-bottom:14px">Find a book,<br>a
-              journal, an <em class="ital ox">article</em>.</h2>
-            <p class="lede" style="font-size:.94rem">Search the Library catalogue or the Institutional Repository
-              directly. Both open in the live university systems.</p>
-          </div>
-          <div data-reveal style="display:grid;gap:12px">
-            <a href="search.html"
-              style="border:1px solid var(--ink);padding:18px 20px;display:flex;align-items:center;gap:14px;transition:background .35s,color .35s">
-              <svg class="ico" viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="7" />
-                <path d="M16.5 16.5L21 21" />
-              </svg>
-              <span style="flex:1"><strong style="display:block;font-weight:500;font-size:.95rem">Catalogue
-                  search</strong><span class="mono" style="color:var(--ink-50);font-size:.5rem">OPAC at
-                  librarydb.unilag.edu.ng</span></span>
-              <svg class="ico ico-sm" viewBox="0 0 24 24">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </a>
-            <a href="https://ir.unilag.edu.ng/" target="_blank" rel="noopener"
-              style="border:1px solid var(--line);padding:18px 20px;display:flex;align-items:center;gap:14px;transition:background .35s">
-              <svg class="ico" viewBox="0 0 24 24">
-                <path d="M4 5h6a2 2 0 012 2v12a2 2 0 00-2-2H4zM20 5h-6a2 2 0 00-2 2v12a2 2 0 012-2h6z" />
-              </svg>
-              <span style="flex:1"><strong style="display:block;font-weight:500;font-size:.95rem">Institutional
-                  Repository</strong><span class="mono" style="color:var(--ink-50);font-size:.5rem">Theses, articles,
-                  UNILAG output</span></span>
-              <svg class="ico ico-sm" viewBox="0 0 24 24">
-                <path d="M7 17L17 7M9 7h8v8" />
-              </svg>
-            </a>
-            <a href="#game"
-              style="border:1px solid var(--line);padding:18px 20px;display:flex;align-items:center;gap:14px;transition:background .35s">
-              <svg class="ico" viewBox="0 0 24 24">
-                <path d="M4 4h16M4 9h16M4 14h10M4 19h7" />
-              </svg>
-              <span style="flex:1"><strong style="display:block;font-weight:500;font-size:.95rem">Learn the shelf
-                  order</strong><span class="mono" style="color:var(--ink-50);font-size:.5rem">Play the call number
-                  game</span></span>
-              <svg class="ico ico-sm" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5v14" />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ NEWS ============ -->
+    <!-- ============ NEWS & NEW SPACES ============ -->
     <section class="section" id="news">
       <div class="wrap">
         <div class="sec-head">
@@ -342,162 +326,194 @@
         <div id="newsLiveTicker"></div>
 
         <div class="news-grid">
-          <!-- Lead Card: Multimedia Studio (span 6) -->
+          <!-- Lead Card: Multimedia Studio (span 7) -->
           <a class="n-card lead" href="services.html#multimedia-studio" data-reveal>
             <div class="arch">
               <picture>
-                <source srcset="https://iili.io/nQKlFu2.webp" type="image/webp">
+                <source srcset="assets/multimedia_studio_suite.webp" type="image/webp">
                 <img src="assets/multimedia_studio_suite.jpg"
-                  alt="Library Multimedia Studio acoustic recording and podcast suite at UNILAG Main Library">
+                  alt="Library Multimedia Studio acoustic recording and podcast suite at UNILAG Main Library" decoding="async" loading="lazy">
               </picture>
               <span class="tick tl"></span><span class="tick br"></span>
             </div>
-            <div class="n-meta mono"><span>19 Jan 2026</span><span>&middot;</span><span>Launched 19th January 2026
-                &bull; 3rd Floor</span></div>
+            <div class="n-meta mono"><span>19 Jan 2026</span><span>&middot;</span><span>3rd Floor &bull; Main Library</span></div>
             <h3>Library Multimedia Studio</h3>
-            <p>State-of-the-art acoustic podcasting and video recording studio suite launched on 19th January 2026 on
-              the 3rd Floor of the Main Library with studio boom microphones, acoustic timber styling, and broadcast
-              lighting.</p>
+            <p>State-of-the-art acoustic podcasting and video recording suite on the 3rd Floor with broadcast boom microphones, acoustic timber styling, and studio lighting.</p>
             <span class="n-more">Explore the studio <i></i></span>
           </a>
 
-          <!-- Side Card 1: New Space · Ground Floor (span 3) -->
-          <div class="n-card side" data-reveal>
+          <!-- Side Card: Learning Commons (span 5) -->
+          <a class="n-card side" href="services.html#learning-commons" data-reveal>
             <div class="arch">
               <picture>
-                <source srcset="https://iili.io/nQKlFu2.webp" type="image/webp">
-                <img src="assets/multimedia_studio_suite.jpg"
-                  alt="UNILAG Library Multimedia Studio acoustic podcast and recording suite"
-                  style="object-position:center 30%">
+                <source srcset="assets/learning_commons_workstations.webp" type="image/webp">
+                <img src="assets/learning_commons_workstations.jpg"
+                  alt="UNILAG Library Learning Commons collaborative technology workstations and research terminals" decoding="async" loading="lazy">
               </picture>
             </div>
-            <div class="n-meta mono"><span>New Space &middot; Ground Floor</span></div>
+            <div class="n-meta mono"><span>Ground Floor</span><span>&middot;</span><span>Main Library</span></div>
             <h3>Library Learning Commons</h3>
-            <p>Technology-enabled collaborative workstations, high-speed database terminals, and Information Desk
-              support.</p>
-            <a class="n-more" href="services.html#learning-commons">Explore space <i></i></a>
-          </div>
+            <p>Technology-enabled collaborative workstations, high-speed database terminals, and guided research advisory at the Information Desk.</p>
+            <span class="n-more">Explore space <i></i></span>
+          </a>
 
-          <!-- Side Card 2: Library Makerspace (span 3) -->
-          <div class="n-card side" data-reveal>
+          <!-- Bottom Card 1: Library Makerspace (span 6) -->
+          <a class="n-card" href="services.html#makerspace" data-reveal>
             <div class="arch">
               <picture>
-                <source srcset="https://iili.io/nPRZAb9.webp" type="image/webp">
-                <img src="assets/makerspace_arena.jpg?v=20261114_cleanpics"
-                  alt="UNILAG Library Makerspace circular collaboration arena and ideation lounge">
+                <source srcset="assets/makerspace_arena.webp" type="image/webp">
+                <img src="assets/makerspace_arena.jpg"
+                  alt="UNILAG Library Makerspace circular collaboration arena and ideation lounge" decoding="async" loading="lazy">
               </picture>
             </div>
-            <div class="n-meta mono"><span>Ideation &amp; Design</span></div>
+            <div class="n-meta mono"><span>1st Floor</span><span>&middot;</span><span>Ideation &amp; Design</span></div>
             <h3>Library Makerspace</h3>
-            <p>On the first floor, featuring circular collaboration lounges and smart-boards to make ideas happen.</p>
-            <a class="n-more" href="services.html#makerspace">Explore space <i></i></a>
-          </div>
+            <p>Circular collaboration lounges and interactive smart displays where interdisciplinary teams prototype and make ideas happen.</p>
+            <span class="n-more">Explore space <i></i></span>
+          </a>
 
-          <!-- Bottom Card 1: Learning Commons Desk (span 4) -->
-          <div class="n-card" data-reveal>
-            <div class="arch">
-              <picture>
-                <source srcset="https://iili.io/nPRQbVa.webp" type="image/webp">
-                <img src="assets/learning_commons_desk.jpg?v=20261114_cleanpics"
-                  alt="UNILAG Library Learning Commons Information Desk and motivational wall murals">
-              </picture>
-            </div>
-            <div class="n-meta mono"><span>Information &amp; Guidance</span></div>
-            <h3>Learning Commons Desk</h3>
-            <p>Librarian advisory for digital research navigation, database searches, and technical guidance.</p>
-            <a class="n-more" href="services.html#learning-commons">Learn more <i></i></a>
-          </div>
-
-          <!-- Bottom Card 2: Makerspace Wall (span 4) -->
-          <div class="n-card" data-reveal>
-            <div class="arch">
-              <picture>
-                <source srcset="https://iili.io/nPRtd1j.webp" type="image/webp">
-                <img src="assets/makerspace_wall.jpg?v=20261114_cleanpics"
-                  alt="UNILAG Library Makerspace Make Ideas Happen wall and interactive digital screen">
-              </picture>
-            </div>
-            <div class="n-meta mono"><span>Innovation Hub</span></div>
-            <h3>Make Ideas Happen Wall</h3>
-            <p>Interactive smart displays and creative design thinking zone for interdisciplinary group study.</p>
-            <a class="n-more" href="services.html#makerspace">Learn more <i></i></a>
-          </div>
-
-          <!-- Bottom Card 3: Crossref DOI Registration (span 4) -->
-          <div class="n-card" data-reveal>
+          <!-- Bottom Card 2: Crossref DOI & Accredited Publishing (span 6) -->
+          <a class="n-card" href="journals-accredited.html" data-reveal>
             <div class="arch">
               <picture>
                 <source srcset="assets/doi_crossref_registration.webp" type="image/webp">
                 <img src="assets/doi_crossref_registration.jpg"
-                  alt="Scholarly academic journal publication with Digital Object Identifier (DOI) indexing on Crossref">
+                  alt="Scholarly academic journal publication with Digital Object Identifier (DOI) indexing on Crossref" decoding="async" loading="lazy">
               </picture>
             </div>
-            <div class="n-meta mono"><span>21 Jun 2024</span></div>
-            <h3>Digital Object Identifier (DOI)</h3>
-            <p>Content registration of DOIs on Crossref, connecting UNILAG scholarly publications to the global research
-              ecosystem.</p>
-            <a class="n-more" href="news.html">Read more <i></i></a>
-          </div>
+            <div class="n-meta mono"><span>Research Publishing</span><span>&middot;</span><span>Crossref &amp; Scopus / AJOL</span></div>
+            <h3>DOI Registration &amp; Accredited Journals</h3>
+            <p>Crossref DOI content registration and the 2026 Faculty-Based Compilation of Scopus and AJOL Indexed Journals for UNILAG scholars.</p>
+            <span class="n-more">Browse accredited journals <i></i></span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- ============ SHELF GAME + STREAK ============ -->
+    <!-- ============ COLLECTIONS (NEW ON THE SHELVES) ============ -->
     <section class="section" style="background:var(--bone)">
       <div class="wrap">
-        <div class="grid-2" style="gap:clamp(20px,3vw,44px);align-items:start">
-          <div class="game" id="game" data-reveal>
-            <div class="g-head">
-              <h3>Put the shelf in order</h3>
-              <span class="mono" style="color:var(--oxblood)">Play</span>
-            </div>
-            <p class="g-sub">Four books are waiting to be shelved. Click them in the order the Library would place them,
-              left to right, then read the message.</p>
-            <div class="g-pool" id="gPool"></div>
-            <div class="g-shelf" id="gShelf"></div>
-            <div class="g-msg" id="gMsg"></div>
-            <div class="g-actions">
-              <button class="btn btn--sm" id="gReset">Reset</button>
-              <button class="btn btn--sm btn--ghost" id="gHint">Hint</button>
-            </div>
-          </div>
-
+        <div class="sec-head">
           <div data-reveal>
-            <div class="streak" id="streak">
-              <div class="st-top">
-                <div>
-                  <div class="st-num" id="streakNum">0</div>
-                  <span class="st-lbl">Days reading this week</span>
-                </div>
-                <svg class="ico ico-lg" viewBox="0 0 24 24" style="color:var(--oxblood)">
-                  <path d="M12 21s-7-4.4-7-9.3A3.9 3.9 0 0112 9a3.9 3.9 0 017 2.7C19 16.6 12 21 12 21z" />
-                </svg>
-              </div>
-              <div class="st-days" id="streakDays"></div>
-              <button class="st-btn" id="streakBtn">Check in today</button>
-              <p class="small" style="font-size:.74rem;margin:0">A small habit marker, saved in this browser only.
-                Nothing is sent anywhere.</p>
+            <div class="eyebrow mono" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <span>Latest Collections</span>
+              <span class="live-pill mono" id="opacSyncPill"><span class="dot-pulse"></span> Live from OPAC
+                Catalogue</span>
             </div>
+            <h2 class="display">New on<br>the <em class="ital ox">shelves</em>.</h2>
+          </div>
+          <div class="rail-nav" data-reveal>
+            <button data-dir="prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.6">
+                <path d="M20 12H4M11 5l-7 7 7 7" />
+              </svg></button>
+            <button data-dir="next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.6">
+                <path d="M4 12h16M13 5l7 7-7 7" />
+              </svg></button>
+          </div>
+        </div>
 
-            <div class="hours-panel mt-m" style="min-height:0;padding:clamp(22px,2.6vw,32px)">
-              <div class="hp-glow"></div>
-              <div>
-                <div class="hp-top">
-                  <div class="mono" style="color:rgba(246,242,233,.6)">Library hours</div>
-                  <div data-status>Loading hours</div>
-                </div>
-                <div class="hp-time" style="font-size:clamp(1.8rem,3vw,2.6rem);margin:16px 0 6px">8:00 a.m. to 9:00 p.m.
-                </div>
-                <div class="hp-days">Monday to Saturday &nbsp;&middot;&nbsp; Akoka, Lagos</div>
+        <div class="rail-wrap">
+          <div class="rail">
+            <a class="book" href="search.html?q=International%20Business">
+              <div class="arch arch--soft"><img src="assets/bk1.jpeg" alt="International Business cover" decoding="async" loading="lazy"></div>
+              <div class="b-meta">
+                <h3>International Business: Competing in the Global Marketplace</h3>
+                <div class="b-auth">Charles W. L. Hill &amp; G. Tomas M. Hult</div><span class="b-tag">Business &amp; Management</span>
               </div>
-            </div>
+            </a>
+            <a class="book" href="search.html?q=Weinberg">
+              <div class="arch arch--soft"><img src="assets/bk2.jpg" alt="Foundations of Modern Physics cover" decoding="async" loading="lazy"></div>
+              <div class="b-meta">
+                <h3>Foundations of Modern Physics</h3>
+                <div class="b-auth">Steven Weinberg, Cambridge University Press</div><span class="b-tag">Physical Sciences</span>
+              </div>
+            </a>
+            <a class="book" href="search.html?q=Introduction%20to%20Algorithms">
+              <div class="arch arch--soft"><img src="assets/covers/bk_algorithms.jpg" alt="Introduction to Algorithms cover" decoding="async" loading="lazy"></div>
+              <div class="b-meta">
+                <h3>Introduction to Algorithms (CLRS)</h3>
+                <div class="b-auth">Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein</div><span class="b-tag">Computer Science</span>
+              </div>
+            </a>
+            <a class="book" href="search.html?q=Things%20Fall%20Apart">
+              <div class="arch arch--soft"><img src="assets/covers/bk_things_fall_apart.jpg" alt="Things Fall Apart cover" decoding="async" loading="lazy"></div>
+              <div class="b-meta">
+                <h3>Things Fall Apart</h3>
+                <div class="b-auth">Prof. Chinua Achebe, African Writers Series</div><span class="b-tag">African Literature</span>
+              </div>
+            </a>
+            <a class="book" href="search.html?q=Islam%20in%20Africa">
+              <div class="arch arch--soft"><img src="assets/bk3.jpg" alt="The History of Islam in Africa cover" decoding="async" loading="lazy"></div>
+              <div class="b-meta">
+                <h3>The History of Islam in Africa</h3>
+                <div class="b-auth">Edited by Nehemia Levtzion and Randall L. Pouwels</div><span class="b-tag">African History</span>
+              </div>
+            </a>
+            <a class="book" href="search.html?q=Environmental%20Science">
+              <div class="arch arch--soft"><img src="assets/covers/bk_env_science.jpg" alt="Principles of Environmental Science cover" decoding="async" loading="lazy"></div>
+              <div class="b-meta">
+                <h3>Principles of Environmental Science</h3>
+                <div class="b-auth">William P. Cunningham &amp; Mary Ann Cunningham</div><span class="b-tag">Environmental Sciences</span>
+              </div>
+            </a>
+            <a class="book" href="search.html?q=Adult%20Learner">
+              <div class="arch arch--soft"><img src="assets/covers/bk_adult_learner.jpg" alt="The Adult Learner cover" decoding="async" loading="lazy"></div>
+              <div class="b-meta">
+                <h3>The Adult Learner</h3>
+                <div class="b-auth">Malcolm S. Knowles, Elwood F. Holton III, Richard A. Swanson</div><span class="b-tag">Education &amp; Pedagogy</span>
+              </div>
+            </a>
+            <a class="book" href="search.html?q=Artificial%20Intelligence">
+              <div class="arch arch--soft"><img src="assets/covers/bk_ai_modern.jpg" alt="Artificial Intelligence: A Modern Approach cover" decoding="async" loading="lazy"></div>
+              <div class="b-meta">
+                <h3>Artificial Intelligence: A Modern Approach</h3>
+                <div class="b-auth">Stuart Russell &amp; Peter Norvig, Pearson</div><span class="b-tag">Computing &amp; AI</span>
+              </div>
+            </a>
+            <a class="book" href="search.html?q=Operating%20Systems">
+              <div class="arch arch--soft"><img src="assets/covers/bk_operating_systems.jpg" alt="Modern Operating Systems cover" decoding="async" loading="lazy"></div>
+              <div class="b-meta">
+                <h3>Modern Operating Systems</h3>
+                <div class="b-auth">Andrew S. Tanenbaum &amp; Herbert Bos</div><span class="b-tag">Systems &amp; Software</span>
+              </div>
+            </a>
+            <a class="book" href="search.html?q=Medical%20Physiology">
+              <div class="arch arch--soft"><img src="assets/covers/bk_medical_physiology.jpg" alt="Guyton and Hall Textbook of Medical Physiology cover" decoding="async" loading="lazy"></div>
+              <div class="b-meta">
+                <h3>Guyton &amp; Hall Textbook of Medical Physiology</h3>
+                <div class="b-auth">John E. Hall &amp; Michael E. Hall, Elsevier</div><span class="b-tag">Medical Sciences</span>
+              </div>
+            </a>
+            <a class="book" href="search.html?q=Engineering%20Mechanics">
+              <div class="arch arch--soft"><img src="assets/covers/bk_engineering_mechanics.jpg" alt="Engineering Mechanics Statics and Dynamics cover" decoding="async" loading="lazy"></div>
+              <div class="b-meta">
+                <h3>Engineering Mechanics: Statics &amp; Dynamics</h3>
+                <div class="b-auth">Russell C. Hibbeler, 15th Edition</div><span class="b-tag">Engineering</span>
+              </div>
+            </a>
+            <a class="book" href="search.html?q=Constitutional%20Law">
+              <div class="arch arch--soft"><img src="assets/covers/bk_constitutional_law.jpg" alt="Constitutional Law of Nigeria cover" decoding="async" loading="lazy"></div>
+              <div class="b-meta">
+                <h3>Constitutional Law of Nigeria</h3>
+                <div class="b-auth">Prof. B. O. Nwabueze (SAN)</div><span class="b-tag">Law Collection</span>
+              </div>
+            </a>
+            <a class="book" href="search.html?q=Christianity">
+              <div class="arch arch--soft"><img src="assets/bk5.jpg" alt="Christianity in the Modern World cover" decoding="async" loading="lazy"></div>
+              <div class="b-meta">
+                <h3>Christianity in the Modern World</h3>
+                <div class="b-auth">Edited by Peter Clarke, Routledge</div><span class="b-tag">Religious Studies</span>
+              </div>
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ ABOUT SPLIT ============ -->
-    <section class="section">
+    <!-- ============ ABOUT & WELCOME ============ -->
+    <section class="section" id="about-welcome">
       <div class="wrap">
         <div class="split">
           <div class="split-media" data-reveal>
@@ -505,28 +521,37 @@
               <picture>
                 <source srcset="assets/long_work_pods.webp" type="image/webp">
                 <img src="assets/long_work_pods.jpg"
-                  alt="Students studying inside the modern reading pods at UNILAG Library">
+                  alt="Students studying inside the modern reading pods at UNILAG Library" decoding="async" loading="lazy">
               </picture>
               <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span
                 class="tick br"></span>
             </div>
+            <div class="mono" style="color:var(--ink-50);margin-top:14px">Main Library &middot; Akoka Campus</div>
           </div>
           <div data-reveal>
-            <div class="eyebrow mono"
-              style="display:flex;gap:14px;align-items:center;color:var(--oxblood);margin-bottom:20px"><span
-                style="width:34px;height:1px;background:var(--oxblood)"></span>Learn About Us</div>
-            <h2 class="display" style="margin-bottom:24px">A library built<br>for the <em class="ital ox">long</em>
+            <div class="eyebrow mono" style="color:var(--oxblood);margin-bottom:20px">About &amp; Welcome</div>
+            <h2 class="display" style="margin-bottom:20px">A library built<br>for the <em class="ital ox">long</em>
               work.</h2>
+            <blockquote class="pull" style="margin-bottom:22px;font-size:clamp(1.15rem,1.8vw,1.45rem)">&ldquo;We are committed to creating an enabling
+              environment to support cutting edge research as well as high quality teaching and learning.&rdquo;
+            </blockquote>
             <div class="prose">
-              <p><strong>The University Library&rsquo;s vision</strong> is to be the primary and foremost source and
-                vessel of reliable information for the University community in its quest to realise its noble vision
-                concerning teaching, research and community services.</p>
-              <p>The Library sets out to provide information services to meet the intellectual needs of members of the
-                University community, and to make information seeking most rewarding and enjoyable for the various
-                categories of users in the community.</p>
+              <p>Welcome to the University of Lagos Library — the academic hub of the University of First Choice and the Nation&rsquo;s Pride. Our vision is to be the primary vessel of reliable information for teaching, research, and community scholarship.</p>
+              <p>From quiet study floors to the Learning Commons, Makerspace, Multimedia Studio, and 19 Faculty Libraries, explore our collections, facilities, and advisory services led by professional librarians.</p>
+            </div>
+            <div class="mt-m" style="display:flex;gap:16px;align-items:center">
+              <picture style="display:inline-block;flex-shrink:0">
+                <source srcset="assets/librarian_okiki.webp" type="image/webp">
+                <img src="assets/librarian_okiki.jpg" alt="Prof Olatokunbo Christopher Okiki, University Librarian"
+                  style="width:72px;height:72px;object-fit:cover;object-position:center 15%;border-radius:50%;border:2px solid var(--oxblood,#6C0000);box-shadow:0 4px 12px rgba(13,11,10,0.12)" decoding="async" loading="lazy">
+              </picture>
+              <div>
+                <div class="sig" style="font-size:1.05rem">Prof Olatokunbo Christopher Okiki</div>
+                <div class="sig-role">University Librarian (CLN)</div>
+              </div>
             </div>
             <div class="mt-m" style="display:flex;gap:12px;flex-wrap:wrap">
-              <a class="btn" href="about.html">Read the welcome <i class="ar"></i></a>
+              <a class="btn" href="about.html">Read the full welcome <i class="ar"></i></a>
               <a class="btn btn--ghost" href="departments.html">Departments</a>
             </div>
           </div>
@@ -559,9 +584,7 @@
       <div class="wrap">
         <div class="grid-2" style="align-items:start;gap:clamp(24px,4vw,64px)">
           <div data-reveal>
-            <div class="eyebrow mono"
-              style="display:flex;gap:14px;align-items:center;color:var(--oxblood);margin-bottom:20px"><span
-                style="width:34px;height:1px;background:var(--oxblood)"></span>Frequently Asked Questions</div>
+            <div class="eyebrow mono" style="color:var(--oxblood);margin-bottom:20px">Frequently Asked Questions</div>
             <h2 class="display" style="font-size:clamp(2rem,3.6vw,3.4rem);margin-bottom:26px">Before you<br>come in.
             </h2>
             <div class="acc" id="homeFaq">
@@ -641,172 +664,6 @@
       </div>
     </section>
 
-    <!-- ============ COLLECTIONS ============ -->
-    <section class="section" style="background:var(--bone)">
-      <div class="wrap">
-        <div class="sec-head">
-          <div data-reveal>
-            <div class="eyebrow mono" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-              <span>Latest Collections</span>
-              <span class="live-pill mono" id="opacSyncPill"><span class="dot-pulse"></span> Live from OPAC
-                Catalogue</span>
-            </div>
-            <h2 class="display">New on<br>the <em class="ital ox">shelves</em>.</h2>
-          </div>
-          <div class="rail-nav" data-reveal>
-            <button data-dir="prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="1.6">
-                <path d="M20 12H4M11 5l-7 7 7 7" />
-              </svg></button>
-            <button data-dir="next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="1.6">
-                <path d="M4 12h16M13 5l7 7-7 7" />
-              </svg></button>
-          </div>
-        </div>
-
-        <div class="rail-wrap">
-          <div class="rail" data-lenis-prevent>
-            <a class="book" href="search.html?q=International%20Business">
-              <div class="arch arch--soft"><img src="assets/bk1.jpeg" alt="International Business cover"></div>
-              <div class="b-meta">
-                <h3>International Business: Competing in the Global Marketplace</h3>
-                <div class="b-auth">Charles W. L. Hill &amp; G. Tomas M. Hult</div><span class="b-tag">Business &amp; Management</span>
-              </div>
-            </a>
-            <a class="book" href="search.html?q=Weinberg">
-              <div class="arch arch--soft"><img src="assets/bk2.jpg" alt="Foundations of Modern Physics cover"></div>
-              <div class="b-meta">
-                <h3>Foundations of Modern Physics</h3>
-                <div class="b-auth">Steven Weinberg, Cambridge University Press</div><span class="b-tag">Physical Sciences</span>
-              </div>
-            </a>
-            <a class="book" href="search.html?q=Introduction%20to%20Algorithms">
-              <div class="arch arch--soft"><img src="assets/covers/bk_algorithms.jpg" alt="Introduction to Algorithms cover"></div>
-              <div class="b-meta">
-                <h3>Introduction to Algorithms (CLRS)</h3>
-                <div class="b-auth">Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein</div><span class="b-tag">Computer Science</span>
-              </div>
-            </a>
-            <a class="book" href="search.html?q=Things%20Fall%20Apart">
-              <div class="arch arch--soft"><img src="assets/covers/bk_things_fall_apart.jpg" alt="Things Fall Apart cover"></div>
-              <div class="b-meta">
-                <h3>Things Fall Apart</h3>
-                <div class="b-auth">Prof. Chinua Achebe, African Writers Series</div><span class="b-tag">African Literature</span>
-              </div>
-            </a>
-            <a class="book" href="search.html?q=Islam%20in%20Africa">
-              <div class="arch arch--soft"><img src="assets/bk3.jpg" alt="The History of Islam in Africa cover"></div>
-              <div class="b-meta">
-                <h3>The History of Islam in Africa</h3>
-                <div class="b-auth">Edited by Nehemia Levtzion and Randall L. Pouwels</div><span class="b-tag">African History</span>
-              </div>
-            </a>
-            <a class="book" href="search.html?q=Environmental%20Science">
-              <div class="arch arch--soft"><img src="assets/covers/bk_env_science.jpg" alt="Principles of Environmental Science cover"></div>
-              <div class="b-meta">
-                <h3>Principles of Environmental Science</h3>
-                <div class="b-auth">William P. Cunningham &amp; Mary Ann Cunningham</div><span class="b-tag">Environmental Sciences</span>
-              </div>
-            </a>
-            <a class="book" href="search.html?q=Adult%20Learner">
-              <div class="arch arch--soft"><img src="assets/covers/bk_adult_learner.jpg" alt="The Adult Learner cover"></div>
-              <div class="b-meta">
-                <h3>The Adult Learner</h3>
-                <div class="b-auth">Malcolm S. Knowles, Elwood F. Holton III, Richard A. Swanson</div><span class="b-tag">Education &amp; Pedagogy</span>
-              </div>
-            </a>
-            <a class="book" href="search.html?q=Artificial%20Intelligence">
-              <div class="arch arch--soft"><img src="assets/covers/bk_ai_modern.jpg" alt="Artificial Intelligence: A Modern Approach cover"></div>
-              <div class="b-meta">
-                <h3>Artificial Intelligence: A Modern Approach</h3>
-                <div class="b-auth">Stuart Russell &amp; Peter Norvig, Pearson</div><span class="b-tag">Computing &amp; AI</span>
-              </div>
-            </a>
-            <a class="book" href="search.html?q=Operating%20Systems">
-              <div class="arch arch--soft"><img src="assets/covers/bk_operating_systems.jpg" alt="Modern Operating Systems cover"></div>
-              <div class="b-meta">
-                <h3>Modern Operating Systems</h3>
-                <div class="b-auth">Andrew S. Tanenbaum &amp; Herbert Bos</div><span class="b-tag">Systems &amp; Software</span>
-              </div>
-            </a>
-            <a class="book" href="search.html?q=Medical%20Physiology">
-              <div class="arch arch--soft"><img src="assets/covers/bk_medical_physiology.jpg" alt="Guyton and Hall Textbook of Medical Physiology cover"></div>
-              <div class="b-meta">
-                <h3>Guyton &amp; Hall Textbook of Medical Physiology</h3>
-                <div class="b-auth">John E. Hall &amp; Michael E. Hall, Elsevier</div><span class="b-tag">Medical Sciences</span>
-              </div>
-            </a>
-            <a class="book" href="search.html?q=Engineering%20Mechanics">
-              <div class="arch arch--soft"><img src="assets/covers/bk_engineering_mechanics.jpg" alt="Engineering Mechanics Statics and Dynamics cover"></div>
-              <div class="b-meta">
-                <h3>Engineering Mechanics: Statics &amp; Dynamics</h3>
-                <div class="b-auth">Russell C. Hibbeler, 15th Edition</div><span class="b-tag">Engineering</span>
-              </div>
-            </a>
-            <a class="book" href="search.html?q=Constitutional%20Law">
-              <div class="arch arch--soft"><img src="assets/covers/bk_constitutional_law.jpg" alt="Constitutional Law of Nigeria cover"></div>
-              <div class="b-meta">
-                <h3>Constitutional Law of Nigeria</h3>
-                <div class="b-auth">Prof. B. O. Nwabueze (SAN)</div><span class="b-tag">Law Collection</span>
-              </div>
-            </a>
-            <a class="book" href="search.html?q=Christianity">
-              <div class="arch arch--soft"><img src="assets/bk5.jpg" alt="Christianity in the Modern World cover"></div>
-              <div class="b-meta">
-                <h3>Christianity in the Modern World</h3>
-                <div class="b-auth">Edited by Peter Clarke, Routledge</div><span class="b-tag">Religious Studies</span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ WELCOME ============ -->
-    <section class="section">
-      <div class="wrap">
-        <div class="split split--rev">
-          <div class="split-media" data-reveal>
-            <div class="arch">
-              <picture>
-                <source srcset="https://iili.io/o9LXcwQ.webp" type="image/webp">
-                <img src="assets/campus-1.jpg?v=20261114_cleanpics" alt="University of Lagos campus grounds">
-              </picture>
-              <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span
-                class="tick br"></span>
-            </div>
-            <div class="mono" style="color:var(--ink-50);margin-top:14px">FIG. 02 / The campus, Akoka</div>
-          </div>
-          <div data-reveal>
-            <div class="eyebrow mono"
-              style="display:flex;gap:14px;align-items:center;color:var(--oxblood);margin-bottom:20px"><span
-                style="width:34px;height:1px;background:var(--oxblood)"></span>Welcome</div>
-            <blockquote class="pull" style="margin-bottom:22px">&ldquo;We are committed to creating an enabling
-              environment to support cutting edge research as well as high quality teaching and learning.&rdquo;
-            </blockquote>
-            <div class="prose">
-              <p>It gives me great pleasure to welcome you to the University of Lagos Library, the academic hub of the
-                University of Lagos, the University of First Choice and the Nation&rsquo;s Pride.</p>
-              <p>I invite you to explore our website to familiarise yourself with our resources. You can also make use
-                of our facilities, advisory and training services provided by professional librarians.</p>
-            </div>
-            <div class="mt-m" style="display:flex;gap:16px;align-items:center">
-              <picture style="display:inline-block;flex-shrink:0">
-                <source srcset="https://iili.io/nPRDYcx.webp" type="image/webp">
-                <img src="assets/librarian_okiki.jpg" alt="Prof Olatokunbo Christopher Okiki, University Librarian"
-                  style="width:72px;height:72px;object-fit:cover;object-position:center 15%;border-radius:50%;border:2px solid var(--oxblood,#6C0000);box-shadow:0 4px 12px rgba(13,11,10,0.12)">
-              </picture>
-              <div>
-                <div class="sig" style="font-size:1.05rem">Prof Olatokunbo Christopher Okiki</div>
-                <div class="sig-role">University Librarian (CLN)</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ============ CTA ============ -->
     <section class="section cta" id="cta" style="border-top:1px solid var(--line)">
       <div class="wrap center">
@@ -824,69 +681,69 @@
   </main>
 
   <footer class="foot">
-  <div class="wrap">
-    <div class="f-top">
-      <div>
-        <div class="f-brand">
-          <img src="assets/logo.png" alt="University of Lagos Crest">
-          <div>
-            <b>University of Lagos<br>Library</b>
+    <div class="wrap">
+      <div class="f-top">
+        <div>
+          <div class="f-brand">
+            <img src="assets/logo.png" alt="University of Lagos Crest" loading="lazy" decoding="async">
+            <div>
+              <b>University of Lagos<br>Library</b>
+            </div>
           </div>
+          <p>The academic hub of the University of Lagos, the University of First Choice and the Nation&rsquo;s Pride. Built to support cutting-edge research, teaching excellence, and global innovation.</p>
         </div>
-        <p>The academic hub of the University of Lagos, the University of First Choice and the Nation&rsquo;s Pride. Built to support cutting-edge research, teaching excellence, and global innovation.</p>
+        <div>
+          <h5>Visit</h5>
+          <ul>
+            <li><a href="libraries.html">Faculty &amp; College Libraries</a></li>
+            <li><a href="archives.html">University Archives</a></li>
+            <li><a href="museum.html">Library Museum</a></li>
+            <li><a href="accessibility.html">Accessibility</a></li>
+            <li><a href="contact.html">Contact &amp; Map</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Use</h5>
+          <ul>
+            <li><a href="services.html">Our Services &amp; Spaces</a></li>
+            <li><a href="search.html">Search OPAC Catalogue</a></li>
+            <li><a href="databases.html">Subscribed Databases</a></li>
+            <li><a href="journals-accredited.html">Where to Publish (Accredited Journals)</a></li>
+            <li><a href="oer.html">Open Educational Resources</a></li>
+            <li><a href="help.html">Research Help &amp; FAQs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Inside</h5>
+          <ul>
+            <li><a href="about.html">About the Library</a></li>
+            <li><a href="departments.html">Departments &amp; Units</a></li>
+            <li><a href="news.html">News &amp; Events</a></li>
+            <li><a href="help.html#faqs">FAQs</a></li>
+            <li><a href="admin/index.html">Staff Portal</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Connect</h5>
+          <ul>
+            <li><a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram: @library.unilag</a></li>
+            <li><a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X (Twitter): @unilaglibrary</a></li>
+            <li><a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a></li>
+            <li><a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube: @UnilagLibrary</a></li>
+            <li><a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok: @unilaglibrary</a></li>
+            <li><a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Official Linktree Hub &rarr;</a></li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <h5>Visit</h5>
-        <ul>
-          <li><a href="libraries.html">Faculty &amp; College Libraries</a></li>
-          <li><a href="archives.html">University Archives</a></li>
-          <li><a href="museum.html">Library Museum</a></li>
-          <li><a href="accessibility.html">Accessibility</a></li>
-          <li><a href="contact.html">Contact &amp; Map</a></li>
-        </ul>
+      <div class="f-bot">
+        <span>University of Lagos Library, P.M.B 1012, Akoka, Lagos</span>
+        <span>library@unilag.edu.ng &nbsp;&bull;&nbsp; 0906 396 9206</span>
+        <span>Powered by CITS</span>
+        <span>&copy; <span id="yr">2026</span> University of Lagos</span>
       </div>
-      <div>
-        <h5>Use</h5>
-        <ul>
-          <li><a href="services.html">Our Services &amp; Spaces</a></li>
-          <li><a href="https://library.unilag.edu.ng/opac" target="_blank" rel="noopener">OPAC Catalogue</a></li>
-          <li><a href="databases.html">Subscribed Databases</a></li>
-          <li><a href="journals-accredited.html">Where to Publish (Accredited Journals)</a></li>
-          <li><a href="oer.html">Open Educational Resources</a></li>
-          <li><a href="help.html">Research Help &amp; FAQs</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Inside</h5>
-        <ul>
-          <li><a href="about.html">About the Library</a></li>
-          <li><a href="departments.html">Departments &amp; Units</a></li>
-          <li><a href="news.html">News &amp; Events</a></li>
-          <li><a href="help.html#faqs">FAQs</a></li>
-          <li><a href="admin/index.html">Staff Portal</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Connect</h5>
-        <ul>
-          <li><a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram: @library.unilag</a></li>
-          <li><a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X (Twitter): @unilaglibrary</a></li>
-          <li><a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a></li>
-          <li><a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube: @UnilagLibrary</a></li>
-          <li><a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok: @unilaglibrary</a></li>
-          <li><a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Official Linktree Hub &rarr;</a></li>
-        </ul>
-      </div>
+      <div class="f-word">UNIVERSITY OF LAGOS LIBRARY</div>
     </div>
-    <div class="f-bot">
-      <span>University of Lagos Library, P.M.B 1012, Akoka, Lagos</span>
-      <span>library@unilag.edu.ng &nbsp;&bull;&nbsp; 0906 396 9206</span>
-      <span>Powered by CITS</span>
-      <span>&copy; <span id="yr">2026</span> University of Lagos</span>
-    </div>
-    <div class="f-word">UNIVERSITY OF LAGOS LIBRARY</div>
-  </div>
-</footer>
+  </footer>
 
   <div class="sov" id="sov" role="dialog" aria-label="Search the library">
     <div class="sov-top">
@@ -911,15 +768,14 @@
     </svg>
   </button>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-  <script src="app.js"></script>
-  <script src="gsap-enhance.js"></script>
-  <script src="app2.js"></script>
-  <script src="booking-system.js?v=20261105"></script>
-  <script src="cms-loader.js?v=20261105"></script>
-  <script src="live-sync.js?v=20261115"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script defer src="app.js"></script>
+  <script defer src="gsap-enhance.js"></script>
+  <script defer src="app2.js"></script>
+  <script defer src="booking-system.js?v=20261105"></script>
+  <script defer src="cms-loader.js?v=20261105"></script>
+  <script defer src="live-sync.js?v=20261115"></script>
 </body>
 
 </html>

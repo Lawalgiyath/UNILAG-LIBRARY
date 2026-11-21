@@ -14,10 +14,10 @@
   }
 
   function getShapeStyles(media) {
-    if (!media) return { ratio: '16/10', radius: '0px', shapeClass: '' };
+    if (!media) return { ratio: '16/10', radius: '8px', shape: 'editorial' };
     var shape = media.shape || 'editorial';
     var ratio = media.aspect_ratio || '16/10';
-    var radius = media.radius || '0px';
+    var radius = media.radius || '8px';
 
     if (shape === 'arch') {
       radius = '60px 60px 0 0';
@@ -49,7 +49,7 @@
       mediaHtml =
         '<div class="cms-media-col" style="flex:1;min-width:min(100%,320px)">' +
         '<div class="cms-frame" style="overflow:hidden;border:1px solid var(--line);position:relative;aspect-ratio:' + shape.ratio + ';border-radius:' + shape.radius + ';background:#e8e2d6">' +
-        '<img src="' + m.url + '" alt="' + (sec.title || 'UNILAG Library Space') + '" style="width:100%;height:100%;object-fit:cover;display:block">' +
+        '<img src="' + m.url + '" alt="' + (sec.title || 'UNILAG Library Space') + '" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block">' +
         '<span class="tick tl" style="position:absolute;top:0;left:0;width:10px;height:10px;border-top:2px solid var(--ink);border-left:2px solid var(--ink)"></span>' +
         '<span class="tick br" style="position:absolute;bottom:0;right:0;width:10px;height:10px;border-bottom:2px solid var(--ink);border-right:2px solid var(--ink)"></span>' +
         '</div>' +
@@ -78,7 +78,7 @@
         (m.url ?
           '<div style="max-width:980px;margin:0 auto">' +
           '<div class="cms-frame" style="overflow:hidden;border:1px solid var(--line);position:relative;aspect-ratio:' + shape.ratio + ';border-radius:' + shape.radius + ';background:#e8e2d6">' +
-          '<img src="' + m.url + '" alt="' + (sec.title || 'UNILAG Library Space') + '" style="width:100%;height:100%;object-fit:cover;display:block">' +
+          '<img src="' + m.url + '" alt="' + (sec.title || 'UNILAG Library Space') + '" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block">' +
           '</div>' +
           (m.caption ? '<div class="mono center" style="font-size:0.75rem;color:var(--ink-50);letter-spacing:.12em;text-transform:uppercase;margin-top:12px;text-align:center">' + m.caption + '</div>' : '') +
           '</div>' : '') +
@@ -100,7 +100,14 @@
     );
   }
 
+  function clearInjectedCmsSections() {
+    document.querySelectorAll('.cms-section').forEach(function (el) {
+      if (el.parentNode) el.parentNode.removeChild(el);
+    });
+  }
+
   function injectCmsSections(sections) {
+    clearInjectedCmsSections();
     if (!sections || !sections.length) return;
 
     var sorted = sections.slice().sort(function (a, b) {
@@ -118,14 +125,8 @@
       var secNode = temp.firstElementChild;
       if (!secNode) return;
 
-      var existing = document.getElementById(sec.id);
-      if (existing) {
-        existing.parentNode.replaceChild(secNode, existing);
-        return;
-      }
-
       if (pos === 'top') {
-        var hero = document.querySelector('.hero--bg, .page-hero, .hero-sub, header');
+        var hero = document.querySelector('.hero--bg, .phero, .page-hero, .hero-sub, header');
         if (hero && hero.nextElementSibling) {
           hero.parentNode.insertBefore(secNode, hero.nextElementSibling);
         } else {
@@ -139,7 +140,6 @@
           document.body.appendChild(secNode);
         }
       } else {
-        // 'middle' - always keep the CTA ("Come and read") at the very bottom
         var main = document.querySelector('main');
         var cta = document.querySelector('#cta, .cta');
         var footer = document.querySelector('footer, .ftr');
@@ -159,7 +159,7 @@
   function loadCmsData() {
     var page = getCurrentPageName();
 
-    // Check localStorage cache first
+    // Check localStorage cache first for immediate render if any valid sections exist
     try {
       var cached = localStorage.getItem('unilag_cms_content');
       if (cached) {
@@ -170,15 +170,18 @@
       }
     } catch (e) { }
 
-    // Fetch live from server
+    // Fetch live from server and sync localStorage cache
     fetch('/api/cms?page=' + encodeURIComponent(page))
-      .then(function (res) { return res.json(); })
+      .then(function (res) {
+        if (!res.ok) throw new Error('CMS fetch failed');
+        return res.json();
+      })
       .then(function (data) {
-        if (data && data.sections) {
+        if (data && Array.isArray(data.sections)) {
           injectCmsSections(data.sections);
-          // Update cache
           try {
             var full = JSON.parse(localStorage.getItem('unilag_cms_content') || '{"pages":{}}');
+            if (!full.pages) full.pages = {};
             full.pages[page] = data.sections;
             localStorage.setItem('unilag_cms_content', JSON.stringify(full));
           } catch (e) { }
@@ -193,4 +196,3 @@
     loadCmsData();
   }
 })();
-

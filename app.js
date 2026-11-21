@@ -6,52 +6,43 @@
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------------- preloader ---------------- */
+  /* ---------------- preloader (non-blocking) ---------------- */
   const pre = $("#pre");
-  const bar = $("#preBar");
-  const num = $("#preNum");
   if (pre) {
-    const dismissPreloader = () => {
-      pre.classList.add("done");
-      document.body.classList.add("loaded");
-      const hero = $(".hero");
-      if (hero) hero.classList.add("ready");
-      setTimeout(() => { if (pre && pre.parentNode) pre.remove(); }, 380);
-    };
-
-    if (sessionStorage.getItem("unilag_visited")) {
-      dismissPreloader();
-    } else {
-      sessionStorage.setItem("unilag_visited", "1");
-      let p = 0;
-      const tick = setInterval(() => {
-        p = Math.min(100, p + Math.random() * 32 + 24);
-        if (bar) bar.style.transform = "scaleX(" + p / 100 + ")";
-        if (num) num.textContent = String(Math.round(p)).padStart(2, "0");
-        if (p >= 100) {
-          clearInterval(tick);
-          setTimeout(dismissPreloader, 60);
-        }
-      }, 25);
-    }
+    pre.classList.add("done");
+    document.body.classList.add("loaded");
+    const hero = $(".hero");
+    if (hero) hero.classList.add("ready");
+    setTimeout(() => { if (pre && pre.parentNode) pre.remove(); }, 350);
   }
 
-  /* ---------------- cursor ---------------- */
+  /* ---------------- cursor (on-demand rAF, zero idle CPU) ---------------- */
   const cur = $(".cur"), dot = $(".cur-dot");
-  if (cur && dot && window.matchMedia("(hover:hover)").matches) {
-    let mx = -100, my = -100, cx = -100, cy = -100;
-    window.addEventListener("mousemove", (e) => { mx = e.clientX; my = e.clientY; dot.style.transform = "translate3d(" + (mx - 2) + "px," + (my - 2) + "px,0)"; });
-    (function loop() {
-      cx += (mx - cx) * 0.16; cy += (my - cy) * 0.16;
+  if (cur && dot && !reduced && window.matchMedia("(hover:hover)").matches) {
+    let mx = -100, my = -100, cx = -100, cy = -100, rafId = null;
+    const stepCursor = () => {
+      const dx = mx - cx, dy = my - cy;
+      cx += dx * 0.22;
+      cy += dy * 0.22;
       cur.style.transform = "translate3d(" + (cx - cur.offsetWidth / 2) + "px," + (cy - cur.offsetHeight / 2) + "px,0)";
-      requestAnimationFrame(loop);
-    })();
+      if (Math.hypot(dx, dy) > 0.5) {
+        rafId = requestAnimationFrame(stepCursor);
+      } else {
+        rafId = null;
+      }
+    };
+    window.addEventListener("mousemove", (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+      dot.style.transform = "translate3d(" + (mx - 2) + "px," + (my - 2) + "px,0)";
+      if (!rafId) rafId = requestAnimationFrame(stepCursor);
+    }, { passive: true });
     document.addEventListener("mouseover", (e) => {
-      cur.classList.toggle("is-hot", !!e.target.closest("a,button,.arch-card,.q-item,.n-row"));
+      cur.classList.toggle("is-hot", !!e.target.closest("a,button,.arch-card,.q-item,.n-row,.nav-trigger"));
     });
   }
 
-  /* ---------------- header + totop ---------------- */
+  /* ---------------- header + dropdown nav + active links + totop ---------------- */
   const head = $("#head"), totop = $("#totop");
   const onScroll = () => {
     const y = window.scrollY;
@@ -62,18 +53,70 @@
   onScroll();
   if (totop) totop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
+  // Highlight active nav item & dropdown parent across every page
+  const currentPage = (location.pathname.split("/").pop() || "index.html").split("#")[0].split("?")[0] || "index.html";
+  $$(".nav a, .drawer a").forEach((a) => {
+    const href = (a.getAttribute("href") || "").split("#")[0].split("?")[0];
+    if (!href) return;
+    const matchOerFaculty = currentPage.startsWith("oer-") && href === "oer.html";
+    if (href === currentPage || matchOerFaculty) {
+      a.setAttribute("aria-current", "page");
+      const parentItem = a.closest(".nav-item");
+      if (parentItem) {
+        const trig = $(".nav-trigger", parentItem);
+        if (trig) trig.classList.add("is-active");
+      }
+    }
+  });
+
+  // Accessible click/keyboard toggle for dropdown triggers (hybrid/touch/keyboard)
+  const navItems = $$(".nav-item");
+  const closeDropdowns = (except) => {
+    navItems.forEach((item) => {
+      if (item !== except) {
+        item.classList.remove("open");
+        const b = $(".nav-trigger", item);
+        if (b) b.setAttribute("aria-expanded", "false");
+      }
+    });
+  };
+  navItems.forEach((item) => {
+    const btn = $(".nav-trigger", item);
+    if (!btn) return;
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const willOpen = !item.classList.contains("open");
+      closeDropdowns(willOpen ? item : null);
+      item.classList.toggle("open", willOpen);
+      btn.setAttribute("aria-expanded", String(willOpen));
+    });
+  });
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".nav-item")) closeDropdowns(null);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeDropdowns(null);
+  });
+
   /* ---------------- drawer ---------------- */
   const burger = $("#burger");
-  if (burger) burger.addEventListener("click", () => {
-    const open = document.body.classList.toggle("menu-open");
-    document.body.classList.toggle("is-locked", open);
-    burger.setAttribute("aria-expanded", String(open));
-  });
+  if (burger) {
+    const setDrawer = (open) => {
+      document.body.classList.toggle("menu-open", open);
+      document.body.classList.toggle("is-locked", open);
+      burger.setAttribute("aria-expanded", String(open));
+    };
+    burger.addEventListener("click", () => setDrawer(!document.body.classList.contains("menu-open")));
+    $$(".drawer a").forEach((a) => a.addEventListener("click", () => setDrawer(false)));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && document.body.classList.contains("menu-open")) setDrawer(false);
+    });
+  }
 
   /* ---------------- marquee: duplicate ---------------- */
   $$(".ticker-track").forEach((tr) => {
     const html = tr.innerHTML;
-    tr.innerHTML = html + html + html + html;
+    tr.innerHTML = html + html;
   });
 
   /* ---------------- reveal ---------------- */
@@ -90,7 +133,7 @@
       }
       io.unobserve(el);
     });
-  }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+  }, { threshold: 0.08, rootMargin: "0px 0px -4% 0px" });
   $$("[data-reveal], .line-mask, .stagger").forEach((el) => {
     if (el.classList.contains("stagger")) {
       $$(":scope > *", el).forEach((c, i) => {
@@ -100,34 +143,13 @@
     io.observe(el);
   });
 
-  /* ---------------- parallax ---------------- */
-  const pxEls = $$("[data-parallax]");
-  if (pxEls.length) {
-    let raf = null;
-    const run = () => {
-      const vh = window.innerHeight;
-      pxEls.forEach((el) => {
-        const r = el.getBoundingClientRect();
-        if (r.bottom < -200 || r.top > vh + 200) return;
-        const sp = parseFloat(el.getAttribute("data-parallax")) || 0.12;
-        const mid = r.top + r.height / 2 - vh / 2;
-        el.style.transform = "translate3d(0," + (-mid * sp).toFixed(2) + "px,0)";
-      });
-      raf = null;
-    };
-    const onPx = () => { if (!raf) raf = requestAnimationFrame(run); };
-    window.addEventListener("scroll", onPx, { passive: true });
-    window.addEventListener("resize", onPx);
-    run();
-  }
-
   /* ---------------- counters ---------------- */
   const cio = new IntersectionObserver((es) => {
     es.forEach((e) => {
       if (!e.isIntersecting) return;
       const el = e.target, target = parseFloat(el.getAttribute("data-count"));
       const dec = (el.getAttribute("data-dec") || "0") | 0;
-      const dur = 1500; const t0 = performance.now();
+      const dur = 1200; const t0 = performance.now();
       const step = (t) => {
         const k = clamp((t - t0) / dur, 0, 1);
         const e2 = 1 - Math.pow(1 - k, 3);
@@ -137,7 +159,7 @@
       requestAnimationFrame(step);
       cio.unobserve(el);
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.4 });
   $$("[data-count]").forEach((el) => cio.observe(el));
 
   /* ---------------- accordion ---------------- */
@@ -182,7 +204,6 @@
     let lastX = 0;
     let hasMoved = false;
 
-    // Prevent native image and link drag
     rail.addEventListener("dragstart", (e) => e.preventDefault());
 
     rail.addEventListener("pointerdown", (e) => {
@@ -194,17 +215,13 @@
       scrollStart = rail.scrollLeft;
       velX = 0;
       rail.classList.add("is-dragging");
-      try {
-        rail.setPointerCapture(e.pointerId);
-      } catch (_) { }
+      try { rail.setPointerCapture(e.pointerId); } catch (_) { }
     });
 
     rail.addEventListener("pointermove", (e) => {
       if (!isDown) return;
       const dx = e.clientX - startX;
-      if (Math.abs(dx) > 3) {
-        hasMoved = true;
-      }
+      if (Math.abs(dx) > 3) hasMoved = true;
       velX = e.clientX - lastX;
       lastX = e.clientX;
       rail.scrollLeft = scrollStart - dx;
@@ -215,11 +232,8 @@
       isDown = false;
       rail.classList.remove("is-dragging");
       if (e && e.pointerId) {
-        try {
-          rail.releasePointerCapture(e.pointerId);
-        } catch (_) { }
+        try { rail.releasePointerCapture(e.pointerId); } catch (_) { }
       }
-      // Momentum coasting after release
       if (Math.abs(velX) > 2) {
         rail.scrollBy({ left: -velX * 7, behavior: "smooth" });
       }
@@ -228,7 +242,6 @@
     rail.addEventListener("pointerup", endDrag);
     rail.addEventListener("pointercancel", endDrag);
 
-    // Prevent navigation if dragged
     rail.addEventListener("click", (e) => {
       if (hasMoved) {
         e.preventDefault();
@@ -237,7 +250,6 @@
       }
     }, true);
 
-    // Trackpad / vertical mousewheel translates into horizontal scroll
     rail.addEventListener("wheel", (e) => {
       if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && Math.abs(e.deltaY) > 5) {
         rail.scrollBy({ left: e.deltaY > 0 ? 180 : -180, behavior: "smooth" });
@@ -262,31 +274,6 @@
     });
   });
 
-  /* ---------------- magnetic buttons ---------------- */
-  if (!reduced) $$(".btn").forEach((b) => {
-    b.addEventListener("mousemove", (e) => {
-      const r = b.getBoundingClientRect();
-      const x = (e.clientX - r.left - r.width / 2) / r.width;
-      const y = (e.clientY - r.top - r.height / 2) / r.height;
-      b.style.transform = "translate(" + (x * 5).toFixed(2) + "px," + (y * 4).toFixed(2) + "px)";
-    });
-    b.addEventListener("mouseleave", () => { b.style.transform = ""; });
-  });
-
-  /* ---------------- page transition ---------------- */
-  const pt = $("#pt");
-  document.addEventListener("click", (e) => {
-    const a = e.target.closest("a");
-    if (!a) return;
-    const href = a.getAttribute("href") || "";
-    if (!href || href.startsWith("#") || href.startsWith("http") || href.startsWith("mailto") || href.startsWith("tel")) return;
-    if (a.target === "_blank" || e.metaKey || e.ctrlKey) return;
-    if (!pt) return;
-    e.preventDefault();
-    pt.classList.add("run");
-    setTimeout(() => { window.location.href = href; }, 430);
-  });
-
   /* ---------------- search ---------------- */
   const INDEX = [
     { t: "Home", k: "Page", u: "index.html", d: "The University of Lagos Library, Akoka. Explore our library." },
@@ -303,7 +290,7 @@
     { t: "Support for Users with Disabilities", k: "Service", u: "accessibility.html", d: "Braille conversion, assistive tools, extended loans and ramps." },
     { t: "Libraries", k: "Page", u: "libraries.html", d: "Faculty libraries, liaison librarians and opening hours." },
     { t: "University Librarian", k: "Library", u: "about.html", d: "Prof Olatokunbo Christopher Okiki, University Librarian (CLN)." },
-    { t: "Pod seats", k: "Library", u: "index.html", d: "Pod seats at the Main Library, Main Library reading space." },
+    { t: "Pod seats", k: "Library", u: "libraries.html", d: "Pod seats at the Main Library, Main Library reading space." },
     { t: "Catalogue OPAC", k: "Search", u: "search.html", d: "Search the live UNILAG Online Public Access Catalogue." },
     { t: "Institutional Repository search", k: "Search", u: "search.html", d: "Search the Institutional Repository in DSpace at ir.unilag.edu.ng." },
     { t: "Faculty Libraries", k: "Library", u: "libraries.html", d: "Nineteen faculty libraries across campus with dedicated liaison services." },
@@ -314,10 +301,10 @@
     { t: "Museum", k: "Page", u: "museum.html", d: "Over 123 artefacts, Akintunde Ojo Building." },
     { t: "Ori Olokun", k: "Artefact", u: "museum.html", d: "Abayomi Barber, plaster of Paris, 1973, 46cm." },
     { t: "Open Educational Resources", k: "Page", u: "oer.html", d: "OER across nineteen faculties." },
-    { t: "Where to Publish (Accredited Journals)", k: "Research", u: "journals-accredited.html", d: "Guide for lecturers and researchers to search Scopus, Web of Science, DOAJ, and NUC-accredited journals." },
-    { t: "Accredited Journals Finder", k: "Research", u: "journals-accredited.html", d: "Search accredited high-impact peer-reviewed journals, CiteScore metrics, and automated manuscript matchers." },
+    { t: "Where to Publish (Accredited Journals)", k: "Research", u: "journals-accredited.html", d: "Guide for lecturers and researchers to search Scopus, Web of Science, DOAJ, and AJOL journals." },
     { t: "Subscribed Databases", k: "Page", u: "databases.html", d: "ScienceDirect, iG Publishing, Emerald, Research4life, HeinOnline, JSTOR, ProQuest, ASME, Brill, Springer Nature." },
     { t: "ScienceDirect", k: "Database", u: "databases.html#sciencedirect", d: "More than 15 million scientific articles, over 900,000 open access." },
+    { t: "iG Publishing (iGLibrary)", k: "Database", u: "databases.html#igpublishing", d: "Over 150,000 multidisciplinary eBooks with IP and remote institutional credentials." },
     { t: "JSTOR", k: "Database", u: "databases.html#jstor", d: "More than 2,000 journals, nearly 20,000 books, two million primary sources." },
     { t: "HeinOnline", k: "Database", u: "databases.html#heinonline", d: "More than 3,300 multidisciplinary periodicals and government documents." },
     { t: "ProQuest Central", k: "Database", u: "databases.html#proquest", d: "Largest multidisciplinary full text database, over 100,000 dissertations." },
@@ -325,7 +312,9 @@
     { t: "Research4life", k: "Database", u: "databases.html#research4life", d: "AGORA, HINARI, OARE, GOALI and ARDI. Username and password from the Automation Unit." },
     { t: "Springer Nature", k: "Database", u: "databases.html#springer", d: "Science, technology, medicine, social sciences and humanities." },
     { t: "News and Events", k: "Page", u: "news.html", d: "Notices from the University of Lagos Library." },
-    { t: "Library Makerspace", k: "News", u: "news.html", d: "Interactive learning on the first floor of the university library." },
+    { t: "Library Makerspace", k: "News", u: "services.html#makerspace", d: "Interactive learning on the first floor of the university library." },
+    { t: "Multimedia Studio", k: "Service", u: "services.html#multimedia-studio", d: "3rd Floor broadcast podcast and academic video recording suite." },
+    { t: "Learning Commons", k: "Service", u: "services.html#learning-commons", d: "Collaborative digital workstations and research support desk." },
     { t: "Contact", k: "Page", u: "contact.html", d: "P.M.B 1012, Akoka, Lagos. library@unilag.edu.ng. 0906 396 9206." },
     { t: "Opening Hours", k: "Page", u: "contact.html", d: "Monday to Saturday, 8:00 a.m. to 9:00 p.m." },
     { t: "FAQs", k: "Page", u: "help.html#faqs", d: "Access, borrowing limits, loan duration, renewals, fines and charges." },
@@ -334,32 +323,25 @@
     { t: "Research Help", k: "Help", u: "help.html#research", d: "Request a research appointment with a librarian." },
     { t: "Request a Purchase", k: "Help", u: "help.html#purchase", d: "Suggest a book, journal or database for the collection." },
     { t: "Interlibrary Loan", k: "Service", u: "services.html#loan", d: "Borrow a copy of an item from another library, print or electronic." },
-    { t: "International Business: Competing in the Global Marketplace", k: "Book", u: "search.html?q=International%20Business", d: "Marketing and international business collection." },
-    { t: "Foundations of Modern Physics", k: "Book", u: "search.html?q=Weinberg", d: "Steven Weinberg, Cambridge University Press, 2021, 250 pages." },
-    { t: "The Adult Learner", k: "Book", u: "search.html?q=Adult%20Learner", d: "The Definitive Classic in Adult Education and Human Resource Development." },
-    { t: "Oil and Gas Processing Equipment", k: "Book", u: "search.html?q=Oil%20and%20Gas", d: "Risk Assessment with Bayesian Networks." },
-    { t: "The History of Islam in Africa", k: "Book", u: "search.html?q=Islam%20in%20Africa", d: "Edited by Nehemia Levtzion and Randall L. Pouwels, Ohio University Press, 2000, 604 pages." },
-    { t: "Christianity in the Modern World", k: "Book", u: "search.html?q=Christianity", d: "Changes and Controversies." }
-    ,
-    { t: "Faculty of Architecture OER", k: "OER", u: "oer-architecture.html", d: "Architectural Design, Environmental Systems & Sustainable Urbanism — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Arts OER", k: "OER", u: "oer-arts.html", d: "Languages, History, Philosophy, Linguistics & Cultural Studies — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Basic Clinical Sciences OER", k: "OER", u: "oer-basic-clinical-sciences.html", d: "Microbiology, Pathology, Pharmacology, Toxicology & Hematology — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Basic Medical Sciences OER", k: "OER", u: "oer-basic-medical-sciences.html", d: "Human Anatomy, Medical Biochemistry & Systems Physiology — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Clinical Sciences OER", k: "OER", u: "oer-clinical-sciences.html", d: "Internal Medicine, Surgery, Paediatrics, Obstetrics & Psychiatry — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Communication & Media Studies OER", k: "OER", u: "oer-communication-media-studies.html", d: "Journalism, Broadcasting, Public Relations, Advertising & Digital Media — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Computing & Informatics OER", k: "OER", u: "oer-computing-informatics.html", d: "Computer Science, Software Engineering, AI, Cybersecurity & Data Science — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Creative Arts OER", k: "OER", u: "oer-creative-arts.html", d: "Theatre Arts, Musicology, Visual Arts, Textile Design & Art History — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Dental Sciences OER", k: "OER", u: "oer-dental-sciences.html", d: "Oral Surgery, Restorative Dentistry, Periodontology & Child Dental Health — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Education OER", k: "OER", u: "oer-education.html", d: "Curriculum Studies, Educational Foundations, Science Education & Human Kinetics — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Engineering OER", k: "OER", u: "oer-engineering.html", d: "Civil, Mechanical, Electrical, Chemical, Petroleum & Systems Engineering — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Environmental Sciences OER", k: "OER", u: "oer-environmental-sciences.html", d: "Building, Estate Management, Quantity Surveying & Urban Planning — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Health Professions OER", k: "OER", u: "oer-health-professions.html", d: "Nursing Science, Physiotherapy, Radiography & Medical Laboratory Science — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Law OER", k: "OER", u: "oer-law.html", d: "Jurisprudence, Commercial Law, Public Law & International Human Rights — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Life Sciences OER", k: "OER", u: "oer-life-sciences.html", d: "Biochemistry, Botany, Cell Biology, Genetics, Marine Sciences, Microbiology & Zoology — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Management Sciences OER", k: "OER", u: "oer-management-sciences.html", d: "Accounting, Actuarial Science, Business Administration, HR & Corporate Finance — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Pharmacy OER", k: "OER", u: "oer-pharmacy.html", d: "Pharmaceutics, Pharmaceutical Chemistry, Pharmacognosy, Pharmacology & Clinical Pharmacy — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Physical & Earth Sciences OER", k: "OER", u: "oer-physical-earth-sciences.html", d: "Chemistry, Geosciences, Mathematics, Physics & Statistics — Open textbooks, courseware, and repositories." },
-    { t: "Faculty of Social Sciences OER", k: "OER", u: "oer-social-sciences.html", d: "Economics, Geography, Political Science, Psychology & Sociology — Open textbooks, courseware, and repositories." }
+    { t: "Faculty of Architecture OER", k: "OER", u: "oer-architecture.html", d: "Architectural Design, Environmental Systems & Sustainable Urbanism." },
+    { t: "Faculty of Arts OER", k: "OER", u: "oer-arts.html", d: "Languages, History, Philosophy, Linguistics & Cultural Studies." },
+    { t: "Faculty of Basic Clinical Sciences OER", k: "OER", u: "oer-basic-clinical-sciences.html", d: "Microbiology, Pathology, Pharmacology, Toxicology & Hematology." },
+    { t: "Faculty of Basic Medical Sciences OER", k: "OER", u: "oer-basic-medical-sciences.html", d: "Human Anatomy, Medical Biochemistry & Systems Physiology." },
+    { t: "Faculty of Clinical Sciences OER", k: "OER", u: "oer-clinical-sciences.html", d: "Internal Medicine, Surgery, Paediatrics, Obstetrics & Psychiatry." },
+    { t: "Faculty of Communication & Media Studies OER", k: "OER", u: "oer-communication-media-studies.html", d: "Journalism, Broadcasting, Public Relations, Advertising & Digital Media." },
+    { t: "Faculty of Computing & Informatics OER", k: "OER", u: "oer-computing-informatics.html", d: "Computer Science, Software Engineering, AI, Cybersecurity & Data Science." },
+    { t: "Faculty of Creative Arts OER", k: "OER", u: "oer-creative-arts.html", d: "Theatre Arts, Musicology, Visual Arts, Textile Design & Art History." },
+    { t: "Faculty of Dental Sciences OER", k: "OER", u: "oer-dental-sciences.html", d: "Oral Surgery, Restorative Dentistry, Periodontology & Child Dental Health." },
+    { t: "Faculty of Education OER", k: "OER", u: "oer-education.html", d: "Curriculum Studies, Educational Foundations, Science Education & Human Kinetics." },
+    { t: "Faculty of Engineering OER", k: "OER", u: "oer-engineering.html", d: "Civil, Mechanical, Electrical, Chemical, Petroleum & Systems Engineering." },
+    { t: "Faculty of Environmental Sciences OER", k: "OER", u: "oer-environmental-sciences.html", d: "Building, Estate Management, Quantity Surveying & Urban Planning." },
+    { t: "Faculty of Health Professions OER", k: "OER", u: "oer-health-professions.html", d: "Nursing Science, Physiotherapy, Radiography & Medical Laboratory Science." },
+    { t: "Faculty of Law OER", k: "OER", u: "oer-law.html", d: "Jurisprudence, Commercial Law, Public Law & International Human Rights." },
+    { t: "Faculty of Life Sciences OER", k: "OER", u: "oer-life-sciences.html", d: "Biochemistry, Botany, Cell Biology, Genetics, Marine Sciences, Microbiology & Zoology." },
+    { t: "Faculty of Management Sciences OER", k: "OER", u: "oer-management-sciences.html", d: "Accounting, Actuarial Science, Business Administration, HR & Corporate Finance." },
+    { t: "Faculty of Pharmacy OER", k: "OER", u: "oer-pharmacy.html", d: "Pharmaceutics, Pharmaceutical Chemistry, Pharmacognosy, Pharmacology & Clinical Pharmacy." },
+    { t: "Faculty of Physical & Earth Sciences OER", k: "OER", u: "oer-physical-earth-sciences.html", d: "Chemistry, Geosciences, Mathematics, Physics & Statistics." },
+    { t: "Faculty of Social Sciences OER", k: "OER", u: "oer-social-sciences.html", d: "Economics, Geography, Political Science, Psychology & Sociology." }
   ];
   window.ULINDEX = INDEX;
 
@@ -375,13 +357,13 @@
     ).join("");
   }
   if (sov) {
-    const open = () => { sov.classList.add("open"); document.body.classList.add("is-locked"); setTimeout(() => sovIn && sovIn.focus(), 260); };
+    const open = () => { sov.classList.add("open"); document.body.classList.add("is-locked"); setTimeout(() => sovIn && sovIn.focus(), 180); };
     const close = () => { sov.classList.remove("open"); document.body.classList.remove("is-locked"); };
     $$("[data-search-open]").forEach((b) => b.addEventListener("click", open));
     $$("[data-search-close]").forEach((b) => b.addEventListener("click", close));
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") close();
-      if (e.key === "/" && !/input|textarea/i.test(document.activeElement.tagName)) { e.preventDefault(); open(); }
+      if (e.key === "/" && !/input|textarea|select/i.test(document.activeElement.tagName)) { e.preventDefault(); open(); }
     });
     if (sovIn) sovIn.addEventListener("input", () => renderResults(sovIn.value, sovRes, 9));
   }
@@ -395,7 +377,7 @@
     function draw(q) {
       const term = q.trim().toLowerCase();
       if (!term) {
-        pageRes.innerHTML = '<div class="empty">Start typing to search ' + INDEX.length + ' indexed pages, services, databases, books and artefacts.</div>';
+        pageRes.innerHTML = '<div class="empty">Start typing to search ' + INDEX.length + ' indexed pages, services, databases, and faculties.</div>';
         if (pageMeta) pageMeta.textContent = INDEX.length + " entries indexed";
         return;
       }
@@ -421,20 +403,64 @@
     }));
   }
 
-  /* ---------------- forms ---------------- */
+  /* ---------------- live forms -> /api/contact ---------------- */
   $$("form[data-demo]").forEach((f) => {
-    f.addEventListener("submit", (e) => {
+    f.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const btn = $('button[type="submit"]', f);
+      const origHtml = btn ? btn.innerHTML : "";
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Submitting...";
+      }
+      const isPurchase = f.closest("#purchase") !== null;
+      const name = ($("#r-name", f)?.value || $("#p-name", f)?.value || "Library Patron").trim();
+      const email = ($("#r-mail", f)?.value || $("#p-mail", f)?.value || "").trim();
+      const dept = ($("#r-dept", f)?.value || $("#p-dept", f)?.value || "").trim();
+      const cat = ($("#r-cat", f)?.value || $("#p-cat", f)?.value || "").trim();
+      let subject, message;
+      if (isPurchase) {
+        const title = ($("#p-title", f)?.value || "Untitled").trim();
+        const rType = ($("#p-type", f)?.value || "Book").trim();
+        subject = `Purchase Request (${rType}): ${title}`;
+        message = [
+          `Resource Type: ${rType}`,
+          `Title: ${title}`,
+          $("#p-author", f)?.value ? `Author: ${$("#p-author", f).value.trim()}` : "",
+          $("#p-spec", f)?.value ? `Details: ${$("#p-spec", f).value.trim()}` : "",
+          `Requested by: ${name} (${cat}, ${dept})`
+        ].filter(Boolean).join("\n");
+      } else {
+        subject = `Research Help Appointment (${cat || "Visitor"})`;
+        message = [
+          `Faculty/Dept: ${dept}`,
+          $("#r-id", f)?.value ? `ID / Matric No: ${$("#r-id", f).value.trim()}` : "",
+          `Request: ${($("#r-req", f)?.value || "").trim()}`
+        ].filter(Boolean).join("\n");
+      }
+
+      try {
+        await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, subject, message })
+        });
+      } catch (_) { }
+
       const ok = $(".form-ok", f.parentNode) || $(".form-ok", f);
       if (ok) ok.classList.add("on");
       f.reset();
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = origHtml;
+      }
     });
   });
 
   /* ---------------- year ---------------- */
   const yr = $("#yr"); if (yr) yr.textContent = new Date().getFullYear();
 
-  /* ---------------- deterministic reveal for headless capture & fast rendering ---------------- */
+  /* ---------------- fast initial reveals ---------------- */
   const checkInitialReveals = () => {
     $$("[data-reveal], .line-mask, .stagger").forEach((el) => {
       if (el.getBoundingClientRect().top < window.innerHeight * 1.35) el.classList.add("in");
