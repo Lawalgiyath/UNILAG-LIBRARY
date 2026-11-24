@@ -1,8 +1,8 @@
 {
   "source": "UNILAG Library Automated News & Notices Syndication",
-  "last_updated": "2026-11-21T23:10:48.704338",
-  "last_updated_display": "21 Nov 2026, 11:10 PM",
-  "total": 14,
+  "last_updated": "2026-11-24T11:01:52.180314",
+  "last_updated_display": "24 Nov 2026, 11:01 AM",
+  "total": 10,
   "notices": [
     {
       "id": "news-official-1",
@@ -148,66 +148,6 @@
       "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOVlp6REN0U0hwdThnWk9Ja0JxX1pidGNYa2JnbDNyLTd0a2xmeF9odkhQS3pNQldKSVhzcFEyQzBwZURXQ3hJMUk3RHdSQndscndBUk5MYjlISWN6VWdVZnZha1YzOHNkMm03dTJMcFlna1ltZ0RCREw1NkRVQ056TG00T1p3bVkxalliUy1sTkJUWXZNQ0diUExR?oc=5",
       "image": "https://iili.io/npBxdcN.webp",
       "badge": "Verified Live Notice",
-      "isLiveFeed": true
-    },
-    {
-      "id": "news-live-7",
-      "title": "UNILAG Matriculates 6,011 Distance Learning Students for 2025/2026 Academic Session",
-      "category": "Library News",
-      "date": "15 May 2026",
-      "displayDate": "15 May 2026",
-      "timestamp": "2026-05-15T07:00:00",
-      "lead": false,
-      "location": "University of Lagos Main Library, Akoka",
-      "summary": "Official release from the University of Lagos regarding the Library system. Read the verified report, circular details, and public notice.",
-      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQRmZpZDlKUkdNNGJyNnJwRTliMlBwMW9uZmMwelFONWJYT2tWYUFiejlEQ21FMFZMVjlCNlBPa0ZQU2NmVVV6a1R0RUxHRVhxTGxsdllfMnljSkNIdkRwYUFRN3FDVWhqSEVlSUdOYnktRzNSbXJfbkNfX2JjeFVNT3dlOTIzMVlUZkpNQlFzWjc4VUdBWmViWVhQN1BBbHdLR3p0Smp3a1g?oc=5",
-      "image": "https://iili.io/npBxdcN.webp",
-      "badge": "Verified Live Notice",
-      "isLiveFeed": true
-    },
-    {
-      "id": "news-feed-8",
-      "title": "UNILAG Celebrates Professor Wesley Okiei\u2019s Legacy of Research, Innovation and Academic Excellence",
-      "category": "Academic News",
-      "date": "20 Nov 2026",
-      "displayDate": "20 Nov 2026",
-      "timestamp": "2026-11-20T11:32:25+00:00",
-      "lead": false,
-      "location": "University of Lagos",
-      "summary": "The University of Lagos (UNILAG) has celebrated Professor Wesley O. Okiei, Professor of Chemistry, in recognition of his contributions to scientific research, teaching, mentorship and the advancement of electrochemist...",
-      "link": "https://unilag.edu.ng/unilag-celebrates-professor-wesley-okieis-legacy-of-research-innovation-and-academic-excellence/",
-      "image": "https://iili.io/npBxvlp.webp",
-      "badge": "UNILAG News",
-      "isLiveFeed": true
-    },
-    {
-      "id": "news-feed-9",
-      "title": "Professor Kuye Delivers 3rd Inaugural Lecture, December 2",
-      "category": "Academic News",
-      "date": "19 Nov 2026",
-      "displayDate": "19 Nov 2026",
-      "timestamp": "2026-11-19T17:43:56+00:00",
-      "lead": false,
-      "location": "University of Lagos",
-      "summary": "The 3rd Inaugural Lecture of the 2026/2027 Academic Session of the University of Lagos (UNILAG) will hold on Wednesday, December 2, 2026 at 4:00 p.m. (Guests are to be seated by 3:45 p.m.) at the J. F. Ade. Ajayi (Mai...",
-      "link": "https://unilag.edu.ng/professor-kuye-delivers-3rd-inaugural-lecture-december-2/",
-      "image": "https://iili.io/npBxvlp.webp",
-      "badge": "UNILAG News",
-      "isLiveFeed": true
-    },
-    {
-      "id": "news-feed-10",
-      "title": "470th Inaugural Lecture: Prof. Akewe Demonstrates Real-Life Applications of Fixed-Point Theory",
-      "category": "Academic News",
-      "date": "19 Nov 2026",
-      "displayDate": "19 Nov 2026",
-      "timestamp": "2026-11-19T09:25:02+00:00",
-      "lead": false,
-      "location": "University of Lagos",
-      "summary": "The practical relevance of mathematics in addressing real-world challenges, advancing research and supporting national development took centre stage as Professor Hudson Akewe of the Department of Mathematics, Faculty ...",
-      "link": "https://unilag.edu.ng/470th-inaugural-lecture-prof-akewe-demonstrates-real-life-applications-of-fixed-point-theory/",
-      "image": "https://iili.io/npBxvlp.webp",
-      "badge": "UNILAG News",
       "isLiveFeed": true
     }
   ]

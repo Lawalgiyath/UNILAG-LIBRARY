@@ -24,7 +24,7 @@ OFFICIAL_LIBRARY_NOTICES = [
         "location": "3rd Floor, Main Library",
         "summary": "State-of-the-art acoustic podcasting and video recording studio suite launched on 19th January 2026 on the 3rd Floor of the Main Library. Equipped with broadcast studio boom microphones, acoustic timber soundproofing, and overhead studio lighting for scholarly podcasts, lectures, and academic production.",
         "link": "services.html#multimedia-studio",
-        "image": "https://iili.io/nQKlFu2.webp",
+        "image": "assets/multimedia_studio_suite.webp",
         "badge": "Newly Commissioned"
     },
     {
@@ -38,7 +38,7 @@ OFFICIAL_LIBRARY_NOTICES = [
         "location": "Ground Floor, Main Library",
         "summary": "Collaborative research workstations, high-speed institutional e-resource terminals, and on-site information desk guidance for interdisciplinary scholarly investigations.",
         "link": "services.html#learning-commons",
-        "image": "https://iili.io/nPRQeA7.webp",
+        "image": "assets/learning_commons_workstations.webp",
         "badge": "Collaborative Space"
     },
     {
@@ -66,7 +66,7 @@ OFFICIAL_LIBRARY_NOTICES = [
         "location": "1st Floor, Main Library",
         "summary": "Interactive smart displays, design-thinking whiteboards, and comfortable circular collaboration pods designed to foster student innovation and interdisciplinary creative projects.",
         "link": "services.html#makerspace",
-        "image": "https://iili.io/nPRZAb9.webp",
+        "image": "assets/makerspace_arena.webp",
         "badge": "Ideation & Design"
     }
 ]

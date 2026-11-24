@@ -480,7 +480,7 @@ body.no-cur .cur-dot {
   gap: clamp(18px, 2vw, 34px)
 }
 
-.nav > a,
+.nav>a,
 .nav-trigger {
   display: inline-flex;
   align-items: center;
@@ -496,7 +496,7 @@ body.no-cur .cur-dot {
   white-space: nowrap;
 }
 
-.nav > a::after,
+.nav>a::after,
 .nav-trigger::after {
   content: "";
   position: absolute;
@@ -510,16 +510,16 @@ body.no-cur .cur-dot {
   transition: transform .42s var(--ease)
 }
 
-.nav > a:hover,
-.nav > a[aria-current="page"],
+.nav>a:hover,
+.nav>a[aria-current="page"],
 .nav-item:hover .nav-trigger,
 .nav-item.open .nav-trigger,
 .nav-trigger.is-active {
   color: var(--oxblood)
 }
 
-.nav > a:hover::after,
-.nav > a[aria-current="page"]::after,
+.nav>a:hover::after,
+.nav>a[aria-current="page"]::after,
 .nav-item:hover .nav-trigger::after,
 .nav-item.open .nav-trigger::after,
 .nav-trigger.is-active::after {
