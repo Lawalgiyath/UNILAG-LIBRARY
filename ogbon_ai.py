@@ -571,7 +571,7 @@ def _compact_context_for_local_llm(ctx):
     faq_hits = ctx.get('faq') or []
     if faq_hits:
         compact['faq'] = [
-            {'title': x.get('title', ''), 'url': x.get('url', ''), 'content': str(x.get('content', ''))[:420]}
+            {'title': x.get('title', ''), 'url': x.get('url', ''), 'content': str(x.get('content', ''))[:800]}
             for x in faq_hits[:2]
         ]
     journal_hits = ctx.get('journals') or []
