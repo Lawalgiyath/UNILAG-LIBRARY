@@ -384,7 +384,7 @@ def tool_search_openalex(query, limit=5):
         urllib.parse.quote(clean_q), int(limit)
     )
     try:
-        data = _http_get_json(url, timeout=10)
+        data = _http_get_json(url, timeout=5)
     except Exception:
         return []
 
@@ -426,7 +426,7 @@ def tool_search_wikipedia(query, limit=2):
         '&srsearch={0}&srlimit={1}&format=json&utf8=1'
     ).format(urllib.parse.quote(clean_q), int(limit))
     try:
-        sdata = _http_get_json(search_url, timeout=10)
+        sdata = _http_get_json(search_url, timeout=4)
     except Exception:
         return []
 
@@ -444,7 +444,7 @@ def tool_search_wikipedia(query, limit=2):
     ).format(urllib.parse.quote('|'.join(titles)))
     pages_by_title = {}
     try:
-        edata = _http_get_json(extract_url, timeout=10)
+        edata = _http_get_json(extract_url, timeout=4)
         for _, p in ((edata.get('query') or {}).get('pages') or {}).items():
             if p.get('title'):
                 pages_by_title[p['title']] = p
@@ -483,14 +483,14 @@ def tool_search_opac_and_ir(query, opac_fn=None, ir_fn=None, limit=5):
         fut_ir = pool.submit(ir_fn, clean_q, limit) if ir_fn else None
         if fut_opac:
             try:
-                res = fut_opac.result(timeout=7)
+                res = fut_opac.result(timeout=4)
                 if isinstance(res, dict):
                     opac_items = (res.get('results') or [])[:limit]
             except Exception:
                 opac_items = []
         if fut_ir:
             try:
-                res = fut_ir.result(timeout=7)
+                res = fut_ir.result(timeout=4)
                 if isinstance(res, dict):
                     ir_items = (res.get('results') or [])[:limit]
             except Exception:
@@ -718,26 +718,35 @@ def _call_optional_llm(query, mode, tool_context, history=None):
         except Exception:
             pass
 
-    if cfg['local_llm_url']:
-        compact_ctx = _compact_context_for_local_llm(tool_context)
-        compact_hist = '\n'.join(hist_lines[-4:]) if hist_lines else '(none)'
-        compact_user_prompt = (
-            "Active Mode: {0}\n"
-            "Conversation History:\n{1}\n\n"
-            "User Request: {2}\n\n"
-            "VERIFIED TOOL OUTPUTS:\n{3}"
-        ).format(mode, compact_hist, query, json.dumps(compact_ctx, ensure_ascii=False))
+    has_tool_hits = bool(
+        tool_context.get('faq')
+        or tool_context.get('journals')
+        or tool_context.get('openalex')
+        or tool_context.get('wikipedia')
+        or (tool_context.get('opac_ir') or {}).get('opac')
+        or (tool_context.get('opac_ir') or {}).get('ir')
+    )
+
+    if cfg['local_llm_url'] and (not has_tool_hits or mode == 'chat'):
+        lean_sys = (
+            "You are Ogbon, the UNILAG Library AI assistant in Lagos, Nigeria. "
+            "Be concise, helpful, academic, and never use emojis. Do not invent UNILAG policies."
+        )
+        compact_hist = '\n'.join(hist_lines[-3:]) if hist_lines else '(none)'
+        lean_user = (
+            "History:\n{0}\n\nQuestion: {1}"
+        ).format(compact_hist, query)
         payload = {
             'model': cfg['local_llm_model'],
             'temperature': 0.25,
-            'max_tokens': 350,
+            'max_tokens': 120,
             'messages': [
-                {'role': 'system', 'content': system_prompt},
-                {'role': 'user', 'content': compact_user_prompt}
+                {'role': 'system', 'content': lean_sys},
+                {'role': 'user', 'content': lean_user}
             ]
         }
         try:
-            res = _http_post_json(cfg['local_llm_url'], payload, timeout=65)
+            res = _http_post_json(cfg['local_llm_url'], payload, timeout=18)
             choices = res.get('choices') or []
             if choices:
                 txt = ((choices[0].get('message') or {}).get('content') or '').strip()
@@ -1042,13 +1051,79 @@ def get_status():
     }
 
 
+def _handle_smalltalk(query):
+    """Handle greetings, check-ins, capability questions, and pleasantries in <5ms."""
+    clean = re.sub(r'[^a-z0-9\s]', ' ', (query or '').lower())
+    clean = re.sub(r'\s+', ' ', clean).strip()
+    if not clean:
+        return None
+    words = clean.split()
+    if len(words) > 8:
+        return None
+
+    domain_block = (
+        'borrow', 'fine', 'hour', 'hours', 'studio', 'scopus', 'ajol', 'journal',
+        'publish', 'opac', 'thesis', 'theses', 'database', 'iglibrary', 'turnitin',
+        'explain', 'define', 'study', 'research', 'paper', 'papers', 'article',
+        'book', 'books', 'compare', 'summarize', 'quiz', 'makerspace', 'gandhi', 'museum'
+    )
+    if any(d in words for d in domain_block):
+        return None
+
+    greetings = (
+        'hey', 'hi', 'hello', 'hiya', 'yo', 'good morning', 'good afternoon',
+        'good evening', 'how are you', 'how re you', 'how r u', 'how far',
+        'how u dey', 'doing today', 'whats up', 'what s up', 'bawo ni', 'ekaro',
+        'ekasan', 'ekurole'
+    )
+    identity = (
+        'who are you', 'what are you', 'what is ogbon', 'what can you do',
+        'help me', 'help'
+    )
+    thanks = ('thanks', 'thank you', 'thx', 'appreciate', 'ok', 'okay', 'cool', 'nice', 'great', 'alright')
+
+    reply_md = None
+    if any(p in clean for p in identity):
+        reply_md = (
+            "I am **Ogbon**, the University of Lagos (UNILAG) Library's agentic AI assistant.\n\n"
+            "I can help you right away with:\n"
+            "- **Library Policies & Services:** Hours, borrowing limits, fines, Multimedia Studio, Learning Commons, Makerspace & iGLibrary access.\n"
+            "- **Where to Publish:** Recommendations across 6,000+ UNILAG-accredited Scopus, Web of Science & AJOL journals.\n"
+            "- **Study & Research Companion:** Concept explanations, live peer-reviewed OpenAlex papers, UNILAG OPAC books & revision questions."
+        )
+    elif any(p in clean for p in greetings) or any(w in ('hey', 'hi', 'hello', 'hiya', 'yo') for w in words):
+        reply_md = (
+            "Hello! I am doing well and ready to help.\n\n"
+            "Ask me anything about **UNILAG Library** hours, borrowing rules, study topics, peer-reviewed papers, or **where to publish** your research."
+        )
+    elif clean in thanks or any(w in ('thanks', 'thank', 'thx') for w in words):
+        reply_md = "You are welcome. Let me know whenever you need help with library resources, study guides, or accredited journals."
+
+    if not reply_md:
+        return None
+
+    return {
+        'agent': 'Ogbon',
+        'mode': 'auto',
+        'requested_mode': 'auto',
+        'engine': 'ogbon-conversational-router',
+        'elapsed_ms': 1,
+        'tools_used': [],
+        'reply_markdown': reply_md,
+        'reply_html': markdown_to_html(reply_md),
+        'sources': [],
+        'suggestions': _suggest_followups('auto', query)
+    }
+
+
 def run_agent(query, mode='auto', history=None, faculty=None,
               catalog_loader=None, opac_fn=None, ir_fn=None):
     """
     Execute Ogbon's agentic pipeline:
-      1. Intent classification & tool plan selection
-      2. Parallel execution of selected live & local tools
-      3. LLM synthesis (if configured) or structured deterministic response
+      1. Fast conversational router for greetings/check-ins (<5ms)
+      2. Intent classification & tool plan selection
+      3. Parallel execution of selected live & local tools
+      4. Deterministic fast synthesis for verified tool hits, or Cloud/Local LLM reasoning
     """
     t0 = time.time()
     clean_q = re.sub(r'\s+', ' ', (query or '').strip())
@@ -1056,6 +1131,12 @@ def run_agent(query, mode='auto', history=None, faculty=None,
         return {
             'error': 'Please enter a question, study topic, or journal query for Ogbon.'
         }
+
+    smalltalk = _handle_smalltalk(clean_q)
+    if smalltalk is not None:
+        smalltalk['requested_mode'] = mode
+        smalltalk['elapsed_ms'] = max(1, int((time.time() - t0) * 1000))
+        return smalltalk
 
     resolved_mode = _classify_intent(clean_q, requested_mode=mode)
     ctx = {
@@ -1067,70 +1148,82 @@ def run_agent(query, mode='auto', history=None, faculty=None,
     }
     tools_used = []
 
-    # Decide tool plan based on resolved_mode & query signals
-    run_faq = resolved_mode in ('faq', 'auto')
-    run_journals = resolved_mode in ('publish', 'auto')
-    run_openalex = resolved_mode in ('study', 'publish', 'auto')
-    run_wiki = resolved_mode in ('study', 'auto')
-    run_opac = resolved_mode in ('study', 'auto')
+    # Fast check: if auto mode hits UNILAG FAQ directly without asking for papers/journals, serve FAQ fast
+    if resolved_mode == 'auto':
+        qlc = clean_q.lower()
+        needs_research = any(k in qlc for k in ('paper', 'papers', 'study', 'studies', 'article', 'journal', 'publish', 'explain', 'research', 'thesis'))
+        faq_quick = tool_library_faq(clean_q, 4)
+        if faq_quick and not needs_research:
+            resolved_mode = 'faq'
+            ctx['faq'] = faq_quick
+            tools_used.append('faq')
 
-    # Keep FAQ tight so simple policy queries stay super fast, while still offering live search in auto/study
-    if resolved_mode == 'faq':
-        run_journals = False
-        run_openalex = False
-        run_wiki = False
-        run_opac = False
+    if resolved_mode == 'faq' and ctx['faq']:
+        pass
+    else:
+        # Decide tool plan based on resolved_mode & query signals
+        run_faq = resolved_mode in ('faq', 'auto')
+        run_journals = resolved_mode in ('publish', 'auto')
+        run_openalex = resolved_mode in ('study', 'publish', 'auto')
+        run_wiki = resolved_mode in ('study', 'auto')
+        run_opac = resolved_mode in ('study', 'auto')
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
-        futs = {}
-        if run_faq:
-            futs['faq'] = pool.submit(tool_library_faq, clean_q, 4)
-        if run_journals:
-            futs['journals'] = pool.submit(tool_search_accredited_journals, clean_q, catalog_loader, faculty, 6)
-        if run_openalex:
-            futs['openalex'] = pool.submit(tool_search_openalex, clean_q, 5)
-        if run_wiki:
-            futs['wikipedia'] = pool.submit(tool_search_wikipedia, clean_q, 2)
-        if run_opac:
-            futs['opac_ir'] = pool.submit(tool_search_opac_and_ir, clean_q, opac_fn, ir_fn, 4)
+        if resolved_mode == 'faq':
+            run_journals = False
+            run_openalex = False
+            run_wiki = False
+            run_opac = False
 
-        for key, fut in futs.items():
-            try:
-                res = fut.result(timeout=12)
-                ctx[key] = res
-                if key == 'opac_ir':
-                    if res.get('opac') or res.get('ir'):
+        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
+            futs = {}
+            if run_faq:
+                futs['faq'] = pool.submit(tool_library_faq, clean_q, 4)
+            if run_journals:
+                futs['journals'] = pool.submit(tool_search_accredited_journals, clean_q, catalog_loader, faculty, 6)
+            if run_openalex:
+                futs['openalex'] = pool.submit(tool_search_openalex, clean_q, 5)
+            if run_wiki:
+                futs['wikipedia'] = pool.submit(tool_search_wikipedia, clean_q, 2)
+            if run_opac:
+                futs['opac_ir'] = pool.submit(tool_search_opac_and_ir, clean_q, opac_fn, ir_fn, 4)
+
+            for key, fut in futs.items():
+                try:
+                    res = fut.result(timeout=6)
+                    ctx[key] = res
+                    if key == 'opac_ir':
+                        if res.get('opac') or res.get('ir'):
+                            tools_used.append('unilag_opac_and_ir')
+                    elif res:
+                        tools_used.append(key)
+                except Exception:
+                    pass
+
+        # If FAQ mode found nothing in KB, automatically fall back to live web + OPAC
+        if resolved_mode == 'faq' and not ctx['faq']:
+            resolved_mode = 'auto'
+            with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+                f_oa = pool.submit(tool_search_openalex, clean_q, 4)
+                f_wk = pool.submit(tool_search_wikipedia, clean_q, 1)
+                f_op = pool.submit(tool_search_opac_and_ir, clean_q, opac_fn, ir_fn, 3)
+                try:
+                    ctx['openalex'] = f_oa.result(timeout=5)
+                    if ctx['openalex']:
+                        tools_used.append('openalex')
+                except Exception:
+                    pass
+                try:
+                    ctx['wikipedia'] = f_wk.result(timeout=5)
+                    if ctx['wikipedia']:
+                        tools_used.append('wikipedia')
+                except Exception:
+                    pass
+                try:
+                    ctx['opac_ir'] = f_op.result(timeout=5)
+                    if ctx['opac_ir'].get('opac') or ctx['opac_ir'].get('ir'):
                         tools_used.append('unilag_opac_and_ir')
-                elif res:
-                    tools_used.append(key)
-            except Exception:
-                pass
-
-    # If FAQ mode found nothing in KB, automatically fall back to live web + OPAC
-    if resolved_mode == 'faq' and not ctx['faq']:
-        resolved_mode = 'auto'
-        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
-            f_oa = pool.submit(tool_search_openalex, clean_q, 4)
-            f_wk = pool.submit(tool_search_wikipedia, clean_q, 1)
-            f_op = pool.submit(tool_search_opac_and_ir, clean_q, opac_fn, ir_fn, 3)
-            try:
-                ctx['openalex'] = f_oa.result(timeout=10)
-                if ctx['openalex']:
-                    tools_used.append('openalex')
-            except Exception:
-                pass
-            try:
-                ctx['wikipedia'] = f_wk.result(timeout=10)
-                if ctx['wikipedia']:
-                    tools_used.append('wikipedia')
-            except Exception:
-                pass
-            try:
-                ctx['opac_ir'] = f_op.result(timeout=10)
-                if ctx['opac_ir'].get('opac') or ctx['opac_ir'].get('ir'):
-                    tools_used.append('unilag_opac_and_ir')
-            except Exception:
-                pass
+                except Exception:
+                    pass
 
     llm_md, llm_engine = _call_optional_llm(clean_q, resolved_mode, ctx, history=history)
     if llm_md:
