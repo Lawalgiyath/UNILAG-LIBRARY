@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>&#7884;gb&#7885;&#769;n AI &mdash; Research, Study &amp; Library Assistant | UNILAG Library</title>
+<meta name="description" content="Ogbon is the University of Lagos Library agentic AI assistant for library FAQs, academic study coaching, live scholarly OpenAlex search, and accredited journal recommendations.">
+<meta name="theme-color" content="#6C0000">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style2.css">
+<style>
+  .og-page{padding:clamp(24px,3.2vw,46px) 0 clamp(48px,6vw,84px);background:var(--bone,#F5F2EA);}
+  .og-shell{display:grid;grid-template-columns:310px minmax(0,1fr);gap:24px;align-items:start;}
+  .og-sidebar{background:#fff;border:1px solid rgba(28,22,19,0.12);border-radius:16px;padding:20px;position:sticky;top:92px;}
+  .og-sec-label{font-family:"IBM Plex Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-50,#6b6058);margin:0 0 10px;}
+  .og-mode-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+  .og-mode-btn{text-align:left;padding:11px 13px;border-radius:10px;border:1px solid rgba(28,22,19,0.12);background:#FCFBF8;cursor:pointer;transition:all .18s ease;}
+  .og-mode-btn:hover{border-color:#6C0000;background:#FFF9F7;}
+  .og-mode-btn.active{background:#6C0000;color:#fff;border-color:#6C0000;}
+  .og-mode-btn strong{display:block;font-size:13.5px;font-weight:600;margin-bottom:2px;}
+  .og-mode-btn span{display:block;font-size:11.5px;opacity:0.8;line-height:1.35;}
+  .og-field{margin-bottom:18px;}
+  .og-field select{width:100%;padding:9px 11px;border-radius:9px;border:1px solid rgba(28,22,19,0.18);background:#fff;font-family:inherit;font-size:13px;color:var(--ink,#1e1916);}
+  .og-status-box{padding:12px;border-radius:10px;background:#F7F4EC;border:1px solid rgba(197,155,39,0.35);font-size:12px;line-height:1.5;color:#3d332c;}
+  .og-status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#1e8e4e;margin-right:6px;}
+  .og-chat-card{background:#fff;border:1px solid rgba(28,22,19,0.12);border-radius:18px;display:flex;flex-direction:column;min-height:640px;overflow:hidden;box-shadow:0 16px 40px rgba(24,14,10,0.06);}
+  .og-chat-top{padding:15px 22px;border-bottom:1px solid rgba(28,22,19,0.1);display:flex;align-items:center;justify-content:space-between;gap:12px;background:#FCFBF8;}
+  .og-chat-top-title{display:flex;align-items:center;gap:10px;}
+  .og-crest-badge{width:34px;height:34px;border-radius:10px;background:#6C0000;color:#F7E5AE;display:grid;place-items:center;}
+  .og-chat-top h2{margin:0;font-family:"Instrument Serif",Georgia,serif;font-size:23px;font-weight:400;line-height:1.1;}
+  .og-chat-top p{margin:0;font-size:12px;color:var(--ink-50,#6b6058);}
+  .og-clear-btn{background:#fff;border:1px solid rgba(28,22,19,0.18);border-radius:8px;padding:7px 12px;font-size:12px;font-weight:500;cursor:pointer;color:#2c2520;}
+  .og-clear-btn:hover{border-color:#6C0000;color:#6C0000;}
+  .og-thread{flex:1;padding:22px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;max-height:68vh;}
+  .og-welcome{background:#F9F6EE;border:1px solid rgba(197,155,39,0.35);border-radius:14px;padding:20px;}
+  .og-welcome h3{margin:0 0 8px;font-family:"Instrument Serif",Georgia,serif;font-size:24px;font-weight:400;color:#6C0000;}
+  .og-welcome p{margin:0 0 14px;font-size:14px;line-height:1.58;color:#332a24;}
+  .og-prompts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;}
+  .og-prompt-chip{text-align:left;background:#fff;border:1px solid rgba(28,22,19,0.14);border-radius:10px;padding:11px 13px;cursor:pointer;transition:border-color .16s ease,transform .16s ease;}
+  .og-prompt-chip:hover{border-color:#6C0000;transform:translateY(-1px);}
+  .og-prompt-chip small{display:block;font-family:"IBM Plex Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#8a6209;margin-bottom:4px;}
+  .og-prompt-chip span{display:block;font-size:13px;font-weight:500;color:#1e1916;line-height:1.38;}
+  .og-msg{max-width:88%;padding:14px 18px;border-radius:14px;font-size:14.5px;line-height:1.62;}
+  .og-msg.user{align-self:flex-end;background:#6C0000;color:#fff;border-bottom-right-radius:4px;}
+  .og-msg.bot{align-self:flex-start;background:#FCFBF8;border:1px solid rgba(28,22,19,0.11);border-bottom-left-radius:4px;color:#1e1916;width:min(100%,780px);}
+  .og-msg.bot h3,.og-msg.bot h4{margin:14px 0 6px;font-family:"Instrument Serif",Georgia,serif;font-size:21px;font-weight:400;color:#6C0000;}
+  .og-msg.bot h3:first-child,.og-msg.bot h4:first-child{margin-top:0;}
+  .og-msg.bot p{margin:0 0 10px;}
+  .og-msg.bot ul,.og-msg.bot ol{margin:4px 0 12px 20px;padding:0;}
+  .og-msg.bot li{margin-bottom:6px;}
+  .og-msg.bot a{color:#6C0000;font-weight:500;text-decoration:underline;text-underline-offset:3px;}
+  .og-msg.bot code{font-family:"IBM Plex Mono",monospace;font-size:12.5px;background:#EFECE3;padding:2px 6px;border-radius:4px;}
+  .og-meta-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:12px;padding-top:10px;border-top:1px dashed rgba(28,22,19,0.14);}
+  .og-tool-pill{font-family:"IBM Plex Mono",monospace;font-size:10.5px;padding:3px 8px;border-radius:999px;background:#F5EFE0;color:#62480b;border:1px solid rgba(197,155,39,0.4);}
+  .og-time-pill{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:#73665d;margin-left:auto;}
+  .og-sources{margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;}
+  .og-source-card{display:block;text-decoration:none;background:#fff;border:1px solid rgba(28,22,19,0.12);border-radius:9px;padding:9px 11px;transition:border-color .15s ease;}
+  .og-source-card:hover{border-color:#6C0000;}
+  .og-source-type{font-family:"IBM Plex Mono",monospace;font-size:9.5px;text-transform:uppercase;color:#6C0000;letter-spacing:0.06em;}
+  .og-source-title{font-size:12.5px;font-weight:600;color:#1e1916;margin:2px 0;line-height:1.35;}
+  .og-source-meta{font-size:11px;color:#6b6058;}
+  .og-followups{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px;}
+  .og-followup{background:#fff;border:1px solid rgba(108,0,0,0.22);color:#6C0000;border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer;}
+  .og-followup:hover{background:#6C0000;color:#fff;}
+  .og-composer{padding:14px 18px;border-top:1px solid rgba(28,22,19,0.1);background:#fff;display:flex;gap:10px;align-items:flex-end;}
+  .og-composer textarea{flex:1;border:1px solid rgba(28,22,19,0.2);border-radius:12px;padding:11px 14px;font-family:inherit;font-size:14px;resize:none;min-height:46px;max-height:140px;outline:none;line-height:1.45;}
+  .og-composer textarea:focus{border-color:#6C0000;}
+  .og-send-btn{background:#6C0000;color:#fff;border:none;border-radius:12px;padding:0 22px;height:46px;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap;}
+  .og-send-btn:disabled{opacity:0.55;cursor:not-allowed;}
+  @media(max-width:920px){
+    .og-shell{grid-template-columns:1fr;}
+    .og-sidebar{position:static;}
+    .og-mode-list{display:grid;grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:560px){
+    .og-mode-list{grid-template-columns:1fr;}
+    .og-msg{max-width:100%;}
+  }
+</style>
+</head>
+<body data-page="research">
+<div id="pre">
+  <div class="pre-in">
+    <div class="pre-top"><span class="mono">University of Lagos Library</span><span class="mono" id="preNum">00</span></div>
+    <div class="pre-name">Akoka, Lagos</div>
+    <div class="pre-bar"><span id="preBar"></span></div>
+    <div class="pre-top" style="margin-top:18px"><span class="mono">Loading the collection</span><span class="mono">library.unilag.edu.ng</span></div>
+  </div>
+</div>
+<div class="grain"></div>
+<div class="cur"></div><div class="cur-dot"></div>
+<div id="pt"></div>
+
+  <div class="topbar">
+    <div class="tb-l">
+      <a href="https://unilag.edu.ng/" target="_blank" rel="noopener">Unilag Home</a>
+      <span class="dot tb-hide-sm"></span>
+      <span data-status>Checking hours</span>
+    </div>
+    <div class="tb-r">
+      <a href="news.html" class="tb-hide-sm">News &amp; Events</a>
+      <span class="dot tb-hide-sm"></span>
+      <a href="accessibility.html">Accessibility</a>
+      <span class="dot"></span>
+      <a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Linktree Hub</a>
+      <span class="dot tb-hide-sm"></span>
+      <a href="admin/index.html" class="tb-hide-sm">Staff Portal</a>
+    </div>
+  </div>
+
+  <header class="site-head" id="head">
+    <div class="head-row">
+      <a class="brand" href="index.html" aria-label="University of Lagos Library, home">
+        <img src="assets/logo.png" alt="University of Lagos Library crest" decoding="async">
+        <span class="bw">
+          <b>University of Lagos</b>
+          <span>Library</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">The Library <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="about.html"><span class="nav-dd-title">About &amp; Welcome</span><span class="nav-dd-sub">Vision, mission, and the University Librarian&rsquo;s welcome</span></a>
+            <a href="departments.html"><span class="nav-dd-title">Departments &amp; Units</span><span class="nav-dd-sub">Readers&rsquo;, Technical, Research &amp; Automation units</span></a>
+            <a href="libraries.html"><span class="nav-dd-title">Faculty &amp; College Libraries</span><span class="nav-dd-sub">19 faculty libraries across Akoka &amp; Idi-Araba</span></a>
+            <a href="news.html"><span class="nav-dd-title">News &amp; Notices</span><span class="nav-dd-sub">Latest announcements, spaces, and scholarly updates</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Services <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="services.html"><span class="nav-dd-title">Services &amp; Modern Spaces</span><span class="nav-dd-sub">Multimedia Studio, Learning Commons, Makerspace &amp; loans</span></a>
+            <a href="accessibility.html"><span class="nav-dd-title">Accessibility &amp; Inclusion</span><span class="nav-dd-sub">Visually Impaired Resource Centre &amp; adaptive tools</span></a>
+            <a href="help.html"><span class="nav-dd-title">Help, FAQs &amp; Book Purchases</span><span class="nav-dd-sub">Research appointments, borrowing rules &amp; requests</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Research <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="search.html"><span class="nav-dd-title">Catalogue &amp; Search</span><span class="nav-dd-sub">OPAC holdings, call numbers &amp; discovery</span></a>
+            <a href="databases.html"><span class="nav-dd-title">Subscribed E-Databases</span><span class="nav-dd-sub">ScienceDirect, JSTOR, HeinOnline, ProQuest &amp; iGLibrary</span></a>
+            <a href="journals-accredited.html"><span class="nav-dd-title">Where to Publish</span><span class="nav-dd-sub">Scopus &amp; AJOL accredited journals directory by faculty</span></a>
+            <a href="oer.html"><span class="nav-dd-title">Open Educational Resources</span><span class="nav-dd-sub">Curated open textbooks &amp; courseware across 19 faculties</span></a>
+            <a href="ogbon.html"><span class="nav-dd-title">&#7884;gb&#7885;&#769;n AI Assistant</span><span class="nav-dd-sub">Agentic study coach, live OpenAlex search &amp; publishing advisor</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Heritage <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="nav-dd">
+            <a href="archives.html"><span class="nav-dd-title">University Archives</span><span class="nav-dd-sub">Gandhi Library special collections &amp; primary sources</span></a>
+            <a href="museum.html"><span class="nav-dd-title">University Museum</span><span class="nav-dd-sub">123+ curated sculptures, textiles &amp; cultural artefacts</span></a>
+          </div>
+        </div>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="head-tools">
+        <button class="icon-btn desk" data-search-open aria-label="Open search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
+        </button>
+        <a class="head-cat-btn" href="search.html" aria-label="Search OPAC Catalogue">
+          <span>Catalogue</span>
+        </a>
+        <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="drawer" id="drawer">
+    <div class="drawer-grid">
+      <div class="dr-col">
+        <div class="dr-heading">The Library</div>
+        <a href="index.html">Home</a>
+        <a href="about.html">About &amp; Welcome</a>
+        <a href="departments.html">Departments &amp; Units</a>
+        <a href="libraries.html">Faculty &amp; College Libraries</a>
+        <a href="news.html">News &amp; Notices</a>
+      </div>
+      <div class="dr-col">
+        <div class="dr-heading">Services &amp; Spaces</div>
+        <a href="services.html">Services &amp; Spaces</a>
+        <a href="accessibility.html">Accessibility &amp; Inclusion</a>
+        <a href="help.html">Help, FAQs &amp; Book Purchase</a>
+        <a href="contact.html">Contact &amp; Map</a>
+      </div>
+      <div class="dr-col">
+        <div class="dr-heading">Research &amp; E-Resources</div>
+        <a href="search.html">Catalogue Search (OPAC)</a>
+        <a href="databases.html">Subscribed Databases</a>
+        <a href="journals-accredited.html">Where to Publish</a>
+        <a href="oer.html">Open Educational Resources</a>
+        <a href="ogbon.html">&#7884;gb&#7885;&#769;n AI Assistant</a>
+      </div>
+      <div class="dr-col">
+        <div class="dr-heading">Heritage &amp; Portal</div>
+        <a href="archives.html">University Archives</a>
+        <a href="museum.html">Library Museum</a>
+        <a href="admin/index.html">Staff Portal</a>
+        <a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener">Official Linktree Hub</a>
+      </div>
+    </div>
+    <div class="d-meta">
+      <span>8:00 a.m. to 9:00 p.m. Monday to Saturday</span>
+      <span>library@unilag.edu.ng &bull; Akoka, Lagos</span>
+    </div>
+  </div>
+
+<main>
+<section class="phero" style="padding-bottom:clamp(22px,2.6vw,34px)">
+  <div class="wrap">
+    <div class="crumbs mono"><a href="index.html">Home</a><i></i><span>&#7884;gb&#7885;&#769;n AI</span></div>
+    <h1 class="display">Ask <em class="ital ox">&#7884;gb&#7885;&#769;n</em>.</h1>
+    <div class="ph-sub">
+      <p class="lede" data-reveal>The University of Lagos Library&rsquo;s agentic research and study intelligence &mdash; combining institutional policies, OPAC holdings, OpenAlex peer-reviewed literature, and 8,000+ Scopus &amp; AJOL publishing recommendations.</p>
+      <div class="mono" data-reveal style="color:var(--ink-50);display:flex;gap:18px;flex-wrap:wrap">
+        <span>Live OpenAlex &amp; Wikipedia</span>
+        <span>UNILAG OPAC &amp; IR</span>
+        <span>8,000+ Accredited Journals</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="og-page">
+  <div class="wrap">
+    <div class="og-shell">
+      <aside class="og-sidebar">
+        <p class="og-sec-label">Agentic Mode</p>
+        <div class="og-mode-list" id="ogModeList">
+          <button type="button" class="og-mode-btn active" data-mode="auto">
+            <strong>All-in-One Agent</strong>
+            <span>Automatically routes across library policy, live scholarly search, OPAC &amp; journals.</span>
+          </button>
+          <button type="button" class="og-mode-btn" data-mode="study">
+            <strong>Study &amp; Exam Companion</strong>
+            <span>Concept explanations grounded in OpenAlex papers, library books &amp; recall questions.</span>
+          </button>
+          <button type="button" class="og-mode-btn" data-mode="publish">
+            <strong>Where to Publish Advisor</strong>
+            <span>Ranks accredited Scopus, Web of Science &amp; AJOL venues with CiteScore and quartile.</span>
+          </button>
+          <button type="button" class="og-mode-btn" data-mode="faq">
+            <strong>Library FAQ &amp; Policies</strong>
+            <span>Exact borrowing limits, overdue fines, Multimedia Studio, Learning Commons &amp; access.</span>
+          </button>
+        </div>
+
+        <div class="og-field">
+          <p class="og-sec-label">Faculty Filter (Optional)</p>
+          <select id="ogFaculty">
+            <option value="">All UNILAG Faculties</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Science">Science / Life &amp; Physical Sciences</option>
+            <option value="Social Sciences">Social Sciences</option>
+            <option value="Management Sciences">Management Sciences</option>
+            <option value="Law">Law</option>
+            <option value="Arts">Arts &amp; Humanities</option>
+            <option value="Education">Education</option>
+            <option value="Environmental Sciences">Environmental Sciences</option>
+            <option value="Clinical Sciences">Clinical &amp; Medical Sciences</option>
+            <option value="Pharmacy">Pharmacy</option>
+            <option value="Computing">Computing &amp; Informatics</option>
+          </select>
+        </div>
+
+        <p class="og-sec-label">Live Tools Status</p>
+        <div class="og-status-box" id="ogStatusBox">
+          <span class="og-status-dot"></span>Checking &#7884;gb&#7885;&#769;n AI status...
+        </div>
+      </aside>
+
+      <div class="og-chat-card">
+        <div class="og-chat-top">
+          <div class="og-chat-top-title">
+            <div class="og-crest-badge" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L14.8 8.5L21.5 11.2L14.8 14L12 20.5L9.2 14L2.5 11.2L9.2 8.5L12 2Z"/></svg>
+            </div>
+            <div>
+              <h2>&#7884;gb&#7885;&#769;n Research Workspace</h2>
+              <p id="ogActiveModeLabel">Active mode: All-in-One Agent</p>
+            </div>
+          </div>
+          <button type="button" class="og-clear-btn" id="ogClearBtn">New Conversation</button>
+        </div>
+
+        <div class="og-thread" id="ogThread"></div>
+
+        <form class="og-composer" id="ogComposer">
+          <textarea id="ogInput" rows="1" placeholder="Ask a research question, request a study guide, check library rules, or find where to publish..."></textarea>
+          <button type="submit" class="og-send-btn" id="ogSendBtn">Send to &#7884;gb&#7885;&#769;n</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="f-top">
+        <div>
+          <div class="f-brand">
+            <img src="assets/logo.png" alt="University of Lagos Crest" loading="lazy" decoding="async">
+            <div>
+              <b>University of Lagos<br>Library</b>
+            </div>
+          </div>
+          <p>The academic hub of the University of Lagos, the University of First Choice and the Nation&rsquo;s Pride. Built to support cutting-edge research, teaching excellence, and global innovation.</p>
+        </div>
+        <div>
+          <h5>Visit</h5>
+          <ul>
+            <li><a href="libraries.html">Faculty &amp; College Libraries</a></li>
+            <li><a href="archives.html">University Archives</a></li>
+            <li><a href="museum.html">Library Museum</a></li>
+            <li><a href="accessibility.html">Accessibility</a></li>
+            <li><a href="contact.html">Contact &amp; Map</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Use</h5>
+          <ul>
+            <li><a href="services.html">Our Services &amp; Spaces</a></li>
+            <li><a href="search.html">Search OPAC Catalogue</a></li>
+            <li><a href="databases.html">Subscribed Databases</a></li>
+            <li><a href="journals-accredited.html">Where to Publish (Accredited Journals)</a></li>
+            <li><a href="oer.html">Open Educational Resources</a></li>
+            <li><a href="ogbon.html">&#7884;gb&#7885;&#769;n AI Assistant</a></li>
+            <li><a href="help.html">Research Help &amp; FAQs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Inside</h5>
+          <ul>
+            <li><a href="about.html">About the Library</a></li>
+            <li><a href="departments.html">Departments &amp; Units</a></li>
+            <li><a href="news.html">News &amp; Events</a></li>
+            <li><a href="help.html#faqs">FAQs</a></li>
+            <li><a href="admin/index.html">Staff Portal</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Connect</h5>
+          <ul>
+            <li><a href="https://instagram.com/library.unilag" target="_blank" rel="noopener">Instagram: @library.unilag</a></li>
+            <li><a href="https://x.com/unilaglibrary" target="_blank" rel="noopener">X (Twitter): @unilaglibrary</a></li>
+            <li><a href="https://www.facebook.com/share/1RQCL7saHX/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a></li>
+            <li><a href="https://www.youtube.com/@UnilagLibrary" target="_blank" rel="noopener">YouTube: @UnilagLibrary</a></li>
+            <li><a href="https://tiktok.com/@unilaglibrary" target="_blank" rel="noopener">TikTok: @unilaglibrary</a></li>
+            <li><a href="https://linktr.ee/UniversityofLagosLibrary" target="_blank" rel="noopener" style="color:var(--gold,#C59B27);font-weight:600">Official Linktree Hub &rarr;</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="f-bot">
+        <span>University of Lagos Library, P.M.B 1012, Akoka, Lagos</span>
+        <span>library@unilag.edu.ng &nbsp;&bull;&nbsp; 0906 396 9206</span>
+        <span>Powered by CITS</span>
+        <span>&copy; <span id="yr">2026</span> University of Lagos</span>
+      </div>
+      <div class="f-word">UNIVERSITY OF LAGOS LIBRARY</div>
+    </div>
+  </footer>
+
+<div class="sov" id="sov" role="dialog" aria-label="Search the library">
+  <div class="sov-top">
+    <div class="sov-q">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
+      <input id="sovInput" type="text" placeholder="Search the catalogue, pages, databases" autocomplete="off">
+    </div>
+    <button class="sov-close" data-search-close>Close</button>
+  </div>
+  <div class="sov-body">
+    <div class="sov-hint">Try: circulation, archives, ScienceDirect, Weinberg</div>
+    <div class="sov-res" id="sovRes"></div>
+  </div>
+</div>
+
+<button class="totop" id="totop" aria-label="Back to top">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20V4M5 11l7-7 7 7"/></svg>
+</button>
+
+<script>window.OGBON_FULL_PAGE = true;</script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script defer src="app.js"></script>
+<script defer src="gsap-enhance.js"></script>
+<script defer src="app2.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var STORAGE_KEY = 'unilag_ogbon_workspace_v1';
+  var MODE_NAMES = {
+    auto: 'All-in-One Agent',
+    study: 'Study & Exam Companion',
+    publish: 'Where to Publish Advisor',
+    faq: 'Library FAQ & Policies'
+  };
+  var TOOL_NAMES = {
+    faq: 'UNILAG Library Policy KB',
+    journals: 'Accredited Journals Catalog',
+    openalex: 'OpenAlex Live Scholarly Search',
+    wikipedia: 'Wikipedia Concept Reference',
+    unilag_opac_and_ir: 'UNILAG OPAC & IR'
+  };
+
+  var threadEl = document.getElementById('ogThread');
+  var composerEl = document.getElementById('ogComposer');
+  var inputEl = document.getElementById('ogInput');
+  var sendBtn = document.getElementById('ogSendBtn');
+  var clearBtn = document.getElementById('ogClearBtn');
+  var facultyEl = document.getElementById('ogFaculty');
+  var modeListEl = document.getElementById('ogModeList');
+  var activeModeLabel = document.getElementById('ogActiveModeLabel');
+  var statusBox = document.getElementById('ogStatusBox');
+
+  var state = { mode: 'auto', messages: [] };
+  try {
+    var saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || 'null');
+    if (saved && Array.isArray(saved.messages)) {
+      state.messages = saved.messages;
+      if (saved.mode) state.mode = saved.mode;
+    }
+  } catch (e) {}
+
+  function saveState() {
+    try {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
+        mode: state.mode,
+        messages: state.messages.slice(-20)
+      }));
+    } catch (e) {}
+  }
+
+  function escapeHtml(str) {
+    return String(str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function syncModeUI() {
+    Array.prototype.forEach.call(modeListEl.querySelectorAll('.og-mode-btn'), function (b) {
+      b.classList.toggle('active', b.getAttribute('data-mode') === state.mode);
+    });
+    activeModeLabel.textContent = 'Active mode: ' + (MODE_NAMES[state.mode] || 'All-in-One Agent');
+  }
+
+  function renderThread() {
+    if (!state.messages.length) {
+      threadEl.innerHTML = [
+        '<div class="og-welcome">',
+        '  <h3>Welcome to &#7884;gb&#7885;&#769;n &mdash; UNILAG Library Intelligence</h3>',
+        '  <p>Select a mode on the left or start directly below. &#7884;gb&#7885;&#769;n plans tool calls across UNILAG Library policies, UNILAG OPAC &amp; Institutional Repository, over 8,000 accredited journals, and live internet research from OpenAlex &amp; Wikipedia.</p>',
+        '  <div class="og-prompts-grid">',
+        '    <button type="button" class="og-prompt-chip" data-m="faq" data-q="What are UNILAG Main Library opening hours, borrowing limits, overdue fines, and Multimedia Studio booking rules?">',
+        '      <small>Library Policy &amp; Spaces</small>',
+        '      <span>Hours, borrowing limits, fines &amp; Multimedia Studio rules</span>',
+        '    </button>',
+        '    <button type="button" class="og-prompt-chip" data-m="study" data-q="Explain machine learning gradient descent clearly, pull recent OpenAlex papers, and give 3 exam self-test questions.">',
+        '      <small>Study Companion</small>',
+        '      <span>Study guide: Gradient descent + OpenAlex papers &amp; quiz</span>',
+        '    </button>',
+        '    <button type="button" class="og-prompt-chip" data-m="publish" data-q="Where should I publish research on renewable energy microgrids in Scopus or AJOL accredited journals?">',
+        '      <small>Where to Publish</small>',
+        '      <span>Top accredited Scopus/AJOL journals for renewable energy</span>',
+        '    </button>',
+        '    <button type="button" class="og-prompt-chip" data-m="auto" data-q="Find peer-reviewed studies and UNILAG Library holdings on Nigerian constitutional law or fintech regulation.">',
+        '      <small>Live Research Synthesis</small>',
+        '      <span>Search OpenAlex + UNILAG OPAC on Nigerian fintech law</span>',
+        '    </button>',
+        '  </div>',
+        '</div>'
+      ].join('\n');
+      return;
+    }
+
+    var blocks = [];
+    state.messages.forEach(function (m) {
+      if (m.role === 'user') {
+        blocks.push('<div class="og-msg user">' + escapeHtml(m.content) + '</div>');
+        return;
+      }
+      var toolsHtml = '';
+      if ((m.tools && m.tools.length) || m.elapsed_ms) {
+        var pills = (m.tools || []).map(function (t) {
+          return '<span class="og-tool-pill">' + escapeHtml(TOOL_NAMES[t] || t) + '</span>';
+        }).join('');
+        var timing = m.elapsed_ms ? '<span class="og-time-pill">' + (m.elapsed_ms / 1000).toFixed(2) + 's</span>' : '';
+        toolsHtml = '<div class="og-meta-bar">' + pills + timing + '</div>';
+      }
+      var srcHtml = '';
+      if (m.sources && m.sources.length) {
+        srcHtml = '<div class="og-sources">' + m.sources.map(function (s) {
+          var target = s.url && /^https?:\/\//i.test(s.url) ? ' target="_blank" rel="noopener noreferrer"' : '';
+          var href = s.url ? escapeHtml(s.url) : '#';
+          return '<a class="og-source-card" href="' + href + '"' + target + '>' +
+            '<div class="og-source-type">' + escapeHtml(s.type || 'Source') + '</div>' +
+            '<div class="og-source-title">' + escapeHtml(s.title || '') + '</div>' +
+            (s.meta ? '<div class="og-source-meta">' + escapeHtml(s.meta) + '</div>' : '') +
+            '</a>';
+        }).join('') + '</div>';
+      }
+      var followHtml = '';
+      if (m.suggestions && m.suggestions.length) {
+        followHtml = '<div class="og-followups">' + m.suggestions.map(function (sg) {
+          return '<button type="button" class="og-followup" data-q="' + escapeHtml(sg) + '">' + escapeHtml(sg) + '</button>';
+        }).join('') + '</div>';
+      }
+      blocks.push('<div class="og-msg bot">' + (m.html || '<p>' + escapeHtml(m.content) + '</p>') + toolsHtml + srcHtml + followHtml + '</div>');
+    });
+    threadEl.innerHTML = blocks.join('\n');
+    threadEl.scrollTop = threadEl.scrollHeight;
+  }
+
+  async function sendQuery(text) {
+    var q = String(text || '').trim();
+    if (!q || sendBtn.disabled) return;
+
+    state.messages.push({ role: 'user', content: q });
+    saveState();
+    renderThread();
+
+    var pending = document.createElement('div');
+    pending.className = 'og-msg bot';
+    pending.innerHTML = '<p><em>&#7884;gb&#7885;&#769;n is querying UNILAG Knowledge Base, Accredited Journals, OPAC, OpenAlex &amp; Wikipedia...</em></p>';
+    threadEl.appendChild(pending);
+    threadEl.scrollTop = threadEl.scrollHeight;
+
+    sendBtn.disabled = true;
+    inputEl.value = '';
+
+    var histPayload = state.messages.slice(-7, -1).map(function (m) {
+      return { role: m.role, content: m.content };
+    });
+
+    try {
+      var resp = await fetch('/api/ogbon/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: q,
+          mode: state.mode,
+          faculty: facultyEl.value,
+          history: histPayload
+        })
+      });
+      var data = await resp.json();
+      if (!resp.ok || data.error) {
+        throw new Error(data.error || 'Request failed');
+      }
+      state.messages.push({
+        role: 'assistant',
+        content: data.reply_markdown || '',
+        html: data.reply_html || '',
+        tools: data.tools_used || [],
+        sources: data.sources || [],
+        suggestions: data.suggestions || [],
+        elapsed_ms: data.elapsed_ms || 0
+      });
+      saveState();
+    } catch (err) {
+      state.messages.push({
+        role: 'assistant',
+        content: 'Error: ' + err.message,
+        html: '<p>Unable to complete request: ' + escapeHtml(err.message) + '</p>',
+        tools: []
+      });
+    } finally {
+      sendBtn.disabled = false;
+      renderThread();
+      inputEl.focus();
+    }
+  }
+
+  modeListEl.addEventListener('click', function (e) {
+    var btn = e.target.closest('.og-mode-btn');
+    if (!btn) return;
+    state.mode = btn.getAttribute('data-mode') || 'auto';
+    syncModeUI();
+    saveState();
+  });
+
+  threadEl.addEventListener('click', function (e) {
+    var starter = e.target.closest('.og-prompt-chip');
+    if (starter) {
+      var m = starter.getAttribute('data-m');
+      if (m) {
+        state.mode = m;
+        syncModeUI();
+      }
+      sendQuery(starter.getAttribute('data-q'));
+      return;
+    }
+    var follow = e.target.closest('.og-followup');
+    if (follow) {
+      sendQuery(follow.getAttribute('data-q'));
+    }
+  });
+
+  composerEl.addEventListener('submit', function (e) {
+    e.preventDefault();
+    sendQuery(inputEl.value);
+  });
+
+  inputEl.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendQuery(inputEl.value);
+    }
+  });
+
+  clearBtn.addEventListener('click', function () {
+    state.messages = [];
+    saveState();
+    renderThread();
+  });
+
+  fetch('/api/ogbon/status')
+    .then(function (r) { return r.json(); })
+    .then(function (s) {
+      statusBox.innerHTML =
+        '<span class="og-status-dot"></span><strong>Online</strong><br>' +
+        'KB Modules: ' + escapeHtml(s.knowledge_base_entries) + '<br>' +
+        'Accredited Journals: ' + escapeHtml(s.accredited_journals_indexed) + '<br>' +
+        'Engine: ' + escapeHtml(s.llm_synthesis || 'Agentic Synthesizer');
+    })
+    .catch(function () {
+      statusBox.innerHTML = '<span class="og-status-dot" style="background:#b91c1c"></span>Status unavailable';
+    });
+
+  syncModeUI();
+  renderThread();
+});
+</script>
+</body>
+</html>

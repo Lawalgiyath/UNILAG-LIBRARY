@@ -9,8 +9,9 @@ from html import unescape
 import os
 import random
 import datetime
+import ogbon_ai
 
-PORT = 8000
+PORT = int(os.environ.get('PORT', '8000'))
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(DIRECTORY, 'data', 'bookings.json')
 CMS_FILE = os.path.join(DIRECTORY, 'data', 'cms_content.json')
@@ -655,6 +656,10 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_json({'total_faculties': 0, 'faculties': []})
             return
 
+        elif parsed.path == '/api/ogbon/status':
+            self.send_json(ogbon_ai.get_status())
+            return
+
         # Default: Serve static files
         return super().do_GET()
 
@@ -1002,6 +1007,27 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_json({'error': f'Message {msg_id} not found'}, status=404)
             return
 
+        elif parsed.path == '/api/ogbon/chat':
+            query = body.get('query') or body.get('message') or ''
+            mode = body.get('mode', 'auto')
+            history = body.get('history', [])
+            faculty = body.get('faculty', '')
+            if not str(query).strip():
+                self.send_json({'error': 'Please enter a question for Ogbon AI.'}, status=400)
+                return
+            result = ogbon_ai.run_agent(
+                query=query,
+                mode=mode,
+                history=history,
+                faculty=faculty,
+                catalog_loader=load_journal_catalog,
+                opac_fn=search_unilag_opac,
+                ir_fn=search_crossref_unilag
+            )
+            status_code = 400 if 'error' in result else 200
+            self.send_json(result, status=status_code)
+            return
+
         self.send_json({'error': 'Endpoint not found'}, status=404)
 
     def send_json(self, data, status=200):
@@ -1042,9 +1068,13 @@ def start_background_auto_sync():
     t = threading.Thread(target=auto_sync_worker, daemon=True)
     t.start()
 
+class ThreadingTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
+    allow_reuse_address = True
+    daemon_threads = True
+
+
 if __name__ == '__main__':
-    socketserver.TCPServer.allow_reuse_address = True
     start_background_auto_sync()
-    with socketserver.TCPServer(("", PORT), ProxyHTTPRequestHandler) as httpd:
-        print(f"Serving UNILAG Library with Live OPAC Sync, News Auto-Update & DSpace 7 on port {PORT}...")
+    with ThreadingTCPServer(("", PORT), ProxyHTTPRequestHandler) as httpd:
+        print(f"Serving UNILAG Library with Live OPAC Sync, News Auto-Update, Ogbon AI & DSpace 7 on port {PORT}...")
         httpd.serve_forever()
