@@ -384,7 +384,7 @@ def tool_search_openalex(query, limit=5):
         urllib.parse.quote(clean_q), int(limit)
     )
     try:
-        data = _http_get_json(url, timeout=8)
+        data = _http_get_json(url, timeout=10)
     except Exception:
         return []
 
@@ -426,7 +426,7 @@ def tool_search_wikipedia(query, limit=2):
         '&srsearch={0}&srlimit={1}&format=json&utf8=1'
     ).format(urllib.parse.quote(clean_q), int(limit))
     try:
-        sdata = _http_get_json(search_url, timeout=6)
+        sdata = _http_get_json(search_url, timeout=10)
     except Exception:
         return []
 
@@ -444,7 +444,7 @@ def tool_search_wikipedia(query, limit=2):
     ).format(urllib.parse.quote('|'.join(titles)))
     pages_by_title = {}
     try:
-        edata = _http_get_json(extract_url, timeout=6)
+        edata = _http_get_json(extract_url, timeout=10)
         for _, p in ((edata.get('query') or {}).get('pages') or {}).items():
             if p.get('title'):
                 pages_by_title[p['title']] = p
@@ -537,7 +537,7 @@ def _classify_intent(query, requested_mode='auto'):
 
 
 def _load_llm_config():
-    """Check environment variables or data/ogbon_config.json for optional LLM API keys."""
+    """Check environment variables or data/ogbon_config.json for optional Cloud or Local LLM config."""
     cfg = {}
     if os.path.exists(CONFIG_FILE):
         try:
@@ -551,19 +551,95 @@ def _load_llm_config():
     openai_key = os.environ.get('OPENAI_API_KEY') or cfg.get('openai_api_key', '')
     gemini_model = os.environ.get('OGBON_GEMINI_MODEL') or cfg.get('gemini_model', 'gemini-2.0-flash')
     openai_model = os.environ.get('OGBON_OPENAI_MODEL') or cfg.get('openai_model', 'gpt-4o-mini')
+    local_llm_url = os.environ.get('OGBON_LOCAL_LLM_URL') or cfg.get('local_llm_url', 'http://127.0.0.1:8091/v1/chat/completions')
+    local_llm_health_url = os.environ.get('OGBON_LOCAL_LLM_HEALTH_URL') or cfg.get('local_llm_health_url', 'http://127.0.0.1:8091/health')
+    local_llm_model = os.environ.get('OGBON_LOCAL_LLM_MODEL') or cfg.get('local_llm_model', 'Qwen2.5-3B-Instruct-Q4_K_M')
     return {
         'gemini_key': (gemini_key or '').strip(),
         'openai_key': (openai_key or '').strip(),
         'gemini_model': gemini_model,
-        'openai_model': openai_model
+        'openai_model': openai_model,
+        'local_llm_url': (local_llm_url or '').strip(),
+        'local_llm_health_url': (local_llm_health_url or '').strip(),
+        'local_llm_model': (local_llm_model or '').strip()
     }
 
 
+def _compact_context_for_local_llm(ctx):
+    """Trim retrieved tool outputs to fit comfortably inside a fast 2048-token CPU context window."""
+    compact = {}
+    faq_hits = ctx.get('faq') or []
+    if faq_hits:
+        compact['faq'] = [
+            {'title': x.get('title', ''), 'url': x.get('url', ''), 'content': str(x.get('content', ''))[:420]}
+            for x in faq_hits[:2]
+        ]
+    journal_hits = ctx.get('journals') or []
+    if journal_hits:
+        compact['journals'] = [
+            {
+                'title': j.get('title', ''),
+                'issn': j.get('issn', ''),
+                'publisher': j.get('publisher', ''),
+                'quartile': j.get('quartile', ''),
+                'citescore': j.get('citescore'),
+                'jif': j.get('jif'),
+                'openAccess': j.get('openAccess'),
+                'url': j.get('url', '')
+            }
+            for j in journal_hits[:4]
+        ]
+    openalex_hits = ctx.get('openalex') or []
+    if openalex_hits:
+        compact['openalex'] = [
+            {
+                'title': p.get('title', ''),
+                'authors': p.get('authors', ''),
+                'year': p.get('year', ''),
+                'venue': p.get('venue', ''),
+                'cited_by': p.get('cited_by', 0),
+                'url': p.get('url', ''),
+                'abstract': str(p.get('abstract', ''))[:160]
+            }
+            for p in openalex_hits[:3]
+        ]
+    wiki_hits = ctx.get('wikipedia') or []
+    if wiki_hits:
+        w = wiki_hits[0]
+        compact['wikipedia'] = [{
+            'title': w.get('title', ''),
+            'extract': str(w.get('extract', ''))[:320],
+            'url': w.get('url', '')
+        }]
+    opac_ir = ctx.get('opac_ir') or {}
+    if opac_ir.get('opac') or opac_ir.get('ir'):
+        compact['opac_ir'] = {
+            'opac': [
+                {'title': b.get('title', ''), 'author': b.get('author', ''), 'callNo': b.get('callNo', ''), 'url': b.get('opacUrl', 'search.html')}
+                for b in (opac_ir.get('opac') or [])[:2]
+            ],
+            'ir': [
+                {'title': d.get('title', ''), 'author': d.get('author', ''), 'year': d.get('year', ''), 'url': d.get('irUrl', 'search.html')}
+                for d in (opac_ir.get('ir') or [])[:2]
+            ]
+        }
+    return compact
+
+
+def _probe_local_llm_health(health_url):
+    if not health_url:
+        return False
+    try:
+        req = urllib.request.Request(health_url, headers={'User-Agent': USER_AGENT})
+        with urllib.request.urlopen(req, timeout=1) as resp:
+            return resp.status == 200
+    except Exception:
+        return False
+
+
 def _call_optional_llm(query, mode, tool_context, history=None):
-    """Optionally synthesize a conversational reply using Gemini or OpenAI if key is configured."""
+    """Synthesize a conversational reply using Gemini, OpenAI, or local llama.cpp/llamafile Qwen2.5-3B."""
     cfg = _load_llm_config()
-    if not cfg['gemini_key'] and not cfg['openai_key']:
-        return None, None
 
     system_prompt = (
         "You are Ogbon (Agbaye/Yoruba: Wisdom), the official Agentic AI Research, Study & Library "
@@ -588,12 +664,13 @@ def _call_optional_llm(query, mode, tool_context, history=None):
                 role = 'User' if turn.get('role') == 'user' else 'Ogbon'
                 hist_lines.append('{0}: {1}'.format(role, str(turn['content'])[:400]))
 
-    user_prompt = (
-        "Active Mode: {0}\n"
-        "Conversation History:\n{1}\n\n"
-        "User Request: {2}\n\n"
-        "VERIFIED TOOL OUTPUTS:\n{3}"
-    ).format(mode, '\n'.join(hist_lines) if hist_lines else '(none)', query, json.dumps(tool_context, ensure_ascii=False))
+    if cfg['gemini_key'] or cfg['openai_key']:
+        user_prompt = (
+            "Active Mode: {0}\n"
+            "Conversation History:\n{1}\n\n"
+            "User Request: {2}\n\n"
+            "VERIFIED TOOL OUTPUTS:\n{3}"
+        ).format(mode, '\n'.join(hist_lines) if hist_lines else '(none)', query, json.dumps(tool_context, ensure_ascii=False))
 
     if cfg['gemini_key']:
         url = (
@@ -638,6 +715,35 @@ def _call_optional_llm(query, mode, tool_context, history=None):
                 txt = ((choices[0].get('message') or {}).get('content') or '').strip()
                 if txt:
                     return txt, 'openai:' + cfg['openai_model']
+        except Exception:
+            pass
+
+    if cfg['local_llm_url']:
+        compact_ctx = _compact_context_for_local_llm(tool_context)
+        compact_hist = '\n'.join(hist_lines[-4:]) if hist_lines else '(none)'
+        compact_user_prompt = (
+            "Active Mode: {0}\n"
+            "Conversation History:\n{1}\n\n"
+            "User Request: {2}\n\n"
+            "VERIFIED TOOL OUTPUTS:\n{3}"
+        ).format(mode, compact_hist, query, json.dumps(compact_ctx, ensure_ascii=False))
+        payload = {
+            'model': cfg['local_llm_model'],
+            'temperature': 0.25,
+            'max_tokens': 450,
+            'messages': [
+                {'role': 'system', 'content': system_prompt},
+                {'role': 'user', 'content': compact_user_prompt}
+            ]
+        }
+        try:
+            res = _http_post_json(cfg['local_llm_url'], payload, timeout=35)
+            choices = res.get('choices') or []
+            if choices:
+                txt = ((choices[0].get('message') or {}).get('content') or '').strip()
+                txt = re.sub(r'<think>.*?</think>', '', txt, flags=re.S).strip()
+                if txt:
+                    return txt, 'local-llm:' + cfg['local_llm_model']
         except Exception:
             pass
 
@@ -910,16 +1016,20 @@ def _suggest_followups(mode, query):
 def get_status():
     cfg = _load_llm_config()
     catalog = _get_local_journal_catalog()
+    local_online = _probe_local_llm_health(cfg.get('local_llm_health_url'))
     llm_provider = None
     if cfg['gemini_key']:
         llm_provider = 'gemini:' + cfg['gemini_model']
     elif cfg['openai_key']:
         llm_provider = 'openai:' + cfg['openai_model']
+    elif local_online:
+        llm_provider = 'local-llm:' + cfg['local_llm_model']
     return {
         'name': 'Ogbon',
         'tagline': 'UNILAG Library Agentic AI (FAQ, Study Companion, Live Web & Publishing Advisor)',
         'status': 'online',
         'llm_synthesis': llm_provider or 'deterministic-agentic-fallback',
+        'local_llm_status': 'online' if local_online else 'offline',
         'knowledge_base_entries': len(KNOWLEDGE_BASE),
         'accredited_journals_indexed': len(catalog),
         'tools': [
@@ -986,7 +1096,7 @@ def run_agent(query, mode='auto', history=None, faculty=None,
 
         for key, fut in futs.items():
             try:
-                res = fut.result(timeout=10)
+                res = fut.result(timeout=12)
                 ctx[key] = res
                 if key == 'opac_ir':
                     if res.get('opac') or res.get('ir'):
@@ -1004,19 +1114,19 @@ def run_agent(query, mode='auto', history=None, faculty=None,
             f_wk = pool.submit(tool_search_wikipedia, clean_q, 1)
             f_op = pool.submit(tool_search_opac_and_ir, clean_q, opac_fn, ir_fn, 3)
             try:
-                ctx['openalex'] = f_oa.result(timeout=8)
+                ctx['openalex'] = f_oa.result(timeout=10)
                 if ctx['openalex']:
                     tools_used.append('openalex')
             except Exception:
                 pass
             try:
-                ctx['wikipedia'] = f_wk.result(timeout=6)
+                ctx['wikipedia'] = f_wk.result(timeout=10)
                 if ctx['wikipedia']:
                     tools_used.append('wikipedia')
             except Exception:
                 pass
             try:
-                ctx['opac_ir'] = f_op.result(timeout=8)
+                ctx['opac_ir'] = f_op.result(timeout=10)
                 if ctx['opac_ir'].get('opac') or ctx['opac_ir'].get('ir'):
                     tools_used.append('unilag_opac_and_ir')
             except Exception:
