@@ -730,14 +730,14 @@ def _call_optional_llm(query, mode, tool_context, history=None):
         payload = {
             'model': cfg['local_llm_model'],
             'temperature': 0.25,
-            'max_tokens': 450,
+            'max_tokens': 350,
             'messages': [
                 {'role': 'system', 'content': system_prompt},
                 {'role': 'user', 'content': compact_user_prompt}
             ]
         }
         try:
-            res = _http_post_json(cfg['local_llm_url'], payload, timeout=35)
+            res = _http_post_json(cfg['local_llm_url'], payload, timeout=65)
             choices = res.get('choices') or []
             if choices:
                 txt = ((choices[0].get('message') or {}).get('content') or '').strip()
