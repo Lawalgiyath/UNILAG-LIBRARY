@@ -51,21 +51,29 @@ KNOWLEDGE_BASE = [
     },
     {
         'id': 'borrowing_fines',
-        'title': 'Borrowing Privileges, Loan Periods & Overdue Fines',
+        'title': 'How to Borrow a Book, Loan Periods & Overdue Fines',
         'category': 'Borrowing & Circulation',
         'url': 'help.html#faqs',
         'keywords': [
-            'borrow', 'borrowing', 'loan', 'renew', 'renewal', 'fine', 'fines', 'overdue',
-            'return', 'book', 'books', 'limit', 'privilege', 'undergraduate', 'postgraduate',
-            'staff', 'lost', 'reserve', 'short loan', 'circulation'
+            'borrow', 'borrowing', 'borrow a book', 'borrow book', 'loan', 'renew',
+            'renewal', 'fine', 'fines', 'overdue', 'return', 'book', 'books', 'limit',
+            'privilege', 'undergraduate', 'postgraduate', 'staff', 'lost', 'reserve',
+            'short loan', 'circulation', 'check out', 'pickup'
         ],
         'content': (
-            'Borrowing limits by patron category: Undergraduate students may borrow up to 4 books '
-            'for 14 days (2 weeks). Postgraduate students, Academic Staff, and Senior Administrative Staff '
-            'may borrow up to 10 books for 28 days (4 weeks). Reserved / Short-Loan texts are restricted '
-            'to in-library use or 2-hour/overnight loan. Overdue fines: N20 per day for regular books, '
-            'N50 per hour/day for reserved books. Lost books attract a N1,000 processing fee plus full '
-            'replacement cost of the current edition. One renewal is permitted if no other patron has placed a hold.'
+            'How to Borrow a Book at UNILAG Main Library: '
+            'Step 1 (Library Registration): Register with Readers Services on the Ground Floor using your valid '
+            'UNILAG Student/Staff ID Card and current course registration slip to activate borrowing privileges. '
+            'Step 2 (Find or Reserve the Book): Search the UNILAG Catalogue / OPAC (search.html) to get the book '
+            'Call Number and shelf location, or reserve it online for 48-hour hold-shelf pickup. '
+            'Step 3 (Pick Up & Check Out): Locate the book on the stacks (or request Reserved texts at the counter) '
+            'and present it with your UNILAG ID / Library Card at the Circulation Desk (Ground Floor) to check it out. '
+            'Step 4 (Return & Limits): Undergraduates may borrow up to 4 books for 14 days (2 weeks); '
+            'Postgraduates, Academic Staff, and Senior Administrative Staff may borrow up to 10 books for 28 days (4 weeks). '
+            'Reserved / Short-Loan texts are for in-library use or 2-hour/overnight loan. '
+            'Overdue fines: N20 per day for regular books, N50 per hour/day for reserved books. '
+            'Lost books attract a N1,000 processing fee plus full replacement cost of the current edition. '
+            'One renewal is permitted if no other patron has placed a hold.'
         )
     },
     {
@@ -375,9 +383,46 @@ def _reconstruct_openalex_abstract(inv_idx):
     return (text[:420] + '...') if len(text) > 420 else text
 
 
+_ACADEMIC_STOPWORDS = set([
+    'i', 'me', 'my', 'we', 'you', 'your', 'want', 'need', 'to', 'how', 'do', 'does',
+    'did', 'can', 'could', 'would', 'should', 'go', 'about', 'it', 'this', 'that',
+    'please', 'tell', 'help', 'with', 'get', 'know', 'what', 'which', 'who', 'where',
+    'when', 'why', 'is', 'are', 'was', 'were', 'be', 'the', 'a', 'an', 'in', 'on',
+    'at', 'for', 'of', 'and', 'or', 'from', 'into', 'unilag', 'library', 'explain',
+    'study', 'summary', 'summarize', 'define', 'give', 'list', 'find', 'show',
+    'borrow', 'loan', 'renew', 'fine', 'fines', 'briefly', 'key', 'takeaways',
+    'papers', 'articles', 'recent', 'latest', 'some', 'any', 're', 'am'
+])
+
+_NSFW_AND_NOISE_TERMS = (
+    'pornograph', 'brazzers', 'adult film', 'erotic', 'sexually', 'playboy',
+    'onlyfans', 'xxx', 'stripper', 'prostitut', 'list of ', 'characters',
+    'filmography', 'discography'
+)
+
+
+def _extract_academic_query(query):
+    """Strip conversational filler to isolate core academic subject terms."""
+    tokens = re.findall(r'[a-zA-Z0-9\-]+', (query or '').lower())
+    subject_tokens = [t for t in tokens if len(t) >= 3 and t not in _ACADEMIC_STOPWORDS]
+    return ' '.join(subject_tokens), subject_tokens
+
+
+def _is_safe_academic_result(title, text, subject_tokens):
+    """Block NSFW/unrelated pop-culture hits and require topical overlap."""
+    title_lc = (title or '').lower()
+    combined_lc = (title_lc + ' ' + (text or '').lower())
+    if any(bad in combined_lc for bad in _NSFW_AND_NOISE_TERMS):
+        return False
+    if subject_tokens:
+        if not any(tok in combined_lc for tok in subject_tokens):
+            return False
+    return True
+
+
 def tool_search_openalex(query, limit=5):
     """Live internet scholarly literature search via OpenAlex API."""
-    clean_q = re.sub(r'\s+', ' ', (query or '').strip())
+    clean_q, subject_tokens = _extract_academic_query(query)
     if not clean_q:
         return []
     url = 'https://api.openalex.org/works?search={0}&per-page={1}&sort=relevance_score:desc'.format(
@@ -389,7 +434,13 @@ def tool_search_openalex(query, limit=5):
         return []
 
     works = []
-    for w in data.get('results', [])[:limit]:
+    for w in data.get('results', []):
+        if len(works) >= limit:
+            break
+        title = w.get('display_name') or w.get('title') or 'Untitled Work'
+        abstract = _reconstruct_openalex_abstract(w.get('abstract_inverted_index'))
+        if not _is_safe_academic_result(title, abstract, subject_tokens):
+            continue
         authors = []
         for a in (w.get('authorships') or [])[:3]:
             name = (a.get('author') or {}).get('display_name')
@@ -401,9 +452,8 @@ def tool_search_openalex(query, limit=5):
         venue = source_obj.get('display_name') or ''
         doi = w.get('doi') or ''
         oa_url = ((w.get('open_access') or {}).get('oa_url')) or ((w.get('primary_location') or {}).get('landing_page_url')) or doi
-        abstract = _reconstruct_openalex_abstract(w.get('abstract_inverted_index'))
         works.append({
-            'title': w.get('display_name') or w.get('title') or 'Untitled Work',
+            'title': title,
             'authors': ', '.join(authors) if authors else 'Unknown Author',
             'year': w.get('publication_year') or '',
             'venue': venue,
@@ -418,19 +468,19 @@ def tool_search_openalex(query, limit=5):
 
 def tool_search_wikipedia(query, limit=2):
     """Live internet encyclopedia concept grounding via Wikipedia API."""
-    clean_q = re.sub(r'\s+', ' ', (query or '').strip())
+    clean_q, subject_tokens = _extract_academic_query(query)
     if not clean_q:
         return []
     search_url = (
         'https://en.wikipedia.org/w/api.php?action=query&list=search'
         '&srsearch={0}&srlimit={1}&format=json&utf8=1'
-    ).format(urllib.parse.quote(clean_q), int(limit))
+    ).format(urllib.parse.quote(clean_q), int(limit) + 2)
     try:
         sdata = _http_get_json(search_url, timeout=4)
     except Exception:
         return []
 
-    hits = (sdata.get('query') or {}).get('search', [])[:limit]
+    hits = (sdata.get('query') or {}).get('search', [])
     if not hits:
         return []
 
@@ -453,12 +503,16 @@ def tool_search_wikipedia(query, limit=2):
 
     results = []
     for h in hits:
+        if len(results) >= limit:
+            break
         title = h.get('title', '')
         page = pages_by_title.get(title, {})
         extract = (page.get('extract') or '').strip()
         if not extract:
             snippet = re.sub(r'<[^>]+>', '', h.get('snippet', ''))
             extract = html.unescape(snippet)
+        if not _is_safe_academic_result(title, extract, subject_tokens):
+            continue
         if len(extract) > 650:
             extract = extract[:647].rstrip() + '...'
         url = page.get('fullurl') or ('https://en.wikipedia.org/wiki/' + urllib.parse.quote(title.replace(' ', '_')))
@@ -474,7 +528,7 @@ def tool_search_opac_and_ir(query, opac_fn=None, ir_fn=None, limit=5):
     """Query UNILAG OPAC physical/ebook catalog and UNILAG Institutional Repository."""
     opac_items = []
     ir_items = []
-    clean_q = (query or '').strip()
+    clean_q, subject_tokens = _extract_academic_query(query)
     if not clean_q:
         return {'opac': [], 'ir': []}
 
@@ -485,14 +539,22 @@ def tool_search_opac_and_ir(query, opac_fn=None, ir_fn=None, limit=5):
             try:
                 res = fut_opac.result(timeout=4)
                 if isinstance(res, dict):
-                    opac_items = (res.get('results') or [])[:limit]
+                    for item in (res.get('results') or []):
+                        if _is_safe_academic_result(item.get('title', ''), item.get('author', ''), subject_tokens):
+                            opac_items.append(item)
+                            if len(opac_items) >= limit:
+                                break
             except Exception:
                 opac_items = []
         if fut_ir:
             try:
                 res = fut_ir.result(timeout=4)
                 if isinstance(res, dict):
-                    ir_items = (res.get('results') or [])[:limit]
+                    for item in (res.get('results') or []):
+                        if _is_safe_academic_result(item.get('title', ''), item.get('abstract', ''), subject_tokens):
+                            ir_items.append(item)
+                            if len(ir_items) >= limit:
+                                break
             except Exception:
                 ir_items = []
     return {'opac': opac_items, 'ir': ir_items}
@@ -500,16 +562,15 @@ def tool_search_opac_and_ir(query, opac_fn=None, ir_fn=None, limit=5):
 
 def _classify_intent(query, requested_mode='auto'):
     mode = (requested_mode or 'auto').strip().lower()
-    if mode in ('study', 'publish', 'faq'):
-        return mode
-
     qlc = (query or '').lower()
     faq_kw = (
-        'hour', 'open', 'close', 'fine', 'borrow', 'loan', 'renew', 'card', 'id ',
-        'studio', 'multimedia', 'makerspace', 'learning commons', 'gandhi', 'museum',
-        'turnitin', 'database', 'iglibrary', 'remote', 'off-campus', 'off campus',
-        'access', 'login', 'password', 'contact', 'email', 'floor', '24-hour',
-        '24 hour', 'faculty librar', 'rule', 'policy', 'admittance'
+        'hour', 'open', 'close', 'fine', 'borrow a book', 'borrow book', 'borrow',
+        'loan', 'renew', 'card', 'id ', 'studio', 'multimedia', 'makerspace',
+        'learning commons', 'gandhi', 'museum', 'turnitin', 'database', 'iglibrary',
+        'remote', 'off-campus', 'off campus', 'access', 'login', 'password',
+        'contact', 'email', 'floor', '24-hour', '24 hour', 'faculty librar',
+        'rule', 'policy', 'admittance', 'reserve a book', 'check out', 'circulation',
+        'book', 'books', 'catalogue', 'opac', 'register', 'registration', 'clearance'
     )
     pub_kw = (
         'where to publish', 'publish', 'publishing', 'journal', 'journals', 'ajol',
@@ -517,19 +578,25 @@ def _classify_intent(query, requested_mode='auto'):
         'accredited', 'manuscript', 'submit paper', 'predatory', 'scopus journal'
     )
     study_kw = (
-        'study', 'explain', 'what is', 'how does', 'how do', 'define', 'summarize',
-        'summary', 'compare', 'quiz', 'exam', 'revision', 'concept', 'theory',
-        'literature review', 'research on', 'articles on', 'papers on', 'mechanism',
-        'analysis', 'thesis', 'history of', 'advantages', 'disadvantages'
+        'study', 'explain', 'define', 'summarize', 'summary', 'compare', 'quiz',
+        'exam', 'revision', 'concept', 'theory', 'literature review', 'research on',
+        'articles on', 'papers on', 'mechanism', 'analysis', 'thesis', 'history of',
+        'advantages', 'disadvantages'
     )
 
     faq_score = sum(1 for k in faq_kw if k in qlc)
     pub_score = sum(1 for k in pub_kw if k in qlc)
     study_score = sum(1 for k in study_kw if k in qlc)
 
+    if mode in ('study', 'publish', 'faq'):
+        # Even if user left the sidebar tab on Study/Publish, route pure UNILAG service queries to FAQ
+        if mode != 'faq' and faq_score >= 2 and study_score == 0 and pub_score == 0:
+            return 'faq'
+        return mode
+
     if pub_score > max(faq_score, study_score) and pub_score > 0:
         return 'publish'
-    if faq_score > study_score and faq_score > 0:
+    if faq_score >= max(pub_score, study_score) and faq_score > 0:
         return 'faq'
     if study_score > 0:
         return 'study'
