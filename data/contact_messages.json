@@ -1,23 +1,4 @@
 {
-  "total": 2,
-  "messages": [
-    {
-      "id": "MSG-9421",
-      "name": "Dr. Folashade Adeyemi",
-      "email": "fadeyemi@unilag.edu.ng",
-      "subject": "Faculty Recommendation: iGLibrary EBA Archive Titles Access",
-      "message": "Good day, I am requesting guidance on accessing the full Evidence Based Acquisitions collection on iGLibrary for our postgraduate seminar in Faculty of Management Sciences. Please confirm remote authentication options.",
-      "status": "UNREAD",
-      "created_at": "2026-11-14T09:30:00Z"
-    },
-    {
-      "id": "MSG-9418",
-      "name": "Ibrahim Musa",
-      "email": "imusa2024@live.unilag.edu.ng",
-      "subject": "Research Consultation for Final Year Project",
-      "message": "Hello Library Team, I would like to book a research consultation with the Engineering Liaison Librarian to locate Scopus-indexed conference papers for renewable solar systems in Nigeria.",
-      "status": "RESOLVED",
-      "created_at": "2026-11-13T14:15:00Z"
-    }
-  ]
+  "total": 0,
+  "messages": []
 }

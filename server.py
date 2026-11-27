@@ -15,6 +15,40 @@ DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(DIRECTORY, 'data', 'bookings.json')
 CMS_FILE = os.path.join(DIRECTORY, 'data', 'cms_content.json')
 MESSAGES_FILE = os.path.join(DIRECTORY, 'data', 'contact_messages.json')
+_JOURNAL_CATALOG_CACHE = None
+
+def load_journal_catalog():
+    global _JOURNAL_CATALOG_CACHE
+    if _JOURNAL_CATALOG_CACHE is not None:
+        return _JOURNAL_CATALOG_CACHE
+    catalog_path = os.path.join(DIRECTORY, 'data', 'accredited_journals_catalog.json')
+    if os.path.exists(catalog_path):
+        try:
+            with open(catalog_path, 'r', encoding='utf-8') as f:
+                raw = json.load(f)
+            enriched = []
+            for j in raw:
+                item = dict(j)
+                blob = ' '.join([
+                    str(item.get('title', '')),
+                    str(item.get('issn', '')),
+                    str(item.get('publisher', '')),
+                    str(item.get('faculty', '')),
+                    str(item.get('discipline', '')),
+                    str(item.get('scope', '')),
+                    str(item.get('quartile', '')),
+                    str(item.get('openAccess', '')),
+                    ' '.join(item.get('index', []) if isinstance(item.get('index'), list) else [])
+                ]).lower()
+                item['_search_blob'] = blob
+                item['_title_lc'] = str(item.get('title', '')).lower()
+                item['_fac_lc'] = f"{item.get('faculty', '')} {item.get('discipline', '')}".lower()
+                enriched.append(item)
+            _JOURNAL_CATALOG_CACHE = enriched
+            return _JOURNAL_CATALOG_CACHE
+        except Exception as e:
+            print("Error loading journal catalog:", e)
+    return []
 
 def load_messages():
     if os.path.exists(MESSAGES_FILE):
@@ -261,7 +295,15 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_GET(self):
         parsed = urllib.parse.urlparse(self.path)
-        
+        decoded_path = urllib.parse.unquote(parsed.path).lower()
+
+        # Restrict direct downloads of raw faculty journal spreadsheets and archives
+        if decoded_path.startswith('/downloads/faculty_journals') or (
+            decoded_path.startswith('/downloads/') and decoded_path.endswith(('.xls', '.xlsx'))
+        ):
+            self.send_json({'error': 'Direct spreadsheet downloads are restricted.'}, status=403)
+            return
+
         # 1. LIVE UNILAG DSPACE 7 INSTITUTIONAL REPOSITORY SEARCH API (with Crossref UNILAG fallback)
         if parsed.path == '/api/ir-search':
             params = urllib.parse.parse_qs(parsed.query)
@@ -522,46 +564,62 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             q = params.get('q', [''])[0].lower().strip()
             faculty = params.get('faculty', ['ALL'])[0].strip()
             idx = params.get('index', ['ALL'])[0].upper().strip()
-            page = int(params.get('page', ['1'])[0])
-            limit = int(params.get('limit', ['25'])[0])
+            try:
+                page = max(1, int(params.get('page', ['1'])[0]))
+            except ValueError:
+                page = 1
+            try:
+                limit = max(1, min(100, int(params.get('limit', ['25'])[0])))
+            except ValueError:
+                limit = 25
 
-            catalog_path = os.path.join(DIRECTORY, 'data', 'accredited_journals_catalog.json')
-            catalog = []
-            if os.path.exists(catalog_path):
-                try:
-                    with open(catalog_path, 'r', encoding='utf-8') as f:
-                        catalog = json.load(f)
-                except Exception as e:
-                    print("Error loading journal catalog:", e)
+            catalog = load_journal_catalog()
+            fac_lc = faculty.lower()
+            tokens = [t for t in re.split(r'\s+', q) if t]
 
-            filtered = []
+            # Filter by faculty and index first
+            base_pool = []
             for j in catalog:
-                matches_q = not q or (
-                    q in j.get('title', '').lower() or
-                    q in j.get('issn', '').lower() or
-                    q in j.get('publisher', '').lower() or
-                    q in j.get('faculty', '').lower() or
-                    q in j.get('scope', '').lower()
-                )
-                matches_fac = faculty == 'ALL' or faculty.lower() in j.get('faculty', '').lower()
-                matches_idx = True
-                if idx == 'Q1':
-                    matches_idx = j.get('quartile') == 'Q1'
-                elif idx == 'SCOPUS':
-                    matches_idx = 'SCOPUS' in j.get('index', [])
-                elif idx == 'WOS':
-                    matches_idx = 'WOS' in j.get('index', [])
-                elif idx == 'DOAJ':
-                    matches_idx = 'DOAJ' in j.get('index', [])
-                elif idx == 'AJOL':
-                    matches_idx = 'AJOL' in j.get('index', [])
+                matches_fac = fac_lc == 'all' or fac_lc in j['_fac_lc']
+                if not matches_fac:
+                    continue
+                idx_list = j.get('index', [])
+                if idx == 'Q1' and 'q1' not in str(j.get('quartile', '')).lower():
+                    continue
+                elif idx in ('SCOPUS', 'WOS', 'DOAJ', 'AJOL') and idx not in idx_list:
+                    continue
+                base_pool.append(j)
 
-                if matches_q and matches_fac and matches_idx:
-                    filtered.append(j)
+            # Keyword matching (AND across tokens, fallback OR across tokens) + relevance ranking
+            if tokens:
+                and_hits = [j for j in base_pool if all(tok in j['_search_blob'] for tok in tokens)]
+                if and_hits:
+                    candidates = and_hits
+                    def score_and(j):
+                        title_hits = sum(1 for tok in tokens if tok in j['_title_lc'])
+                        exact_phrase = 1 if q in j['_title_lc'] else 0
+                        fac_hits = sum(1 for tok in tokens if tok in j['_fac_lc'])
+                        return (exact_phrase, title_hits, fac_hits)
+                    candidates.sort(key=score_and, reverse=True)
+                else:
+                    or_scored = []
+                    for j in base_pool:
+                        blob = j['_search_blob']
+                        hits = sum(1 for tok in tokens if tok in blob)
+                        if hits > 0:
+                            title_hits = sum(1 for tok in tokens if tok in j['_title_lc'])
+                            or_scored.append((hits, title_hits, j))
+                    or_scored.sort(key=lambda x: (x[0], x[1]), reverse=True)
+                    candidates = [x[2] for x in or_scored]
+            else:
+                candidates = base_pool
 
-            total = len(filtered)
+            total = len(candidates)
             start = (page - 1) * limit
-            paginated = filtered[start:start + limit]
+            paginated = [
+                {k: v for k, v in j.items() if not k.startswith('_')}
+                for j in candidates[start:start + limit]
+            ]
             self.send_json({
                 'total': total,
                 'page': page,
@@ -571,16 +629,29 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             })
             return
 
-        # 11. FACULTY JOURNALS SUMMARY & DOWNLOADS (GET)
+        # 11. FACULTY JOURNALS SUMMARY (GET, sanitized — no raw spreadsheet files exposed)
         elif parsed.path == '/api/faculty-journals-summary':
             summary_path = os.path.join(DIRECTORY, 'data', 'faculty_journals_summary.json')
             if os.path.exists(summary_path):
                 try:
                     with open(summary_path, 'r', encoding='utf-8') as f:
-                        self.send_json(json.load(f))
-                        return
+                        raw = json.load(f)
+                    sanitized_facs = []
+                    for fac in raw.get('faculties', []):
+                        sanitized_facs.append({
+                            'name': fac.get('name', ''),
+                            'slug': fac.get('slug', ''),
+                            'departments': fac.get('departments', []),
+                            'dept_count': fac.get('dept_count', 0),
+                            'total_outlets': fac.get('total_outlets', 0)
+                        })
+                    self.send_json({
+                        'total_faculties': len(sanitized_facs),
+                        'faculties': sanitized_facs
+                    })
+                    return
                 except Exception as e:
-                    pass
+                    print("Error loading faculty summary:", e)
             self.send_json({'total_faculties': 0, 'faculties': []})
             return
 

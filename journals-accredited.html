@@ -314,7 +314,7 @@
       </div>
     </section>
 
-    <!-- Faculty-Based Compilation Downloads & Hub -->
+    <!-- Faculty-Based Compilation Directory Hub -->
     <section class="section"
       style="background:#FAF7F0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(36px,4.5vw,64px) 0">
       <div class="wrap">
@@ -331,55 +331,31 @@
             </h2>
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <a href="downloads/faculty_journals/MASTER%20LIST%20-%20INDEXED%20JOURNALS.xlsx" download
-              class="btn btn--solid btn--sm" style="display:inline-flex;align-items:center;gap:6px">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              Master Scopus Directory (.xlsx)
-            </a>
-            <a href="downloads/faculty_journals/AJOL%20JOURNALS%20ACROSS%20FACULTIES.xls" download class="btn btn--sm"
-              style="background:var(--oxblood);color:#fff;display:inline-flex;align-items:center;gap:6px">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              AJOL Journals Across Faculties (.xls)
-            </a>
-            <a href="downloads/faculty_journals/UNILAG_Faculty_Journal_Directories_All_19.zip" download
-              class="btn btn--ghost btn--sm" style="display:inline-flex;align-items:center;gap:6px">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              All 19 Faculties (.zip bundle)
-            </a>
+            <a href="#journalSearchInput" onclick="document.getElementById('journalSearchInput').focus()"
+              class="btn btn--solid btn--sm">Search Accredited Journals &darr;</a>
+            <a href="#consultation" class="btn btn--ghost btn--sm">Librarian Verification Desk</a>
           </div>
         </div>
 
         <div
-          style="background:#fff;border:1px solid var(--line);border-radius:4px;padding:clamp(20px,3vw,30px);box-shadow:0 8px 24px rgba(0,0,0,0.03)"
+          style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:clamp(20px,3vw,30px);box-shadow:0 8px 24px rgba(0,0,0,0.03)"
           data-reveal>
           <div
             style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px">
             <div>
-              <h3 style="font-family:var(--serif);font-size:1.45rem;margin:0 0 4px 0">Official Faculty Directory
-                Downloads</h3>
-              <p style="font-size:0.88rem;color:var(--ink-70);margin:0">Each workbook contains individual departmental
-                breakdown sheets, CiteScore metrics, Quartiles (Q1–Q4), and publisher profiles compiled by the
-                University Library.</p>
+              <h3 style="font-family:var(--serif);font-size:1.45rem;margin:0 0 4px 0">Browse Accredited Journals by
+                Faculty</h3>
+              <p style="font-size:0.88rem;color:var(--ink-70);margin:0">Select any of the nineteen University of Lagos
+                faculties below to filter peer-reviewed Scopus and AJOL titles, CiteScore metrics, and Quartile
+                classifications in the live search directory.</p>
             </div>
-            <span class="mono" style="font-size:0.75rem;color:var(--oxblood);font-weight:700">19 Faculties &bull; 84,029
-              Source Rows</span>
+            <span class="mono" style="font-size:0.75rem;color:var(--oxblood);font-weight:700">19 Faculties &bull; Scopus
+              &amp; AJOL</span>
           </div>
 
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px"
             id="facultyDownloadsGrid">
-            <!-- Populated dynamically or static fallback -->
+            <!-- Populated dynamically via /api/faculty-journals-summary -->
           </div>
         </div>
       </div>
@@ -448,12 +424,14 @@
                 Live Journal Discovery Engine</div>
               <div style="display:flex;gap:12px;flex-wrap:wrap">
                 <input type="text" id="journalSearchInput"
-                  onkeydown="if(event.key==='Enter'){event.preventDefault();handleSearchInput();}"
+                  onkeydown="if(event.key==='Enter'){event.preventDefault();triggerSearchNow();}"
                   placeholder="Search by title, ISSN, discipline, publisher, or keywords..."
                   style="flex:1;min-width:min(100%,280px);padding:12px 16px;border:1px solid var(--line);font-family:inherit;font-size:0.95rem;border-radius:2px"
                   oninput="handleSearchInput()">
-                <button onclick="resetAllFilters()" class="btn btn--sm btn--ghost" style="padding:0 20px">Reset
-                  Filters</button>
+                <button type="button" onclick="triggerSearchNow()" class="btn btn--sm btn--solid"
+                  style="padding:0 22px">Search</button>
+                <button type="button" onclick="resetAllFilters()" class="btn btn--sm btn--ghost"
+                  style="padding:0 20px">Reset Filters</button>
               </div>
               <div
                 style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:0.78rem"
@@ -1080,22 +1058,18 @@
           const facs = data.faculties || [];
           if (facs.length) {
             grid.innerHTML = facs.map(f => `
-            <div style="background:#FAF7F0;border:1px solid var(--line);border-radius:4px;padding:14px 16px;display:flex;flex-direction:column;justify-content:space-between;transition:border-color 0.2s">
+            <div style="background:#FAF7F0;border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;transition:border-color 0.2s">
               <div>
-                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px;margin-bottom:6px">
-                  <h4 style="font-family:var(--serif);font-size:1.15rem;margin:0;color:var(--ink)">${escapeHtml(f.name)}</h4>
-                  <span class="mono" style="font-size:0.68rem;background:#fff;border:1px solid var(--line);padding:2px 6px;border-radius:2px;font-weight:600">${f.file_size_kb} KB</span>
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px">
+                  <h4 style="font-family:var(--serif);font-size:1.2rem;margin:0;color:var(--ink)">${escapeHtml(f.name)}</h4>
+                  <span class="mono" style="font-size:0.7rem;background:#fff;border:1px solid var(--line);padding:2px 8px;border-radius:4px;font-weight:600;white-space:nowrap">${(f.total_outlets || 0).toLocaleString()} outlets</span>
                 </div>
                 <div class="mono" style="font-size:0.74rem;color:var(--ink-70);margin-bottom:10px">
                   ${f.dept_count} Department${f.dept_count > 1 ? 's' : ''} &bull; Scopus &amp; AJOL
                 </div>
               </div>
-              <div style="display:flex;gap:6px;margin-top:8px">
-                <a href="${f.download_url}" download class="btn btn--solid btn--sm" style="flex:1;font-size:0.72rem;padding:6px 10px;text-align:center;display:inline-flex;align-items:center;justify-content:center;gap:4px">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  Download .xls
-                </a>
-                <button type="button" onclick="setFacultyFilter('${escapeHtml(f.name.replace('Faculty of ', ''))}', null)" class="btn btn--ghost btn--sm" style="font-size:0.72rem;padding:6px 10px" title="Filter live results">Filter &rarr;</button>
+              <div style="display:flex;gap:8px;margin-top:8px">
+                <button type="button" onclick="selectFacultyFromCard('${escapeHtml(f.name)}')" class="btn btn--solid btn--sm" style="flex:1;font-size:0.74rem;padding:8px 12px;text-align:center">Explore Faculty Journals &rarr;</button>
               </div>
             </div>
           `).join('');
@@ -1105,6 +1079,14 @@
       } catch (e) {
         console.warn('Could not load faculty summary API, using static grid:', e);
       }
+    }
+
+    function selectFacultyFromCard(facultyName) {
+      const clean = String(facultyName || '').replace(/^Faculty of\s+/i, '').replace(/\s+and\s+/i, ' ').trim();
+      const shortMatch = clean.split(/\s+/)[0] || clean;
+      setFacultyFilter(shortMatch === 'Basic' ? clean.split(/\s+/).slice(0, 2).join(' ') : clean, null);
+      const searchBox = document.getElementById('journalSearchInput');
+      if (searchBox) searchBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     function setIndexFilter(idx, elem) {
@@ -1129,13 +1111,22 @@
     }
 
     let searchDebounce = null;
+    function triggerSearchNow() {
+      clearTimeout(searchDebounce);
+      const input = document.getElementById('journalSearchInput');
+      searchQuery = input ? input.value.trim().toLowerCase() : '';
+      currentPage = 1;
+      renderJournalFeed();
+    }
+
     function handleSearchInput() {
       clearTimeout(searchDebounce);
       searchDebounce = setTimeout(() => {
-        searchQuery = document.getElementById('journalSearchInput').value.trim().toLowerCase();
+        const input = document.getElementById('journalSearchInput');
+        searchQuery = input ? input.value.trim().toLowerCase() : '';
         currentPage = 1;
         renderJournalFeed();
-      }, 250);
+      }, 220);
     }
 
     function resetAllFilters() {
@@ -1186,15 +1177,15 @@
       }
 
       if (!isApi) {
+        const tokens = searchQuery.split(/\s+/).filter(Boolean);
         const filtered = accreditedJournals.filter(j => {
-          const q = searchQuery;
-          const matchesQ = !q ||
-            j.title.toLowerCase().includes(q) ||
-            j.issn.toLowerCase().includes(q) ||
-            j.publisher.toLowerCase().includes(q) ||
-            j.faculty.toLowerCase().includes(q) ||
-            j.scope.toLowerCase().includes(q);
-          const matchesFac = activeFacultyFilter === 'ALL' || (j.faculty && j.faculty.toLowerCase().includes(activeFacultyFilter.toLowerCase()));
+          const blob = [
+            j.title, j.issn, j.publisher, j.faculty, j.discipline, j.scope, j.quartile,
+            ...(Array.isArray(j.index) ? j.index : [])
+          ].join(' ').toLowerCase();
+          const matchesQ = !tokens.length || tokens.every(tok => blob.includes(tok));
+          const facText = `${j.faculty || ''} ${j.discipline || ''}`.toLowerCase();
+          const matchesFac = activeFacultyFilter === 'ALL' || facText.includes(activeFacultyFilter.toLowerCase());
           let matchesIdx = true;
           if (activeIndexFilter === 'Q1') matchesIdx = j.quartile === 'Q1';
           else if (activeIndexFilter === 'SCOPUS') matchesIdx = (j.index || []).includes('SCOPUS');
@@ -1218,7 +1209,7 @@
         <div style="background:#fff;border:1px dashed var(--line);padding:48px 24px;text-align:center">
           <h3 style="font-family:var(--serif);font-size:1.6rem;margin-bottom:8px">No matching journals found</h3>
           <p style="font-size:0.92rem;color:var(--ink-70);max-width:540px;margin:0 auto 20px auto">
-            ${qVal ? `"${escapeHtml(qVal)}" did not match the faculty index. You can search the live global academic registry (50,000+ Crossref &amp; DOAJ peer-reviewed titles) or download the full faculty spreadsheet.` : 'Try adjusting your search criteria or resetting filters.'}
+            ${qVal ? `"${escapeHtml(qVal)}" did not match the faculty index. You can search the live global academic registry (50,000+ Crossref &amp; DOAJ peer-reviewed titles) or adjust your faculty/index filters.` : 'Try adjusting your search criteria or resetting filters.'}
           </p>
           <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
             ${qVal ? `<button onclick="searchGlobalCrossref('${escapeHtml(qVal)}')" class="btn btn--sm btn--solid" id="globalSearchBtn">Search Global Journal Registry for "${escapeHtml(qVal)}" &rarr;</button>` : ''}
@@ -1293,71 +1284,6 @@
 
       host.innerHTML = journalHtml + paginationHtml;
     }
-
-    if (!filtered.length) {
-      const qVal = searchQuery;
-      host.innerHTML = `
-        <div style="background:#fff;border:1px dashed var(--line);padding:48px 24px;text-align:center">
-          <h3 style="font-family:var(--serif);font-size:1.6rem;margin-bottom:8px">No matching benchmark journals found</h3>
-          <p style="font-size:0.92rem;color:var(--ink-70);max-width:540px;margin:0 auto 20px auto">
-            ${qVal ? `"${escapeHtml(qVal)}" did not match the core curated list. Would you like to search the live global academic registry (50,000+ Crossref &amp; DOAJ peer-reviewed titles)?` : 'Try adjusting your search criteria or resetting filters.'}
-          </p>
-          <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-            ${qVal ? `<button onclick="searchGlobalCrossref('${escapeHtml(qVal)}')" class="btn btn--sm btn--solid" id="globalSearchBtn">Search Global Journal Registry for "${escapeHtml(qVal)}" &rarr;</button>` : ''}
-            <button onclick="resetAllFilters()" class="btn btn--sm btn--ghost">Reset Filters</button>
-          </div>
-          <div id="globalResultsBox" style="margin-top:28px;text-align:left"></div>
-        </div>
-      `;
-      return;
-    }
-
-    host.innerHTML = filtered.map(j => {
-      const qTag = j.quartile === 'Q1' ? 'tag-q1' : j.quartile === 'Q2' ? 'tag-q2' : 'tag-q3';
-
-      return `
-        <div class="journal-entry">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
-            <div style="flex:1;min-width:min(100%,340px)">
-              <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;flex-wrap:wrap">
-                <span class="j-badge-tag ${qTag}">Quartile ${j.quartile}</span>
-                <span class="j-badge-tag tag-index">${j.index.join(' &bull; ')}</span>
-                <span class="j-badge-tag tag-oa">${j.openAccess.split(' ')[0]} OA</span>
-              </div>
-              <h3 style="font-family:var(--serif);font-size:1.65rem;line-height:1.15;margin-bottom:6px">
-                <a href="${j.url}" target="_blank" rel="noopener noreferrer" style="color:var(--ink);text-decoration:none">
-                  ${j.title}
-                </a>
-              </h3>
-              <div class="mono" style="font-size:0.76rem;color:var(--ink-70);letter-spacing:0.04em">
-                ISSN: ${j.issn} &bull; Publisher: ${j.publisher} &bull; Area: ${j.faculty}
-              </div>
-            </div>
-            <div style="text-align:right">
-              <div class="mono" style="font-size:1.2rem;font-weight:700;color:var(--oxblood)">CiteScore: ${j.citescore}</div>
-              <div class="mono" style="font-size:0.75rem;color:var(--ink-50)">JIF Impact: ${j.jif}</div>
-            </div>
-          </div>
-
-          <p style="font-size:0.92rem;color:var(--ink-70);line-height:1.6;margin:14px 0 12px 0;padding-top:12px;border-top:1px dashed var(--line)">
-            <strong>Aim &amp; Scope:</strong> ${j.scope}
-          </p>
-
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:14px">
-            <div class="mono" style="font-size:0.75rem;color:var(--ink-50)">
-              Publication Policy: ${j.openAccess}
-            </div>
-            <div>
-              <a href="${j.url}" target="_blank" rel="noopener noreferrer" class="btn btn--sm btn--solid" data-hover>
-                Author Guide &amp; Submission &rarr;
-              </a>
-            </div>
-          </div>
-        </div>
-      `;
-    }).join('');
-  }
-
 
     async function searchGlobalCrossref(query) {
       const btn = document.getElementById('globalSearchBtn');

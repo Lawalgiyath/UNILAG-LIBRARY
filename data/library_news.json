@@ -1,8 +1,8 @@
 {
   "source": "UNILAG Library Automated News & Notices Syndication",
-  "last_updated": "2026-11-24T11:01:52.180314",
-  "last_updated_display": "24 Nov 2026, 11:01 AM",
-  "total": 10,
+  "last_updated": "2026-11-27T14:16:52.675951",
+  "last_updated_display": "27 Nov 2026, 02:16 PM",
+  "total": 13,
   "notices": [
     {
       "id": "news-official-1",
@@ -148,6 +148,51 @@
       "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOVlp6REN0U0hwdThnWk9Ja0JxX1pidGNYa2JnbDNyLTd0a2xmeF9odkhQS3pNQldKSVhzcFEyQzBwZURXQ3hJMUk3RHdSQndscndBUk5MYjlISWN6VWdVZnZha1YzOHNkMm03dTJMcFlna1ltZ0RCREw1NkRVQ056TG00T1p3bVkxalliUy1sTkJUWXZNQ0diUExR?oc=5",
       "image": "https://iili.io/npBxdcN.webp",
       "badge": "Verified Live Notice",
+      "isLiveFeed": true
+    },
+    {
+      "id": "news-live-7",
+      "title": "UNILAG Matriculates 6,011 Distance Learning Students for 2025/2026 Academic Session",
+      "category": "Library News",
+      "date": "15 May 2026",
+      "displayDate": "15 May 2026",
+      "timestamp": "2026-05-15T07:00:00",
+      "lead": false,
+      "location": "University of Lagos Main Library, Akoka",
+      "summary": "Official release from the University of Lagos regarding the Library system. Read the verified report, circular details, and public notice.",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQRmZpZDlKUkdNNGJyNnJwRTliMlBwMW9uZmMwelFONWJYT2tWYUFiejlEQ21FMFZMVjlCNlBPa0ZQU2NmVVV6a1R0RUxHRVhxTGxsdllfMnljSkNIdkRwYUFRN3FDVWhqSEVlSUdOYnktRzNSbXJfbkNfX2JjeFVNT3dlOTIzMVlUZkpNQlFzWjc4VUdBWmViWVhQN1BBbHdLR3p0Smp3a1g?oc=5",
+      "image": "https://iili.io/npBxdcN.webp",
+      "badge": "Verified Live Notice",
+      "isLiveFeed": true
+    },
+    {
+      "id": "news-feed-8",
+      "title": "UNILAG AI Research Lab Hosts Privacy by Design 2.0 Workshop, Dec. 9",
+      "category": "Academic News",
+      "date": "26 Nov 2026",
+      "displayDate": "26 Nov 2026",
+      "timestamp": "2026-11-26T15:44:52+00:00",
+      "lead": false,
+      "location": "University of Lagos",
+      "summary": "The Nigeria AI Research Lab, University of Lagos (UNILAG), will host a workshop themed \u201cPrivacy by Design 2.0: From Principles to Implementation in AI System Development\u201d as follows: Date: Wednesday, December 9, 2026T...",
+      "link": "https://unilag.edu.ng/unilag-ai-research-lab-hosts-privacy-by-design-2-0-workshop-dec-9/",
+      "image": "https://iili.io/npBxvlp.webp",
+      "badge": "UNILAG News",
+      "isLiveFeed": true
+    },
+    {
+      "id": "news-feed-9",
+      "title": "A Legacy of Scholarship and Service: UNILAG Celebrates Four (4) Retiring Professors",
+      "category": "Academic News",
+      "date": "26 Nov 2026",
+      "displayDate": "26 Nov 2026",
+      "timestamp": "2026-11-26T05:08:00+00:00",
+      "lead": false,
+      "location": "University of Lagos",
+      "summary": "The University of Lagos (UNILAG) Senate, at its meeting of Wednesday,\u00a0November\u00a025, 2026, celebrated\u00a0four\u00a0professors ahead of their retirement from active service. They are: \u2022\u00a0Professor Margaret\u00a0Abiola\u00a0Loto, Faculty of...",
+      "link": "https://unilag.edu.ng/a-legacy-of-scholarship-and-service-unilag-celebrates-four-retiring-professors/",
+      "image": "https://iili.io/npBxvlp.webp",
+      "badge": "UNILAG News",
       "isLiveFeed": true
     }
   ]

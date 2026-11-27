@@ -915,11 +915,13 @@ DJ igpublish.com</pre>
     // State
     let studioData = [];
     let booksData = [];
+    let commonsData = [];
     let inquiriesData = [];
     let cmsData = { pages: {} };
     let currentCmsPage = 'index.html';
     let studioFilter = 'ALL';
     let booksFilter = 'ALL';
+    let commonsFilter = 'ALL';
     let inquiriesFilter = 'ALL';
     let selectedShape = { shape: 'editorial', aspect_ratio: '16/10', radius: '4px' };
 
@@ -1014,6 +1016,7 @@ DJ igpublish.com</pre>
         if (res.ok) {
           const d = await res.json();
           studioData = d.bookings || [];
+          localStorage.setItem('unilag_studio_bookings', JSON.stringify(studioData));
         }
       } catch (e) {
         studioData = JSON.parse(localStorage.getItem('unilag_studio_bookings') || '[]');
@@ -1138,6 +1141,7 @@ DJ igpublish.com</pre>
         if (res.ok) {
           const d = await res.json();
           booksData = d.reservations || [];
+          localStorage.setItem('unilag_book_reservations', JSON.stringify(booksData));
         }
       } catch (e) {
         booksData = JSON.parse(localStorage.getItem('unilag_book_reservations') || '[]');
@@ -1244,6 +1248,118 @@ DJ igpublish.com</pre>
       renderBooksList();
     }
 
+    // LEARNING COMMONS APPLICATIONS LOGIC
+    async function loadCommonsBookings() {
+      try {
+        const res = await fetch('/api/commons-bookings');
+        if (res.ok) {
+          const d = await res.json();
+          commonsData = d.bookings || [];
+          localStorage.setItem('unilag_commons_bookings', JSON.stringify(commonsData));
+        }
+      } catch (e) {
+        commonsData = JSON.parse(localStorage.getItem('unilag_commons_bookings') || '[]');
+      }
+      renderCommonsList();
+    }
+
+    function filterCommons(filter) {
+      commonsFilter = filter;
+      document.querySelectorAll('#panelCommons .pill-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.toUpperCase().includes(filter));
+      });
+      renderCommonsList();
+    }
+
+    function renderCommonsList() {
+      const activeCount = commonsData.filter(b => b.status === 'CONFIRMED').length;
+      const badge = document.getElementById('pendingCommonsBadge');
+      if (badge) badge.textContent = activeCount;
+
+      let filtered = commonsData;
+      if (commonsFilter !== 'ALL') {
+        filtered = commonsData.filter(b => b.status === commonsFilter);
+      }
+
+      const countEl = document.getElementById('commonsCount');
+      if (countEl) countEl.textContent = `Showing ${filtered.length} of ${commonsData.length} total applications`;
+      const host = document.getElementById('commonsList');
+      if (!host) return;
+
+      if (!filtered.length) {
+        host.innerHTML = '<div style="background:#fff;padding:36px;text-align:center;border:1px solid var(--line);border-radius:4px">No Learning Commons applications match the selected filter.</div>';
+        return;
+      }
+
+      host.innerHTML = filtered.map(b => {
+        const badgeClass = b.status === 'CONFIRMED' ? 'badge-approved' :
+                           b.status === 'DECLINED' || b.status === 'CANCELLED' ? 'badge-declined' : 'badge-pending';
+        return `
+          <div class="data-card">
+            <div class="dc-top">
+              <div>
+                <span class="dc-id">${escapeHtml(b.id)}</span>
+                <h3 style="font-family:var(--serif);font-size:1.45rem;margin:4px 0 2px">${escapeHtml(b.station || 'Digital Research Workstation')}</h3>
+                <div style="font-size:0.86rem;color:rgba(13,11,10,0.68)">
+                  Topic: ${escapeHtml(b.purpose || 'Academic Research')}
+                </div>
+              </div>
+              <span class="dc-badge ${badgeClass}">${escapeHtml(b.status || 'CONFIRMED')}</span>
+            </div>
+
+            <div class="dc-grid">
+              <div class="dc-item">
+                <span>Date &amp; Slot</span>
+                <strong>${escapeHtml(b.date)} &bull; ${escapeHtml(b.slot)}</strong>
+              </div>
+              <div class="dc-item">
+                <span>Applicant</span>
+                <strong>${escapeHtml(b.name)}</strong> (${escapeHtml(b.matric)})
+              </div>
+              <div class="dc-item">
+                <span>Department</span>
+                ${escapeHtml(b.department)}
+              </div>
+              <div class="dc-item">
+                <span>Contact Details</span>
+                <a href="mailto:${escapeHtml(b.email)}" style="color:var(--oxblood)">${escapeHtml(b.email)}</a><br>${escapeHtml(b.phone)}
+              </div>
+            </div>
+
+            <div class="dc-actions">
+              ${b.status !== 'CONFIRMED' ? `
+                <button class="btn-sm btn-approve" onclick="updateCommonsAction('${escapeHtml(b.id)}', 'CONFIRM')">Confirm Pass</button>
+              ` : `
+                <button class="btn-sm btn-decline" onclick="updateCommonsAction('${escapeHtml(b.id)}', 'CANCEL')">Cancel Pass</button>
+              `}
+              <button class="btn-sm btn-delete" onclick="updateCommonsAction('${escapeHtml(b.id)}', 'DELETE')">Delete Record</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function updateCommonsAction(id, action) {
+      try {
+        await fetch('/api/commons-bookings/action', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, action })
+        });
+      } catch (e) {}
+
+      const item = commonsData.find(b => b.id === id);
+      if (item) {
+        if (action === 'DELETE') {
+          commonsData = commonsData.filter(b => b.id !== id);
+        } else {
+          item.status = action === 'CONFIRM' ? 'CONFIRMED' : 'CANCELLED';
+        }
+        localStorage.setItem('unilag_commons_bookings', JSON.stringify(commonsData));
+      }
+      renderCommonsList();
+    }
+
     // CONTACT INQUIRIES LOGIC
     async function loadInquiries() {
       try {
@@ -1251,6 +1367,7 @@ DJ igpublish.com</pre>
         if (res.ok) {
           const d = await res.json();
           inquiriesData = d.messages || [];
+          localStorage.setItem('unilag_contact_messages', JSON.stringify(inquiriesData));
         }
       } catch (e) {
         inquiriesData = JSON.parse(localStorage.getItem('unilag_contact_messages') || '[]');
